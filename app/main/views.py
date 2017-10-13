@@ -67,19 +67,12 @@ def edit_profile_admin(id):
 @main.route('/survey/<username>')
 def survey(username):
     user = User.query.filter_by(username=username).first()
+    jobs = user.jobs.split('|')
     if user is None:
         abort(404)
-    return render_template('survey.html', user=user)
+    return render_template('survey.html', user=user, jobs=jobs)
 
 
-@main.route('/tech_survey')
-@login_required
-def home():
-    form = EditSurveyForm()
-    return render_template('survey.html', form=form)
-
-
-# TODO: Change to edit-survey logic
 @main.route('/edit-survey', methods=['GET', 'POST'])
 @login_required
 def edit_survey():
@@ -88,7 +81,7 @@ def edit_survey():
         current_user.jobs = '|'.join(form.jobs.data)
         db.session.add(current_user)
         flash('Thanks for updating your survey responses!')
-        return redirect(url_for('.index', username=current_user.username))
+        return redirect(url_for('main.survey', username=current_user.username))
     return render_template('edit_survey.html', form=form)
 
 
