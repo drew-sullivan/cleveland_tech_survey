@@ -1,7 +1,7 @@
 from flask import render_template, redirect, url_for, abort, flash
 from flask_login import login_required, current_user
 from . import main
-from .forms import EditProfileForm, EditProfileAdminForm
+from .forms import EditProfileForm, EditProfileAdminForm, EditSurveyForm
 from .. import db
 from ..models import Role, User
 from ..decorators import admin_required
@@ -62,3 +62,34 @@ def edit_profile_admin(id):
     form.location.data = user.location
     form.about_me.data = user.about_me
     return render_template('edit_profile.html', form=form, user=user)
+
+
+@main.route('/survey/<username>')
+def survey(username):
+    user = User.query.filter_by(username=username).first()
+    if user is None:
+        abort(404)
+    return render_template('survey.html', user=user)
+
+
+@main.route('/tech_survey')
+@login_required
+def home():
+    form = EditSurveyForm()
+    return render_template('survey.html', form=form)
+
+
+# TODO: Change to edit-survey logic
+@main.route('/edit-survey', methods=['GET', 'POST'])
+@login_required
+def edit_survey():
+    form = EditSurveyForm()
+    if form.validate_on_submit():
+        current_user.jobs = '|'.join(form.jobs.data)
+        db.session.add(current_user)
+        flash('Thanks for updating your survey responses!')
+        return redirect(url_for('.index', username=current_user.username))
+    return render_template('edit_survey.html', form=form)
+
+
+# TODO: add admin-edit-survey
