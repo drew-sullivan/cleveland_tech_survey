@@ -64,6 +64,9 @@ class User(UserMixin, db.Model):
     last_seen = db.Column(db.DateTime(), default=datetime.utcnow)
     avatar_hash = db.Column(db.String(32))
     jobs = db.Column(db.String(128))
+    years_of_pro_exp = db.Column(db.Integer)
+    gender = db.Column(db.String(64))
+    ethnicity = db.Column(db.String(64))
 
     def __init__(self, **kwargs):
         super(User, self).__init__(**kwargs)

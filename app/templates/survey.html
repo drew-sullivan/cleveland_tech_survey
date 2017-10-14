@@ -6,24 +6,21 @@
 <div class="page-header">
     <div class="profile-header">
         <h1>Survey Responses</h1>
-        <p>
-            {% if user.jobs %}
-            <ul><h3>Jobs:</h3>
-                {% for job in jobs %}
-                <li>{{ job }}</li>
-                {% endfor %}
+        {% for question, answers in questions_and_answers %}
+             <h4>{{ question }}</h4>
+            <ul>
+            {% for answer in answers %}
+                <li>{{ answer }}</li>
+            {% endfor %}
             </ul>
-            <br>
-            {% endif %}
-        </p>
-        <p>
-            {% if user == current_user %}
-            <a class="btn btn-default" href="{{ url_for('.edit_survey') }}">Edit Survey Responses</a>
-            {% endif %}
-            {% if current_user.is_administrator() %}
-            <a class="btn btn-danger" href="{{ url_for('.edit_survey', id=user.id) }}">Edit Survey Responses[Admin]</a>
-            {% endif %}
-        </p>
+        {% endfor %}
+
+        {% if user == current_user %}
+        <a class="btn btn-default" href="{{ url_for('.edit_survey') }}">Edit Survey Responses</a>
+        {% endif %}
+        {% if current_user.is_administrator() %}
+        <a class="btn btn-danger" href="{{ url_for('.edit_survey', id=user.id) }}">Edit Survey Responses[Admin]</a>
+        {% endif %}
     </div>
 </div>
 {% endblock %}

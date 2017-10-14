@@ -13,6 +13,7 @@ def index():
 
 
 @main.route('/user/<username>')
+@login_required
 def user(username):
     user = User.query.filter_by(username=username).first()
     if user is None:
@@ -68,9 +69,27 @@ def edit_profile_admin(id):
 def survey(username):
     user = User.query.filter_by(username=username).first()
     jobs = user.jobs.split('|')
+    years_of_pro_exp = user.years_of_pro_exp
+    gender = user.gender
+    ethnicity = user.ethnicity
+
+    answers = []
+    answers.append(user.jobs.split('|'))
+    answers.append([user.years_of_pro_exp])
+    answers.append([user.gender])
+    answers.append([user.ethnicity])
+
+    labels = []
+    labels.append('Jobs')
+    labels.append('Years of Professional Experience')
+    labels.append('Gender')
+    labels.append('Ethnicity')
+
+    questions_and_answers = zip(labels, answers)
+
     if user is None:
         abort(404)
-    return render_template('survey.html', user=user, jobs=jobs)
+    return render_template('survey.html', user=user, questions_and_answers=questions_and_answers)
 
 
 @main.route('/edit-survey', methods=['GET', 'POST'])
@@ -79,9 +98,16 @@ def edit_survey():
     form = EditSurveyForm()
     if form.validate_on_submit():
         current_user.jobs = '|'.join(form.jobs.data)
+        current_user.years_of_pro_exp = form.years_of_pro_exp.data
+        current_user.gender = form.gender.data
+        current_user.ethnicity = form.ethnicity.data
         db.session.add(current_user)
         flash('Thanks for updating your survey responses!')
-        return redirect(url_for('main.survey', username=current_user.username))
+        return redirect(url_for('.survey', username=current_user.username))
+    form.jobs.data = current_user.jobs
+    form.years_of_pro_exp = current_user.years_of_pro_exp
+    form.gender = current_user.gender
+    form.ethnicity = current_user.ethnicity
     return render_template('edit_survey.html', form=form)
 
 
