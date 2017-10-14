@@ -59,35 +59,9 @@ class MultiCheckboxField(SelectMultipleField):
 # and reach it with import config
 # and job_options = conf['job_options']
 class EditSurveyForm(FlaskForm):
-    job_options = Survey["Tech Community Member Profile"]["Tech Role"]
-    # job_options = ['Consultant (who also writes code)',
-    #                'Consultant (who does NOT write code)',
-    #                'Data Scientist',
-    #                'Database Administrator',
-    #                'Desktop App Developer',
-    #                'Developer with Statistics or Mathematics Background',
-    #                'DevOps Specialist',
-    #                'Embedded Applications/Devices Developer',
-    #                'Graphic Designer',
-    #                'Graphics Programming',
-    #                'Manager (who also writes code)',
-    #                'Manger (who does NOT write code)',
-    #                'Machine Learning Specialist',
-    #                'Mobile Developer',
-    #                'Quality Assurance Engineer',
-    #                'Sales Engineer',
-    #                'Systems Administrator',
-    #                'Web Developer',
-    #                'Other']
-    ethnicities = ['Black or of African descent',
-                   'East Asian',
-                   'Hispanic or Latino/Latina',
-                   'Middle Eastern',
-                   'Native American, Pacific Islander, or Indigenous Australian',
-                   'South Asian',
-                   'White or of European descent',
-                   'Prefer not to say',
-                   'Other']
+    member_info = Survey["Tech Community Member Profile"]
+    job_options = member_info["Tech Role"]
+    ethnicities = member_info["Ethnicity"]
 
     jobs = SelectMultipleField('1. Tech Role (Hold the CTRL or CMD key to select more than one)',
                                choices=[(job, job) for job in job_options])
