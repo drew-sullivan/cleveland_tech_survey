@@ -4,7 +4,7 @@ from wtforms import StringField, TextAreaField, BooleanField, SelectField,\
 from wtforms.validators import DataRequired, Length, Email, Regexp
 from wtforms import ValidationError
 from ..models import Role, User
-from ..survey import Survey
+from ..survey_questions_and_answers import survey_questions_and_answers
 
 
 class NameForm(FlaskForm):
@@ -55,13 +55,9 @@ class MultiCheckboxField(SelectMultipleField):
     option_widget = widgets.CheckboxInput()
 
 
-# TODO: Break these lists out to a sibling config file
-# and reach it with import config
-# and job_options = conf['job_options']
 class EditSurveyForm(FlaskForm):
-    member_info = Survey["Tech Community Member Profile"]
-    job_options = member_info["Tech Role"]
-    ethnicities = member_info["Ethnicity"]
+    job_options = survey_questions_and_answers["Tech Role"]
+    ethnicities = survey_questions_and_answers["Ethnicity"]
 
     jobs = SelectMultipleField('1. Tech Role (Hold the CTRL or CMD key to select more than one)',
                                choices=[(job, job) for job in job_options])

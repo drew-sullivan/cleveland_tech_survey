@@ -5,6 +5,7 @@ from .forms import EditProfileForm, EditProfileAdminForm, EditSurveyForm
 from .. import db
 from ..models import Role, User
 from ..decorators import admin_required
+from ..survey_questions_and_answers import survey_questions_and_answers
 
 
 @main.route('/')
@@ -68,28 +69,31 @@ def edit_profile_admin(id):
 @main.route('/survey/<username>')
 def survey(username):
     user = User.query.filter_by(username=username).first()
-    jobs = user.jobs.split('|')
-    years_of_pro_exp = user.years_of_pro_exp
-    gender = user.gender
-    ethnicity = user.ethnicity
+    # jobs = user.jobs.split('|')
+    # years_of_pro_exp = user.years_of_pro_exp
+    # gender = user.gender
+    # ethnicity = user.ethnicity
+    #
+    # answers = []
+    # answers.append(user.jobs.split('|'))
+    # answers.append([user.years_of_pro_exp])
+    # answers.append([user.gender])
+    # answers.append([user.ethnicity])
+    #
+    # labels = []
+    # labels.append('Jobs')
+    # labels.append('Years of Professional Experience')
+    # labels.append('Gender')
+    # labels.append('Ethnicity')
+    #
+    # questions_and_answers = zip(labels, answers)
 
-    answers = []
-    answers.append(user.jobs.split('|'))
-    answers.append([user.years_of_pro_exp])
-    answers.append([user.gender])
-    answers.append([user.ethnicity])
-
-    labels = []
-    labels.append('Jobs')
-    labels.append('Years of Professional Experience')
-    labels.append('Gender')
-    labels.append('Ethnicity')
-
-    questions_and_answers = zip(labels, answers)
+    labels = survey_questions_and_answers.keys()
 
     if user is None:
         abort(404)
-    return render_template('survey.html', user=user, questions_and_answers=questions_and_answers)
+    # return render_template('survey.html', user=user, questions_and_answers=questions_and_answers)
+    return render_template('survey.html', user=user, labels=labels)
 
 
 @main.route('/edit-survey', methods=['GET', 'POST'])

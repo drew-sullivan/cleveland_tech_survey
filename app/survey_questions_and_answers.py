@@ -1,7 +1,6 @@
 # -*- coding: utf-8 -*-
 
-Survey = {
-  "Tech Community Member Profile": {
+survey_questions_and_answers = {
     "Tech Role": [
       "Consultant (who also writes code)",
       "Consultant (who does NOT write code)",
@@ -80,9 +79,7 @@ Survey = {
       "Bootcamp",
       "College",
       "Other"
-    ]
-  },
-  "Technology Used at Work": {
+    ],
     "Primary Programming Languages Used at Work": [
       "Assembly",
       "C",
@@ -175,9 +172,7 @@ Survey = {
       "Zip file back­ups",
       "None",
       "Other"
-    ]
-  },
-  "Work": {
+    ],
     "Annual Salary": ['${}'.format(x) for x in range(5000, 300001, 5000)],
     "What You Value Most in Compensation/Benefits": [
       "Vacation/days off",
@@ -257,9 +252,7 @@ Survey = {
       "In­office art",
       "Flexible hours",
       "Other"
-    ]
-  },
-  "Cleveland": {
+    ],
     "What Keeps You in Cleveland": [
       "Pro Sports teams",
       "Short commute/lack of traffic",
@@ -313,4 +306,3 @@ Survey = {
       "Other"
     ]
   }
-}

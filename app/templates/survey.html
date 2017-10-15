@@ -6,14 +6,20 @@
 <div class="page-header">
     <div class="profile-header">
         <h1>Survey Responses</h1>
-        {% for question, answers in questions_and_answers %}
-             <h4>{{ question }}</h4>
-            <ul>
-            {% for answer in answers %}
-                <li>{{ answer }}</li>
+        <ul>
+            {% for label in labels %}
+            <li>{{ label }}</li>
             {% endfor %}
-            </ul>
-        {% endfor %}
+        </ul>
+
+        <!--{% for question, answers in questions_and_answers %}-->
+            <!--<h4>{{ question }}</h4>-->
+            <!--<ul>-->
+            <!--{% for answer in answers %}-->
+                <!--<li>{{ answer }}</li>-->
+            <!--{% endfor %}-->
+            <!--</ul>-->
+        <!--{% endfor %}-->
 
         {% if user == current_user %}
         <a class="btn btn-default" href="{{ url_for('.edit_survey') }}">Edit Survey Responses</a>
