@@ -101,14 +101,14 @@ def survey(username):
 def edit_survey():
     form = EditSurveyForm()
     if form.validate_on_submit():
-        current_user.tech_role = '|'.join(form.tech_role.data)
+        current_user.tech_roles = '|'.join(form.tech_roles.data)
         current_user.years_of_professional_experience = form.years_of_professional_experience.data
         current_user.gender = form.gender.data
         current_user.ethnicity = form.ethnicity.data
         db.session.add(current_user)
         flash('Thanks for updating your survey responses!')
         return redirect(url_for('.survey', username=current_user.username))
-    form.tech_role.data = current_user.tech_role
+    form.tech_roles.data = current_user.tech_roles
     form.years_of_professional_experience = current_user.years_of_professional_experience
     form.gender = current_user.gender
     form.ethnicity = current_user.ethnicity

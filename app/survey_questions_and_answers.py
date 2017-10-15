@@ -3,7 +3,7 @@
 from collections import OrderedDict
 
 survey_questions_and_answers = OrderedDict([
-    ("Tech Role", [
+    ("Tech Roles", [
         "Consultant (who also writes code)",
         "Consultant (who does NOT write code)",
         "Data Scientist",

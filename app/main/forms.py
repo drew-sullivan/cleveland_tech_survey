@@ -56,10 +56,10 @@ class MultiCheckboxField(SelectMultipleField):
 
 
 class EditSurveyForm(FlaskForm):
-    job_options = survey_questions_and_answers["Tech Role"]
+    job_options = survey_questions_and_answers["Tech Roles"]
     ethnicities = survey_questions_and_answers["Ethnicity"]
 
-    tech_role = SelectMultipleField('1. Tech Role (Hold the CTRL or CMD key to select more than one)',
+    tech_roles = SelectMultipleField('1. Tech Role (Hold the CTRL or CMD key to select more than one)',
                                choices=[(job, job) for job in job_options])
     years_of_professional_experience = SelectField('2. Years of Professional Experience',
                                    choices=[(x, x) for x in range(21)], coerce=int)
