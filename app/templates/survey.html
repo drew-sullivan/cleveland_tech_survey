@@ -6,17 +6,21 @@
 <div class="page-header">
     <div class="profile-header">
         <h1>Survey Responses</h1>
-        <ul>
-            {% for question in questions %}
-            <li>{{ question }}</li>
-            {% endfor %}
-        </ul>
+        <!--<ul>-->
+            <!--{% for question in questions %}-->
+            <!--<li>{{ question }}</li>-->
+            <!--{% endfor %}-->
+        <!--</ul>-->
 
         <ul>
             {% for label in labels %}
-                {% if user[label] %}
-                <li>{{ label }}</li>
-                {% endif %}
+                <h3>{{ label }}</h3>
+                <!--{% if user[label] %}-->
+                    <!--{% set answers = user[label].split('|') %}-->
+                    <!--{% for answer in answers %}-->
+                    <!--<li>{{ answer }}</li>-->
+                    <!--{% endfor %}-->
+                <!--{% endif %}-->
             {% endfor %}
         </ul>
 
