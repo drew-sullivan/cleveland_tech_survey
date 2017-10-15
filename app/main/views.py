@@ -1,3 +1,5 @@
+from collections import OrderedDict
+
 from flask import render_template, redirect, url_for, abort, flash
 from flask_login import login_required, current_user
 from . import main
@@ -69,33 +71,19 @@ def edit_profile_admin(id):
 @main.route('/survey/<username>')
 def survey(username):
     user = User.query.filter_by(username=username).first()
-    # jobs = user.jobs.split('|')
-    # years_of_pro_exp = user.years_of_pro_exp
-    # gender = user.gender
-    # ethnicity = user.ethnicity
-    #
-    # answers = []
-    # answers.append(user.jobs.split('|'))
-    # answers.append([user.years_of_pro_exp])
-    # answers.append([user.gender])
-    # answers.append([user.ethnicity])
-    #
-    # labels = []
-    # labels.append('Jobs')
-    # labels.append('Years of Professional Experience')
-    # labels.append('Gender')
-    # labels.append('Ethnicity')
-    #
-    # questions_and_answers = zip(labels, answers)
+    answers = []
+    answers.append(user.tech_roles.split('|'))
+    answers.append([user.years_of_professional_experience])
+    answers.append([user.gender])
+    answers.append([user.ethnicity])
 
     questions = survey_questions_and_answers.keys()
 
-    attrs = dir(user)
+    questions_and_answers = OrderedDict(zip(questions, answers))
 
     if user is None:
         abort(404)
-    # return render_template('survey.html', user=user, questions_and_answers=questions_and_answers)
-    return render_template('survey.html', user=user, questions=questions, labels=labels_2)
+    return render_template('survey.html', user=user, questions_and_answers=questions_and_answers)
 
 
 @main.route('/edit-survey', methods=['GET', 'POST'])

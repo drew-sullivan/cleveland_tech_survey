@@ -6,32 +6,15 @@
 <div class="page-header">
     <div class="profile-header">
         <h1>Survey Responses</h1>
-        <!--<ul>-->
-            <!--{% for question in questions %}-->
-            <!--<li>{{ question }}</li>-->
-            <!--{% endfor %}-->
-        <!--</ul>-->
 
-        <ul>
-            {% for label in labels %}
-                <h3>{{ label }}</h3>
-                <!--{% if user[label] %}-->
-                    <!--{% set answers = user[label].split('|') %}-->
-                    <!--{% for answer in answers %}-->
-                    <!--<li>{{ answer }}</li>-->
-                    <!--{% endfor %}-->
-                <!--{% endif %}-->
-            {% endfor %}
-        </ul>
-
-        <!--{% for question, answers in questions_and_answers %}-->
-            <!--<h4>{{ question }}</h4>-->
-            <!--<ul>-->
-            <!--{% for answer in answers %}-->
-                <!--<li>{{ answer }}</li>-->
-            <!--{% endfor %}-->
-            <!--</ul>-->
-        <!--{% endfor %}-->
+        {% for question, answers in questions_and_answers.iteritems() %}
+            <h4>{{ question }}</h4>
+            <ul>
+                {% for answer in answers %}
+                <li>{{ answer }}</li>
+                {% endfor %}
+            </ul>
+        {% endfor %}
 
         {% if user == current_user %}
         <a class="btn btn-default" href="{{ url_for('.edit_survey') }}">Edit Survey Responses</a>
