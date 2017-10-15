@@ -59,9 +59,9 @@ class EditSurveyForm(FlaskForm):
     job_options = survey_questions_and_answers["Tech Role"]
     ethnicities = survey_questions_and_answers["Ethnicity"]
 
-    jobs = SelectMultipleField('1. Tech Role (Hold the CTRL or CMD key to select more than one)',
+    tech_role = SelectMultipleField('1. Tech Role (Hold the CTRL or CMD key to select more than one)',
                                choices=[(job, job) for job in job_options])
-    years_of_pro_exp = SelectField('2. Years of Professional Experience',
+    years_of_professional_experience = SelectField('2. Years of Professional Experience',
                                    choices=[(x, x) for x in range(21)], coerce=int)
     gender = SelectField('3. Gender', choices=[(x, x) for x in ['Female', 'Male', 'Other', 'Prefer not to say']])
     ethnicity = SelectField('4. Ethnicity', choices=[(x, x) for x in ethnicities])
