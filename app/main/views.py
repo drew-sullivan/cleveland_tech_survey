@@ -88,12 +88,12 @@ def survey(username):
     #
     # questions_and_answers = zip(labels, answers)
 
-    labels = survey_questions_and_answers.keys()
+    questions = survey_questions_and_answers.keys()
 
     if user is None:
         abort(404)
     # return render_template('survey.html', user=user, questions_and_answers=questions_and_answers)
-    return render_template('survey.html', user=user, labels=labels)
+    return render_template('survey.html', user=user, questions=questions)
 
 
 @main.route('/edit-survey', methods=['GET', 'POST'])
