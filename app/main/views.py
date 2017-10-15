@@ -5,7 +5,7 @@ from .forms import EditProfileForm, EditProfileAdminForm, EditSurveyForm
 from .. import db
 from ..models import Role, User
 from ..decorators import admin_required
-from ..survey_questions_and_answers import survey_questions_and_answers
+from ..survey_questions_and_answers import survey_questions_and_answers, labels
 
 
 @main.route('/')
@@ -93,7 +93,7 @@ def survey(username):
     if user is None:
         abort(404)
     # return render_template('survey.html', user=user, questions_and_answers=questions_and_answers)
-    return render_template('survey.html', user=user, questions=questions)
+    return render_template('survey.html', user=user, questions=questions, labels=labels)
 
 
 @main.route('/edit-survey', methods=['GET', 'POST'])

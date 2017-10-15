@@ -284,3 +284,5 @@ survey_questions_and_answers = OrderedDict([
         "Other"
     ])
 ])
+
+labels = [question.replace(' ', '_').lower() for question in survey_questions_and_answers.keys()]

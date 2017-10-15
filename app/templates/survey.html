@@ -12,6 +12,14 @@
             {% endfor %}
         </ul>
 
+        <ul>
+            {% for label in labels %}
+                {% if user[label] %}
+                <li>{{ label }}</li>
+                {% endif %}
+            {% endfor %}
+        </ul>
+
         <!--{% for question, answers in questions_and_answers %}-->
             <!--<h4>{{ question }}</h4>-->
             <!--<ul>-->
