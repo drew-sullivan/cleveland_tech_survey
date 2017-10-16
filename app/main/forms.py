@@ -1,13 +1,20 @@
+# encoding=utf8
+import sys
+
+reload(sys)
+sys.setdefaultencoding('utf8')
+
 from flask_wtf import FlaskForm
 from wtforms import StringField, TextAreaField, BooleanField, SelectField,\
-    SubmitField
-from wtforms.validators import Required, Length, Email, Regexp
+    SubmitField, SelectMultipleField, widgets
+from wtforms.validators import DataRequired, Length, Email, Regexp
 from wtforms import ValidationError
 from ..models import Role, User
+from ..survey_questions_and_answers import survey_questions_and_answers
 
 
 class NameForm(FlaskForm):
-    name = StringField('What is your name?', validators=[Required()])
+    name = StringField('What is your name?', validators=[DataRequired()])
     submit = SubmitField('Submit')
 
 
@@ -19,10 +26,10 @@ class EditProfileForm(FlaskForm):
 
 
 class EditProfileAdminForm(FlaskForm):
-    email = StringField('Email', validators=[Required(), Length(1, 64),
+    email = StringField('Email', validators=[DataRequired(), Length(1, 64),
                                              Email()])
     username = StringField('Username', validators=[
-        Required(), Length(1, 64), Regexp('^[A-Za-z][A-Za-z0-9_.]*$', 0,
+        DataRequired(), Length(1, 64), Regexp('^[A-Za-z][A-Za-z0-9_.]*$', 0,
                                           'Usernames must have only letters, '
                                           'numbers, dots or underscores')])
     confirmed = BooleanField('Confirmed')
@@ -47,3 +54,93 @@ class EditProfileAdminForm(FlaskForm):
         if field.data != self.user.username and \
                 User.query.filter_by(username=field.data).first():
             raise ValidationError('Username already in use.')
+
+
+class EditSurveyForm(FlaskForm):
+    questions = {}
+    for k in survey_questions_and_answers.keys():
+        questions[k] = [(v, v) for v in survey_questions_and_answers[k]]
+
+    tech_roles = SelectMultipleField(
+        '1. Tech Role (Hold the CTRL or CMD key to select more than one)',
+        choices=questions["Tech Roles"])
+    years_of_professional_experience = SelectField(
+        '2. Years of Professional Experience',
+        choices=questions["Years of Professional Experience"], coerce=int)
+    gender = SelectField(
+        '3. Gender',
+        choices=questions["Gender"])
+    ethnicity = SelectField(
+        '4. Ethnicity',
+        choices=questions["Ethnicity"])
+    highest_educational_attainment = SelectField(
+        '5. Highest Educational Attainment',
+        choices=questions["Highest Educational Attainment"])
+    undergraduate_major = SelectField(
+        '6. Undergraduate Major',
+        choices=questions["Undergraduate Major"])
+    how_you_learned_to_code = SelectMultipleField(
+        '7. How You Learned to Code (Hold the CTRL or CMD key to select more than one)',
+        choices=questions["How You Learned to Code"])
+    primary_programming_languages_used_at_work = SelectMultipleField(
+        '8. Primary Programming Languages Used at Work (Hold the CTRL or CMD key to select more than one)',
+        choices=questions["Primary Programming Languages Used at Work"])
+    primary_database_technologies_used_at_work = SelectMultipleField(
+        '8. Primary Database Technologies Used at Work (Hold the CTRL or CMD key to select more than one)',
+        choices=questions["Primary Database Technologies Used at Work"])
+    primary_platforms_used_at_work = SelectMultipleField(
+        '8. Primary Platforms Used at Work (Hold the CTRL or CMD key to select more than one)',
+        choices=questions["Primary Platforms Used at Work"])
+    primary_development_environments_used_at_work = SelectMultipleField(
+        '9. Primary Development Environments Used at Work (Hold the CTRL or CMD key to select more than one)',
+        choices=questions["Primary Development Environments Used at Work"])
+    primary_version_control_systems_used_at_work = SelectMultipleField(
+        "10. Primary Version Control Systems Used at Work",
+        choices=questions["Primary Version Control Systems Used at Work"])
+    annual_amount_earned_from_all_tech_activities_combined = SelectField(
+        "11. Annual Amount Earned From all Tech Activities Combined",
+        choices=questions["Annual Amount Earned From all Tech Activities Combined"])
+    what_you_value_most_in_compensation = SelectMultipleField(
+        "12. What You Value Most in Compensation",
+        choices=questions["What You Value Most in Compensation"])
+    how_many_days_per_week_you_work_from_home = SelectField(
+        "13. How Many Days Per Week You Work From Home",
+        choices=questions["How Many Days Per Week You Work From Home"], coerce=int)
+    company_size = SelectField(
+        "14. Company Size",
+        choices=questions["Company Size"])
+    job_satisfaction = SelectField(
+        "15. Job Satisfaction",
+        choices=questions["Job Satisfaction"], coerce=int)
+    work_life_balance = SelectField(
+        "16. Work Life Balance",
+        choices=questions["Work Life Balance"], coerce=int)
+    how_you_found_your_current_job = SelectMultipleField(
+        "17. How You Found Your Current Job",
+        choices=questions["How You Found Your Current Job"])
+    most_annoying_work_issue = SelectMultipleField(
+        "18. Most Annoying Work Issue",
+        choices=questions["Most Annoying Work Issue"])
+    favorite_office_perk = SelectMultipleField(
+        "19. Favorite Office Perk",
+        choices=questions["Favorite Office Perk"])
+    what_keeps_you_in_cleveland = SelectMultipleField(
+        "20. What Keeps You in Cleveland",
+        choices=questions["What Keeps You in Cleveland"])
+    favorite_cleveland_pro_sports_team = SelectField(
+        "21. Favorite Cleveland Pro Sports Team",
+        choices=questions["Favorite Cleveland Pro Sports Team"])
+    favorite_cleveland_hangout_area = SelectField(
+        "22. Favorite Cleveland Hangout Area",
+        choices=questions["Favorite Cleveland Hangout Area"])
+    favorite_cleveland_activity = SelectField(
+        "23. Favorite Cleveland Activity",
+        choices=questions["Favorite Cleveland Activity"])
+    submit = SubmitField('Submit')
+
+
+
+
+
+
+
