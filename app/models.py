@@ -87,6 +87,8 @@ class User(UserMixin, db.Model):
     favorite_office_perk = db.Column(db.String(128))
     what_keeps_you_in_cleveland = db.Column(db.String(128))
     favorite_cleveland_pro_sports_team = db.Column(db.String(64))
+    favorite_cleveland_hangout_area = db.Column(db.String(32))
+    favorite_cleveland_activity = db.Column(db.String(32))
 
     def __init__(self, **kwargs):
         super(User, self).__init__(**kwargs)

@@ -104,6 +104,8 @@ def edit_survey():
         current_user.favorite_office_perk = '|'.join(form.favorite_office_perk.data)
         current_user.what_keeps_you_in_cleveland = '|'.join(form.what_keeps_you_in_cleveland.data)
         current_user.favorite_cleveland_pro_sports_team = form.favorite_cleveland_pro_sports_team.data
+        current_user.favorite_cleveland_hangout_area = form.favorite_cleveland_hangout_area.data
+        current_user.favorite_cleveland_activity = form.favorite_cleveland_activity.data
         db.session.add(current_user)
         flash('Thanks for updating your survey responses!')
         return redirect(url_for('.survey', username=current_user.username))
@@ -130,6 +132,8 @@ def edit_survey():
     form.favorite_office_perk.data = current_user.favorite_office_perk
     form.what_keeps_you_in_cleveland.data = current_user.what_keeps_you_in_cleveland
     form.favorite_cleveland_pro_sports_team.data = current_user.favorite_cleveland_pro_sports_team
+    form.favorite_cleveland_hangout_area.data = current_user.favorite_cleveland_hangout_area
+    form.favorite_cleveland_activity.data = current_user.favorite_cleveland_activity
     return render_template('edit_survey.html', form=form)
 
 
