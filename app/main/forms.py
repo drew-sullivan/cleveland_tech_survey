@@ -91,6 +91,9 @@ class EditSurveyForm(FlaskForm):
     primary_platforms_used_at_work = SelectMultipleField(
         '8. Primary Platforms Used at Work (Hold the CTRL or CMD key to select more than one)',
         choices=questions["Primary Platforms Used at Work"])
+    primary_development_environments_used_at_work = SelectMultipleField(
+        '9. Primary Development Environments Used at Work (Hold the CTRL or CMD key to select more than one)',
+        choices=questions["Primary Development Environments Used at Work"])
     submit = SubmitField('Submit')
 
 
