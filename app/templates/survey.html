@@ -6,33 +6,26 @@
 <div class="page-header">
     <div class="profile-header">
         <h1>Survey Responses</h1>
-        <!--<p>-->
-            <!--{% if user.tech_roles %}-->
-                <!--{% set roles = user.tech_roles.split('|') %}-->
-                <!--<h3>Tech Roles:</h3>-->
-                <!--<ul>{% for role in roles %}<li>{{ role }}</li>{% endfor %}</ul><br>-->
-            <!--{% endif %}-->
-            <!--{% if user.years_of_professional_experience %}{{ user.years_of_professional_experience }}<br>{% endif %}-->
-            <!--{% if user.gender %}{{ user.gender }}<br>{% endif %}-->
-            <!--{% if user.ethnicity %}{{ user.ethnicity }}<br>{% endif %}-->
-            <!--{% if user.highest_educational_attainment %}{{ user.highest_educational_attainment }}<br>{% endif %}-->
-        <!--</p>-->
+
         {% for question in questions %}
         <h4>{{ question|replace("_", " ")|title }}</h4>
-        <ul>
-        {% set each_answer = user[question] %}
-            {% if each_answer is iterable %}
-                {% if '|' in each_answer %}
-                    {% set answer_list = each_answer.split('|') %}
-                {% endif %}
-                <ul>
-                    {% for item in answer_list %}
-                    <li>{{ item }}</li>
-                    {% endfor %}
-                </ul>
+        {% set answer = user[question] %}
+        <ul class="survey-{{ question|replace("_", "-") }}">
+        {% if answer is string %}
+            {% if '|' in answer %}
+                {% set answer_list = answer.split('|') %}
+                {% for a in answer_list %}
+                    <li>{{ a }}</li>
+                {% endfor %}
             {% else %}
-                <p>{{ each_answer }}</p>
-            {% endfor %}
+                <li>{{ answer }}</li>
+            {% endif %}
+        {% else %}
+            <li>{{ answer }}</li>
+        {% endif %}
+        </ul>
+         {% endfor %}
+
         <p>
             {% if user == current_user %}
             <a class="btn btn-default" href="{{ url_for('.edit_survey') }}">Edit Survey Responses</a>
