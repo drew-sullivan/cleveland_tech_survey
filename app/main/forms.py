@@ -105,7 +105,31 @@ class EditSurveyForm(FlaskForm):
         choices=questions["What You Value Most in Compensation"])
     how_many_days_per_week_you_work_from_home = SelectField(
         "13. How Many Days Per Week You Work From Home",
-        choices=questions["How Many Days Per Week You Work From Home"])
+        choices=questions["How Many Days Per Week You Work From Home"], coerce=int)
+    company_size = SelectField(
+        "14. Company Size",
+        choices=questions["Company Size"])
+    job_satisfaction = SelectField(
+        "15. Job Satisfaction",
+        choices=questions["Job Satisfaction"], coerce=int)
+    work_life_balance = SelectField(
+        "16. Work Life Balance",
+        choices=questions["Work Life Balance"], coerce=int)
+    how_you_found_your_current_job = SelectMultipleField(
+        "17. How You Found Your Current Job",
+        choices=questions["How You Found Your Current Job"])
+    most_annoying_work_issue = SelectMultipleField(
+        "18. Most Annoying Work Issue",
+        choices=questions["Most Annoying Work Issue"])
+    favorite_office_perk = SelectMultipleField(
+        "19. Favorite Office Perk",
+        choices=questions["Favorite Office Perk"])
+    what_keeps_you_in_cleveland = SelectMultipleField(
+        "20. What Keeps You in Cleveland",
+        choices=questions["What Keeps You in Cleveland"])
+    favorite_cleveland_pro_sports_team = SelectField(
+        "21. Favorite Cleveland Pro Sports Team",
+        choices=questions["Favorite Cleveland Pro Sports Team"])
     submit = SubmitField('Submit')
 
 

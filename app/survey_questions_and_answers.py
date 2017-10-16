@@ -199,15 +199,15 @@ survey_questions_and_answers = OrderedDict([
         "500 - 999", "1,000 - 4,999", " 5,000 - 9,999",
         "> 10,000"]]),
     ("Job Satisfaction", [x for x in range(1, 11)]),
-    ("Work/Life Balance", [x for x in range(1, 11)]),
+    ("Work Life Balance", [x for x in range(1, 11)]),
     ("How You Found Your Current Job", [
         "A friend, family member, or former colleague told me",
         "I was contacted directly by someone at the company (e.g. internal recruiter)",
-        "A general­purpose job board",
+        "A general purpose job board",
         "An external recruiter or headhunter",
         "I visited the company’s Web site and found a job listing there",
         "A career fair or on­campus recruiting event",
-        "A tech­specific job board",
+        "A tech specific job board",
         "I am the founder",
         "Other"
     ]),
@@ -223,11 +223,11 @@ survey_questions_and_answers = OrderedDict([
         "Other"
     ]),
     ("Favorite Office Perk", [
-        "Ping­Pong table",
+        "Ping Pong table",
         "Video games",
         "Board games",
-        "Free/discounted food",
-        "In­office art",
+        "Free or discounted food",
+        "In office art",
         "Flexible hours",
         "Other"
     ]),

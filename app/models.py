@@ -79,6 +79,14 @@ class User(UserMixin, db.Model):
     annual_amount_earned_from_all_tech_activities_combined = db.Column(db.String(32))
     what_you_value_most_in_compensation = db.Column(db.String(128))
     how_many_days_per_week_you_work_from_home = db.Column(db.Integer)
+    company_size = db.Column(db.String(32))
+    job_satisfaction = db.Column(db.Integer)
+    work_life_balance = db.Column(db.Integer)
+    how_you_found_your_current_job = db.Column(db.String(128))
+    most_annoying_work_issue = db.Column(db.String(128))
+    favorite_office_perk = db.Column(db.String(128))
+    what_keeps_you_in_cleveland = db.Column(db.String(128))
+    favorite_cleveland_pro_sports_team = db.Column(db.String(64))
 
     def __init__(self, **kwargs):
         super(User, self).__init__(**kwargs)
