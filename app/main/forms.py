@@ -66,6 +66,10 @@ class EditSurveyForm(FlaskForm):
     gender = SelectField('3. Gender', choices=questions["Gender"])
     ethnicity = SelectField('4. Ethnicity', choices=questions["Ethnicity"])
     highest_educational_attainment = SelectField('5. Highest Educational Attainment', choices=questions["Highest Educational Attainment"])
+    undergraduate_major = SelectField('6. Undergraduate Major', choices=questions["Undergraduate Major"])
+    how_you_learned_to_code = SelectMultipleField('7. How You Learned to Code (Hold the CTRL or CMD key to select more than one)', choices=questions["How You Learned to Code"])
+    primary_programming_languages_used_at_work = SelectMultipleField('8. Primary Programming Languages Used at Work', choices=["Primary Programming Languages Used at Work"])
+
     submit = SubmitField('Submit')
 
 

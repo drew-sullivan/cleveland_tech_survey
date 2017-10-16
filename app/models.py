@@ -69,6 +69,9 @@ class User(UserMixin, db.Model):
     gender = db.Column(db.String(64))
     ethnicity = db.Column(db.String(64))
     highest_educational_attainment = db.Column(db.String(64))
+    undergraduate_major = db.Column(db.String(64))
+    how_you_learned_to_code = db.Column(db.String(128))
+    primary_programming_languages_used_at_work = db.Column(db.String(128))
 
     def __init__(self, **kwargs):
         super(User, self).__init__(**kwargs)

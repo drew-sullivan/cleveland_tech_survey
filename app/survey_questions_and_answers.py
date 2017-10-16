@@ -70,10 +70,10 @@ survey_questions_and_answers = OrderedDict([
         "I never declared a major",
         "Other"
     ]),
-    ("How You Learned to Code (Select all that apply)", [
-        "Self­taught",
+    ("How You Learned to Code", [
+        "Self taught",
         "Online course",
-        "On­the­job training",
+        "On the job training",
         "Open source contributions",
         "Hackathon",
         "Coding competition Part­time/evening course",

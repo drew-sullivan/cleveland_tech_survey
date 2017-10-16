@@ -87,14 +87,20 @@ def edit_survey():
         current_user.gender = form.gender.data
         current_user.ethnicity = form.ethnicity.data
         current_user.highest_educational_attainment = form.highest_educational_attainment.data
+        current_user.undergraduate_major = form.undergraduate_major.data
+        current_user.how_you_learned_to_code = '|'.join(form.how_you_learned_to_code.data)
+        current_user.primary_programming_languages_used_at_work = '|'.join(form.primary_programming_languages_used_at_work.data)
         db.session.add(current_user)
         flash('Thanks for updating your survey responses!')
         return redirect(url_for('.survey', username=current_user.username))
     form.tech_roles.data = current_user.tech_roles
-    form.years_of_professional_experience = current_user.years_of_professional_experience
-    form.gender = current_user.gender
-    form.ethnicity = current_user.ethnicity
-    form.highest_educational_attainment = current_user.highest_educational_attainment
+    form.years_of_professional_experience.data = current_user.years_of_professional_experience
+    form.gender.data = current_user.gender
+    form.ethnicity.data = current_user.ethnicity
+    form.highest_educational_attainment.data = current_user.highest_educational_attainment
+    form.undergraduate_major.data = current_user.undergraduate_major
+    form.how_you_learned_to_code.data = current_user.how_you_learned_to_code
+    form.primary_programming_languages_used_at_work.data = current_user.primary_programming_languages_used_at_work
     return render_template('edit_survey.html', form=form)
 
 
