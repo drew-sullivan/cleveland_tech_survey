@@ -63,10 +63,12 @@ class User(UserMixin, db.Model):
     member_since = db.Column(db.DateTime(), default=datetime.utcnow)
     last_seen = db.Column(db.DateTime(), default=datetime.utcnow)
     avatar_hash = db.Column(db.String(32))
+
     tech_roles = db.Column(db.String(128))
     years_of_professional_experience = db.Column(db.Integer)
     gender = db.Column(db.String(64))
     ethnicity = db.Column(db.String(64))
+    highest_educational_attainment = db.Column(db.String(64))
 
     def __init__(self, **kwargs):
         super(User, self).__init__(**kwargs)

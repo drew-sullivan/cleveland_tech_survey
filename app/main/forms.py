@@ -1,3 +1,9 @@
+# encoding=utf8
+import sys
+
+reload(sys)
+sys.setdefaultencoding('utf8')
+
 from flask_wtf import FlaskForm
 from wtforms import StringField, TextAreaField, BooleanField, SelectField,\
     SubmitField, SelectMultipleField, widgets
@@ -50,21 +56,16 @@ class EditProfileAdminForm(FlaskForm):
             raise ValidationError('Username already in use.')
 
 
-class MultiCheckboxField(SelectMultipleField):
-    widget = widgets.ListWidget(prefix_label=False)
-    option_widget = widgets.CheckboxInput()
-
-
 class EditSurveyForm(FlaskForm):
-    job_options = survey_questions_and_answers["Tech Roles"]
-    ethnicities = survey_questions_and_answers["Ethnicity"]
+    questions = {}
+    for k in survey_questions_and_answers.keys():
+        questions[k] = [(v, v) for v in survey_questions_and_answers[k]]
 
-    tech_roles = SelectMultipleField('1. Tech Role (Hold the CTRL or CMD key to select more than one)',
-                               choices=[(job, job) for job in job_options])
-    years_of_professional_experience = SelectField('2. Years of Professional Experience',
-                                   choices=[(x, x) for x in range(21)], coerce=int)
-    gender = SelectField('3. Gender', choices=[(x, x) for x in ['Female', 'Male', 'Other', 'Prefer not to say']])
-    ethnicity = SelectField('4. Ethnicity', choices=[(x, x) for x in ethnicities])
+    tech_roles = SelectMultipleField('1. Tech Role (Hold the CTRL or CMD key to select more than one)', choices=questions["Tech Roles"])
+    years_of_professional_experience = SelectField('2. Years of Professional Experience', choices=questions["Years of Professional Experience"], coerce=int)
+    gender = SelectField('3. Gender', choices=questions["Gender"])
+    ethnicity = SelectField('4. Ethnicity', choices=questions["Ethnicity"])
+    highest_educational_attainment = SelectField('5. Highest Educational Attainment', choices=questions["Highest Educational Attainment"])
     submit = SubmitField('Submit')
 
 

@@ -24,6 +24,15 @@ def user(username):
     return render_template('user.html', user=user)
 
 
+@main.route('/survey/<username>')
+def survey(username):
+    user = User.query.filter_by(username=username).first()
+    questions = labels
+    if user is None:
+        abort(404)
+    return render_template('survey.html', user=user, questions=labels)
+
+
 @main.route('/edit-profile', methods=['GET', 'POST'])
 @login_required
 def edit_profile():
@@ -68,24 +77,6 @@ def edit_profile_admin(id):
     return render_template('edit_profile.html', form=form, user=user)
 
 
-@main.route('/survey/<username>')
-def survey(username):
-    user = User.query.filter_by(username=username).first()
-    answers = []
-    answers.append(user.tech_roles.split('|'))
-    answers.append([user.years_of_professional_experience])
-    answers.append([user.gender])
-    answers.append([user.ethnicity])
-
-    questions = survey_questions_and_answers.keys()
-
-    questions_and_answers = OrderedDict(zip(questions, answers))
-
-    if user is None:
-        abort(404)
-    return render_template('survey.html', user=user, questions_and_answers=questions_and_answers)
-
-
 @main.route('/edit-survey', methods=['GET', 'POST'])
 @login_required
 def edit_survey():
@@ -95,6 +86,7 @@ def edit_survey():
         current_user.years_of_professional_experience = form.years_of_professional_experience.data
         current_user.gender = form.gender.data
         current_user.ethnicity = form.ethnicity.data
+        current_user.highest_educational_attainment = form.highest_educational_attainment.data
         db.session.add(current_user)
         flash('Thanks for updating your survey responses!')
         return redirect(url_for('.survey', username=current_user.username))
@@ -102,6 +94,7 @@ def edit_survey():
     form.years_of_professional_experience = current_user.years_of_professional_experience
     form.gender = current_user.gender
     form.ethnicity = current_user.ethnicity
+    form.highest_educational_attainment = current_user.highest_educational_attainment
     return render_template('edit_survey.html', form=form)
 
 
