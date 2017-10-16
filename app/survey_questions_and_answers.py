@@ -96,7 +96,7 @@ survey_questions_and_answers = OrderedDict([
         "JavaScript",
         "Lua",
         "Matlab",
-        "Objective­C",
+        "Objective C",
         "PHP",
         "Perl",
         "Python",

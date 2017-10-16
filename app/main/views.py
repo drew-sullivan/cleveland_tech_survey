@@ -27,7 +27,6 @@ def user(username):
 @main.route('/survey/<username>')
 def survey(username):
     user = User.query.filter_by(username=username).first()
-    questions = labels
     if user is None:
         abort(404)
     return render_template('survey.html', user=user, questions=labels)
