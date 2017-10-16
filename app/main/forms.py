@@ -94,6 +94,18 @@ class EditSurveyForm(FlaskForm):
     primary_development_environments_used_at_work = SelectMultipleField(
         '9. Primary Development Environments Used at Work (Hold the CTRL or CMD key to select more than one)',
         choices=questions["Primary Development Environments Used at Work"])
+    primary_version_control_systems_used_at_work = SelectMultipleField(
+        "10. Primary Version Control Systems Used at Work",
+        choices=questions["Primary Version Control Systems Used at Work"])
+    annual_amount_earned_from_all_tech_activities_combined = SelectField(
+        "11. Annual Amount Earned From all Tech Activities Combined",
+        choices=questions["Annual Amount Earned From all Tech Activities Combined"])
+    what_you_value_most_in_compensation = SelectMultipleField(
+        "12. What You Value Most in Compensation",
+        choices=questions["What You Value Most in Compensation"])
+    how_many_days_per_week_you_work_from_home = SelectField(
+        "13. How Many Days Per Week You Work From Home",
+        choices=questions["How Many Days Per Week You Work From Home"])
     submit = SubmitField('Submit')
 
 

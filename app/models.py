@@ -75,6 +75,10 @@ class User(UserMixin, db.Model):
     primary_database_technologies_used_at_work = db.Column(db.String(128))
     primary_platforms_used_at_work = db.Column(db.String(128))
     primary_development_environments_used_at_work = db.Column(db.String(128))
+    primary_version_control_systems_used_at_work = db.Column(db.String(128))
+    annual_amount_earned_from_all_tech_activities_combined = db.Column(db.String(32))
+    what_you_value_most_in_compensation = db.Column(db.String(128))
+    how_many_days_per_week_you_work_from_home = db.Column(db.Integer)
 
     def __init__(self, **kwargs):
         super(User, self).__init__(**kwargs)

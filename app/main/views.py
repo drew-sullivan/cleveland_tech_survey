@@ -92,6 +92,10 @@ def edit_survey():
         current_user.primary_database_technologies_used_at_work = '|'.join(form.primary_database_technologies_used_at_work.data)
         current_user.primary_platforms_used_at_work = '|'.join(form.primary_platforms_used_at_work.data)
         current_user.primary_development_environments_used_at_work = '|'.join(form.primary_development_environments_used_at_work.data)
+        current_user.primary_version_control_systems_used_at_work = '|'.join(form.primary_version_control_systems_used_at_work.data)
+        current_user.annual_amount_earned_from_all_tech_activities_combined = form.annual_amount_earned_from_all_tech_activities_combined.data
+        current_user.what_you_value_most_in_compensation = '|'.join(form.what_you_value_most_in_compensation.data)
+        current_user.how_many_days_per_week_you_work_from_home = form.how_many_days_per_week_you_work_from_home.data
         db.session.add(current_user)
         flash('Thanks for updating your survey responses!')
         return redirect(url_for('.survey', username=current_user.username))
@@ -105,7 +109,11 @@ def edit_survey():
     form.primary_programming_languages_used_at_work.data = current_user.primary_programming_languages_used_at_work
     form.primary_database_technologies_used_at_work.data = current_user.primary_database_technologies_used_at_work
     form.primary_platforms_used_at_work.data = current_user.primary_platforms_used_at_work
-    form.primary_development_environments_used_at_work = current_user.primary_development_environments_used_at_work
+    form.primary_development_environments_used_at_work.data = current_user.primary_development_environments_used_at_work
+    form.primary_version_control_systems_used_at_work.data = current_user.primary_version_control_systems_used_at_work
+    form.annual_amount_earned_from_all_tech_activities_combined.data = current_user.annual_amount_earned_from_all_tech_activities_combined
+    form.what_you_value_most_in_compensation.data = current_user.what_you_value_most_in_compensation
+    form.how_many_days_per_week_you_work_from_home.data = current_user.how_many_days_per_week_you_work_from_home
     return render_template('edit_survey.html', form=form)
 
 
