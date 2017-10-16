@@ -61,15 +61,36 @@ class EditSurveyForm(FlaskForm):
     for k in survey_questions_and_answers.keys():
         questions[k] = [(v, v) for v in survey_questions_and_answers[k]]
 
-    tech_roles = SelectMultipleField('1. Tech Role (Hold the CTRL or CMD key to select more than one)', choices=questions["Tech Roles"])
-    years_of_professional_experience = SelectField('2. Years of Professional Experience', choices=questions["Years of Professional Experience"], coerce=int)
-    gender = SelectField('3. Gender', choices=questions["Gender"])
-    ethnicity = SelectField('4. Ethnicity', choices=questions["Ethnicity"])
-    highest_educational_attainment = SelectField('5. Highest Educational Attainment', choices=questions["Highest Educational Attainment"])
-    undergraduate_major = SelectField('6. Undergraduate Major', choices=questions["Undergraduate Major"])
-    how_you_learned_to_code = SelectMultipleField('7. How You Learned to Code (Hold the CTRL or CMD key to select more than one)', choices=questions["How You Learned to Code"])
-    primary_programming_languages_used_at_work = SelectMultipleField('8. Primary Programming Languages Used at Work (Hold the CTRL or CMD key to select more than one)', choices=questions["Primary Programming Languages Used at Work"])
-
+    tech_roles = SelectMultipleField(
+        '1. Tech Role (Hold the CTRL or CMD key to select more than one)',
+        choices=questions["Tech Roles"])
+    years_of_professional_experience = SelectField(
+        '2. Years of Professional Experience',
+        choices=questions["Years of Professional Experience"], coerce=int)
+    gender = SelectField(
+        '3. Gender',
+        choices=questions["Gender"])
+    ethnicity = SelectField(
+        '4. Ethnicity',
+        choices=questions["Ethnicity"])
+    highest_educational_attainment = SelectField(
+        '5. Highest Educational Attainment',
+        choices=questions["Highest Educational Attainment"])
+    undergraduate_major = SelectField(
+        '6. Undergraduate Major',
+        choices=questions["Undergraduate Major"])
+    how_you_learned_to_code = SelectMultipleField(
+        '7. How You Learned to Code (Hold the CTRL or CMD key to select more than one)',
+        choices=questions["How You Learned to Code"])
+    primary_programming_languages_used_at_work = SelectMultipleField(
+        '8. Primary Programming Languages Used at Work (Hold the CTRL or CMD key to select more than one)',
+        choices=questions["Primary Programming Languages Used at Work"])
+    primary_database_technologies_used_at_work = SelectMultipleField(
+        '8. Primary Database Technologies Used at Work (Hold the CTRL or CMD key to select more than one)',
+        choices=questions["Primary Database Technologies Used at Work"])
+    primary_platforms_used_at_work = SelectMultipleField(
+        '8. Primary Platforms Used at Work (Hold the CTRL or CMD key to select more than one)',
+        choices=questions["Primary Platforms Used at Work"])
     submit = SubmitField('Submit')
 
 

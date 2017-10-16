@@ -113,7 +113,7 @@ survey_questions_and_answers = OrderedDict([
         "Visual Basic 6",
         "Other"
     ]),
-    ("Primary Database Technologies Used at Work ", [
+    ("Primary Database Technologies Used at Work", [
         "Cassandra",
         "MongoDB",
         "MySQL",

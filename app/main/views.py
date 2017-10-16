@@ -89,6 +89,8 @@ def edit_survey():
         current_user.undergraduate_major = form.undergraduate_major.data
         current_user.how_you_learned_to_code = '|'.join(form.how_you_learned_to_code.data)
         current_user.primary_programming_languages_used_at_work = '|'.join(form.primary_programming_languages_used_at_work.data)
+        current_user.primary_database_technologies_used_at_work = '|'.join(form.primary_database_technologies_used_at_work.data)
+        current_user.primary_platforms_used_at_work = '|'.join(form.primary_platforms_used_at_work.data)
         db.session.add(current_user)
         flash('Thanks for updating your survey responses!')
         return redirect(url_for('.survey', username=current_user.username))
@@ -100,6 +102,8 @@ def edit_survey():
     form.undergraduate_major.data = current_user.undergraduate_major
     form.how_you_learned_to_code.data = current_user.how_you_learned_to_code
     form.primary_programming_languages_used_at_work.data = current_user.primary_programming_languages_used_at_work
+    form.primary_database_technologies_used_at_work.data = current_user.primary_database_technologies_used_at_work
+    form.primary_platforms_used_at_work.data = current_user.primary_platforms_used_at_work
     return render_template('edit_survey.html', form=form)
 
 

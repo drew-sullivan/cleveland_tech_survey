@@ -72,6 +72,8 @@ class User(UserMixin, db.Model):
     undergraduate_major = db.Column(db.String(64))
     how_you_learned_to_code = db.Column(db.String(128))
     primary_programming_languages_used_at_work = db.Column(db.String(128))
+    primary_database_technologies_used_at_work = db.Column(db.String(128))
+    primary_platforms_used_at_work = db.Column(db.String(128))
 
     def __init__(self, **kwargs):
         super(User, self).__init__(**kwargs)
