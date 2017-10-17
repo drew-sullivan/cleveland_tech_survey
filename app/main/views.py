@@ -12,7 +12,11 @@ from ..survey_questions_and_answers import labels
 @main.route('/')
 def index():
     data = analyze_user_data()
-    return render_template('index.html', data=data)
+    legend = 'test'
+    labels_2 = ['cat', 'Non-Meetings', 'dog', 'pony']
+    values = [20, 14, 60, 6]
+    return render_template('index.html', data=data, values=values,
+                           labels_2=labels_2, legend=legend)
 
 
 @main.route('/user/<username>')
