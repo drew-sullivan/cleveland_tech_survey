@@ -1,18 +1,20 @@
-from collections import OrderedDict
-
 from flask import render_template, redirect, url_for, abort, flash
 from flask_login import login_required, current_user
 from . import main
+from ..data_analysis import get_ratio_of_genders_among_users, print_it_all
 from .forms import EditProfileForm, EditProfileAdminForm, EditSurveyForm
 from .. import db
 from ..models import Role, User
 from ..decorators import admin_required
-from ..survey_questions_and_answers import survey_questions_and_answers, labels
+from ..survey_questions_and_answers import labels
 
 
 @main.route('/')
 def index():
-    return render_template('index.html')
+    users = User.query.filter_by().all()
+    gender_data = get_ratio_of_genders_among_users()
+    stuff = print_it_all()
+    return render_template('index.html', users=users, gender_data=gender_data, stuff=stuff)
 
 
 @main.route('/user/<username>')

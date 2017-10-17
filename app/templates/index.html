@@ -5,11 +5,12 @@
 
 {% block page_content %}
 <div class="page-header">
-    <h1>Hello,
-    {% if current_user.is_authenticated %}
-        {{ current_user.username }}
-    {% else %}
-        Stranger
-    {% endif %}!</h1>
+    <h1>Welcome to the Clevland Tech Survey!</h1>
+    <p>Please sign in and take the anonymous survey. Results are recalculated after every submission.</p>
+    {% for user in users %}
+        <p>{{ user.username }}: {{ user.gender }}</p>
+    {% endfor %}
+    <h2>{{ gender_data }}</h2>
+    <h4>{{ stuff }}</h4>
 </div>
 {% endblock %}
