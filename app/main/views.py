@@ -13,10 +13,9 @@ from ..survey_questions_and_answers import labels
 def index():
     data = analyze_user_data()
     legend = 'test'
-    labels_2 = ['cat', 'Non-Meetings', 'dog', 'pony']
-    values = [20, 14, 60, 6]
-    return render_template('index.html', data=data, values=values,
-                           labels_2=labels_2, legend=legend)
+    genders = data['gender_counts'].keys()
+    gender_counts = data['gender_counts'].values()
+    return render_template('index.html', data=data, legend=legend, labels=genders, values=gender_counts)
 
 
 @main.route('/user/<username>')

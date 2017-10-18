@@ -1,26 +1,46 @@
 {% extends "base.html" %}
 {% import "bootstrap/wtf.html" as wtf %}
 
-{% block title %}Cleveland_Tech_Survey{% endblock %}
-
-{% block head %}
-{{ super() }}
-<script src='https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.5.0/Chart.bundle.min.js'></script>
-{% endblock %}
+{% block title %}Cleveland Tech Survey{% endblock %}
 
 {% block page_content %}
 <div class="page-header">
-    <h1>Welcome to the Clevland Tech Survey!</h1>
+    <h1>Welcome to the Cleveland Tech Survey!</h1>
     <p>Please sign in and take the anonymous survey. Results are recalculated after every submission.</p>
     {% for user in users %}
         <p>{{ user.username }}: {{ user.gender }}</p>
     {% endfor %}
-    <h4>{{ data }}</h4>
+    {% for i in data['gender_counts'].keys()|sort() %}<h1>"{{ i }}"</h1>{% endfor %}
+    <h4>{{ data['gender_counts'].keys()|sort() }}</h4>
     <canvas id="myChart" width="700" height="500"></canvas>
 </div>
 {% endblock %}
 
 {% block scripts %}
 {{ super() }}
- <script src="{{ url_for('static', filename='gender.js') }}"></script>
+<script>
+Chart.defaults.global.responsive = false;
+var ctx = document.getElementById('myChart').getContext('2d');
+var myChart = new Chart(ctx, {
+    type: 'pie',
+    data: {
+        labels: [{% for item in labels %}
+                  "{{item}}",
+                 {% endfor %}],
+        datasets: [{
+                    label: [{% for label in labels %}
+                             "{{label}}",
+                            {% endfor %}],
+                    data: [{% for value in values %}
+                            {{value}},
+                           {% endfor %}],
+                    backgroundColor: ["#ff0000","#0079bf","#DDA0DD","#85bb65","#daa520",
+                                      "#9b59b6","#f1c40f","#e74c3c","#34495e","#008080",
+                                      "#ffc0cb","#d3ffce","#ff7373","#ffa500","#e6e6fa",
+                                      "#2ecc71","#20b2aa","#c6e2ff","#008000"]
+        }]
+    }
+});
+</script>
+<!--<script src="{{ url_for('static', filename='gender.js') }}"></script>-->
 {% endblock %}
