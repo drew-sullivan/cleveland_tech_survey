@@ -6,41 +6,35 @@
 {% block page_content %}
 <div class="page-header">
     <h1>Welcome to the Cleveland Tech Survey!</h1>
-    <p>Please sign in and take the anonymous survey. Results are recalculated after every submission.</p>
-    {% for user in users %}
-        <p>{{ user.username }}: {{ user.gender }}</p>
+
+    {% for id in ids %}
+        <h3>{{ id }}</h3>
+        <div id="{{ id }}"></div>
     {% endfor %}
-    {% for i in data['gender_counts'].keys()|sort() %}<h1>"{{ i }}"</h1>{% endfor %}
-    <h4>{{ data['gender_counts'].keys()|sort() }}</h4>
-    <canvas id="myChart" width="700" height="500"></canvas>
+
+
+    <h1>{{ stuff }}</h1>
+    <h2>{{ ts }}</h2>
 </div>
 {% endblock %}
 
 {% block scripts %}
 {{ super() }}
-<script>
-Chart.defaults.global.responsive = false;
-var ctx = document.getElementById('myChart').getContext('2d');
-var myChart = new Chart(ctx, {
-    type: 'pie',
-    data: {
-        labels: [{% for item in labels %}
-                  "{{item}}",
-                 {% endfor %}],
-        datasets: [{
-                    label: [{% for label in labels %}
-                             "{{label}}",
-                            {% endfor %}],
-                    data: [{% for value in values %}
-                            {{value}},
-                           {% endfor %}],
-                    backgroundColor: ["#ff0000","#0079bf","#DDA0DD","#85bb65","#daa520",
-                                      "#9b59b6","#f1c40f","#e74c3c","#34495e","#008080",
-                                      "#ffc0cb","#d3ffce","#ff7373","#ffa500","#e6e6fa",
-                                      "#2ecc71","#20b2aa","#c6e2ff","#008000"]
-        }]
-    }
-});
-</script>
-<!--<script src="{{ url_for('static', filename='gender.js') }}"></script>-->
+ <!-- D3.js -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/3.5.6/d3.min.js"></script>
+    <!-- jQuery -->
+    <script src="https://code.jquery.com/jquery-2.1.4.min.js"></script>
+    <!-- Plotly.js -->
+    <script src="https://d14fo0winaifog.cloudfront.net/plotly-basic.js"></script>
+
+    <script type="text/javascript">
+        var graphs = {{graphJSON | safe}};
+        var ids = {{ids | safe}};
+        for(var i in graphs) {
+            Plotly.plot(ids[i], // the ID of the div, created above
+                        graphs[i].data,
+                        graphs[i].layout || {});
+        }
+    </script>
 {% endblock %}
+
