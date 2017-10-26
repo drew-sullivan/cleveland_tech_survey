@@ -3,10 +3,10 @@ from flask_login import login_required, current_user
 from . import main
 from .forms import EditProfileForm, EditProfileAdminForm, EditSurveyForm
 from .. import db
-from ..models import Role, User
 from ..decorators import admin_required
-from ..survey_questions_and_answers import labels
 from ..graphs import ids, graphJSON
+from ..models import Role, User
+from ..survey_questions_and_answers import labels
 
 
 @main.route('/')

@@ -3,7 +3,14 @@ import numpy as np
 import pandas as pd
 import plotly
 
-rng = pd.date_range('1/1/2011', periods=7500, freq='H')
+# from data_analysis import analyze_user_data
+#
+# data = analyze_user_data()
+#
+# gender_counts = data['gender_counts']
+
+
+rng = pd.date_range('1/1/2011', periods=25, freq='H')
 ts = pd.Series(np.random.randn(len(rng)), index=rng)
 
 graphs = [
@@ -33,6 +40,19 @@ graphs = [
         )
     ),
 
+    # dict(
+    #     data=[
+    #         dict(
+    #             x=gender_counts.keys(),
+    #             y=gender_counts.values(),
+    #             type='bar'
+    #         ),
+    #     ],
+    #     layout=dict(
+    #         title='third graph'
+    #     )
+    # ),
+
     dict(
         data=[
             dict(
@@ -43,8 +63,7 @@ graphs = [
     )
 ]
 
-# Add "ids" to each of the graphs to pass up to the client
-# for templating
+# Add "ids" to each of the graphs
 ids = ['graph-{}'.format(i) for i, _ in enumerate(graphs)]
 
 # Convert the figures to JSON
