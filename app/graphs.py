@@ -8,7 +8,7 @@ rng = pd.date_range('1/1/2011', periods=25, freq='H')
 ts = pd.Series(np.random.randn(len(rng)), index=rng)
 
 
-def get_graph_dict(x=None, y=None, graph_type=None, title='Insert title here'):
+def generate_graph_dict(x=None, y=None, graph_type=None, title='Insert title here'):
     graph = dict(
                 data=[
                     dict(
@@ -24,13 +24,32 @@ def get_graph_dict(x=None, y=None, graph_type=None, title='Insert title here'):
     return graph
 
 
+def gender_count(df):
+    g = df['gender'].value_counts()
+    g.sort_index(inplace=True)
+    x = g.index
+    y = g.values
+    graph_type = 'bar'
+    title = 'Gender Count'
+    return generate_graph_dict(x, y, graph_type, title)
+
+
+def salary_for_years_of_exp(df):
+    sal_exp = (df[['annual_amount_earned_from_all_tech_activities_combined', 'years_of_professional_experience']].replace(
+            '[\$,)]', '', regex=True).replace('[(]', '-', regex=True).astype(float))
+    x = sal_exp['annual_amount_earned_from_all_tech_activities_combined']
+    y = sal_exp['years_of_professional_experience']
+    graph_type = 'markers'
+    title = 'Years Experience / Salary'
+    return generate_graph_dict(x, y, graph_type, title)
+
+
 def compile_graph_data(df):
-    graphs = (get_graph_dict([1, 2, 3], [10, 20, 30], 'scatter', 'first graph'),
-              get_graph_dict([1, 3, 5], [10, 20, 30], 'bar', 'second graph'),
-              get_graph_dict(df['gender'].sort_values().dropna().unique(),
-                             df['gender'].sort_values().value_counts(),
-                             'bar', 'third graph'),
-              get_graph_dict(ts.index, ts, title='fourth graph'))
+    graphs = (generate_graph_dict([1, 2, 3], [10, 20, 30], 'scatter', 'first graph'),
+              generate_graph_dict([1, 3, 5], [10, 20, 30], 'bar', 'second graph'),
+              gender_count(df),
+              salary_for_years_of_exp(df),
+              generate_graph_dict(ts.index, ts, title='fourth graph'))
 
 
     # Add "ids" to each of the graphs
