@@ -1,11 +1,7 @@
 import pandas as pd
-import numpy as np
-
-from .models import User
 
 
-def analyze_user_data():
-    users = User.query.filter_by().all()
+def analyze_user_data(users):
     user_dict_list = [u.__dict__ for u in users]
     df = pd.DataFrame(user_dict_list)
 
