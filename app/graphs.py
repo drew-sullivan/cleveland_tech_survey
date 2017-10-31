@@ -25,54 +25,6 @@ def get_graph_dict(x=None, y=None, graph_type=None, title='Insert title here'):
 
 
 def compile_graph_data(df):
-    #     dict(
-    #         data=[
-    #             dict(
-    #                 x=[1, 2, 3],
-    #                 y=[10, 20, 30],
-    #                 type='scatter'
-    #             ),
-    #         ],
-    #         layout=dict(
-    #             title='first graph'
-    #         )
-    #     ),
-    #
-    #     dict(
-    #         data=[
-    #             dict(
-    #                 x=[1, 3, 5],
-    #                 y=[10, 50, 30],
-    #                 type='bar'
-    #             ),
-    #         ],
-    #         layout=dict(
-    #             title='second graph'
-    #         )
-    #     ),
-    #
-    #     dict(
-    #         data=[
-    #             dict(
-    #                 x=df['gender'].sort_values().dropna().unique(),
-    #                 y=df['gender'].sort_values().value_counts(),
-    #                 type='bar'
-    #             ),
-    #         ],
-    #         layout=dict(
-    #             title='third graph'
-    #         )
-    #     ),
-    #
-    #     dict(
-    #         data=[
-    #             dict(
-    #                 x=ts.index,  # Can use the pandas data structures directly
-    #                 y=ts
-    #             )
-    #         ]
-    #     )
-    # ]
     graphs = (get_graph_dict([1, 2, 3], [10, 20, 30], 'scatter', 'first graph'),
               get_graph_dict([1, 3, 5], [10, 20, 30], 'bar', 'second graph'),
               get_graph_dict(df['gender'].sort_values().dropna().unique(),
