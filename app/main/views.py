@@ -4,7 +4,7 @@ from . import main
 from .forms import EditProfileForm, EditProfileAdminForm, EditSurveyForm
 from .. import db
 from ..decorators import admin_required
-from ..data_analysis import analyze_user_data
+from ..data_analysis import get_user_data_df
 from ..graphs import compile_graph_data
 from ..models import Role, User
 from ..survey_questions_and_answers import labels
@@ -13,8 +13,8 @@ from ..survey_questions_and_answers import labels
 @main.route('/')
 def index():
     users = User.query.filter_by().all()
-    data = analyze_user_data(users)
-    ids, graphJSON = compile_graph_data(data)
+    df = get_user_data_df(users)
+    ids, graphJSON = compile_graph_data(df)
     return render_template('index.html', ids=ids, graphJSON=graphJSON)
 
 

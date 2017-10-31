@@ -8,7 +8,7 @@ rng = pd.date_range('1/1/2011', periods=25, freq='H')
 ts = pd.Series(np.random.randn(len(rng)), index=rng)
 
 
-def compile_graph_data(data):
+def compile_graph_data(df):
     graphs = [
         dict(
             data=[
@@ -39,8 +39,8 @@ def compile_graph_data(data):
         dict(
             data=[
                 dict(
-                    x=data['gender_counts'].keys(),
-                    y=data['gender_counts'].values(),
+                    x=df['gender'].sort_values().dropna().unique(),
+                    y=df['gender'].sort_values().value_counts(),
                     type='bar'
                 ),
             ],
