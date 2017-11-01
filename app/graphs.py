@@ -2,7 +2,8 @@ import json
 import plotly
 
 
-def generate_graph_dict(title='Insert title here', x=None, y=None, mode=None, graph_type=None, xaxis_title=None, yaxis_title=None, color='#FF0000', line_width=2):
+def generate_graph_dict(title='Insert title here', x=None, y=None, mode=None, graph_type=None, xaxis_title=None,
+                        yaxis_title=None, color='#FF0000', line_width=2, line_color='#ffba13'):
     graph = {
         'data': [
             {
@@ -13,7 +14,8 @@ def generate_graph_dict(title='Insert title here', x=None, y=None, mode=None, gr
                 'marker': {
                     'color': color,
                     'line': {
-                        'width': line_width
+                        'width': line_width,
+                        'color': line_color
                     }
                 }
             }
@@ -34,7 +36,7 @@ def gender_count(df):
     y = g.values
     graph_type = 'bar'
     title = 'Gender Count'
-    return generate_graph_dict(title=title, x=x, y=y, graph_type=graph_type)
+    return generate_graph_dict(title=title, x=x, y=y, graph_type=graph_type, color='#7e113a', line_color='#ffba13')
 
 
 def salary_for_years_of_exp(df):
@@ -46,7 +48,8 @@ def salary_for_years_of_exp(df):
     xaxis_title = 'Total Compensation'
     yaxis_title = 'Years of Professional Experience'
     title = 'Total Compensation for Years of Professional Experience'
-    return generate_graph_dict(title=title, x=x, y=y, mode=mode, xaxis_title=xaxis_title, yaxis_title=yaxis_title)
+    return generate_graph_dict(title=title, x=x, y=y, mode=mode, xaxis_title=xaxis_title, yaxis_title=yaxis_title,
+                               color='#fb000f', line_color='#042755')
 
 
 def compile_graph_data(df):
