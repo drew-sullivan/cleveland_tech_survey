@@ -2,14 +2,21 @@ import json
 import plotly
 
 
-def generate_graph_dict(title='Insert title here', x=None, y=None, mode=None, graph_type=None, xaxis_title=None, yaxis_title=None):
+def generate_graph_dict(title='Insert title here', x=None, y=None, mode=None, graph_type=None, xaxis_title=None, yaxis_title=None, color='#FF0000', line_width=2):
     graph = {
         'data': [
             {
                 'x': x,
                 'y': y,
                 'mode': mode,
-                'type': graph_type}
+                'type': graph_type,
+                'marker': {
+                    'color': color,
+                    'line': {
+                        'width': line_width
+                    }
+                }
+            }
         ],
         'layout': {
             'xaxis': {'title': xaxis_title},
