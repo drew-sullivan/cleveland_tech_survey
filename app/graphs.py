@@ -1,26 +1,24 @@
 import json
-import numpy as np
-import pandas as pd
+# import numpy as np
+# import pandas as pd
 import plotly
 
 
-rng = pd.date_range('1/1/2011', periods=25, freq='H')
-ts = pd.Series(np.random.randn(len(rng)), index=rng)
-
-
-def generate_graph_dict(x=None, y=None, graph_type=None, title='Insert title here'):
-    graph = dict(
-                data=[
-                    dict(
-                        x=x,
-                        y=y,
-                        type=graph_type
-                    ),
-                ],
-                layout=dict(
-                    title=title
-                )
-            )
+def generate_graph_dict(title='Insert title here', x=None, y=None, mode=None, graph_type=None, xaxis_title=None, yaxis_title=None):
+    graph = {
+        'data': [
+            {
+                'x': x,
+                'y': y,
+                'mode': mode,
+                'type': graph_type}
+        ],
+        'layout': {
+            'xaxis': {'title': xaxis_title},
+            'yaxis': {'title': yaxis_title},
+            'title': title
+        }
+    }
     return graph
 
 
@@ -31,7 +29,7 @@ def gender_count(df):
     y = g.values
     graph_type = 'bar'
     title = 'Gender Count'
-    return generate_graph_dict(x, y, graph_type, title)
+    return generate_graph_dict(title=title, x=x, y=y, graph_type=graph_type)
 
 
 def salary_for_years_of_exp(df):
@@ -39,21 +37,11 @@ def salary_for_years_of_exp(df):
                    '[\$,)]', '', regex=True).replace('[(]', '-', regex=True).astype(float))
     x = sal_exp['annual_amount_earned_from_all_tech_activities_combined']
     y = sal_exp['years_of_professional_experience']
-
-    fig = {
-        'data': [
-            {
-                'x': x,
-                'y': y,
-                'mode': 'markers'}
-        ],
-        'layout': {
-            'xaxis': {'title': 'Total Compensation'},
-            'yaxis': {'title': 'Years of Professional Experience'},
-            'title': 'Total Compensation for Years of Professional Experience'
-        }
-    }
-    return fig
+    mode = 'markers'
+    xaxis_title = 'Total Compensation'
+    yaxis_title = 'Years of Professional Experience'
+    title = 'Total Compensation for Years of Professional Experience'
+    return generate_graph_dict(title=title, x=x, y=y, mode=mode, xaxis_title=xaxis_title, yaxis_title=yaxis_title)
 
 
 def compile_graph_data(df):
