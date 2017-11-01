@@ -36,20 +36,29 @@ def gender_count(df):
 
 def salary_for_years_of_exp(df):
     sal_exp = (df[['annual_amount_earned_from_all_tech_activities_combined', 'years_of_professional_experience']].replace(
-            '[\$,)]', '', regex=True).replace('[(]', '-', regex=True).astype(float))
+                   '[\$,)]', '', regex=True).replace('[(]', '-', regex=True).astype(float))
     x = sal_exp['annual_amount_earned_from_all_tech_activities_combined']
     y = sal_exp['years_of_professional_experience']
-    graph_type = 'markers'
-    title = 'Years Experience / Salary'
-    return generate_graph_dict(x, y, graph_type, title)
+
+    fig = {
+        'data': [
+            {
+                'x': x,
+                'y': y,
+                'mode': 'markers'}
+        ],
+        'layout': {
+            'xaxis': {'title': 'Total Compensation'},
+            'yaxis': {'title': 'Years of Professional Experience'},
+            'title': 'Total Compensation for Years of Professional Experience'
+        }
+    }
+    return fig
 
 
 def compile_graph_data(df):
-    graphs = (generate_graph_dict([1, 2, 3], [10, 20, 30], 'scatter', 'first graph'),
-              generate_graph_dict([1, 3, 5], [10, 20, 30], 'bar', 'second graph'),
-              gender_count(df),
-              salary_for_years_of_exp(df),
-              generate_graph_dict(ts.index, ts, title='fourth graph'))
+    graphs = (gender_count(df),
+              salary_for_years_of_exp(df))
 
 
     # Add "ids" to each of the graphs
