@@ -65,10 +65,13 @@
 
     {% block page_content %}{% endblock %}
     {% block footer %}
-    <hr>
-    <p>Copyright &copy; {{ moment().format('YYYY') }}
-        <a href="https://www.linkedin.com/in/drew-sullivan/">Drew Sullivan</a>
-    </p>{% endblock %}
+    <div class="col-md-12">
+        <hr>
+        <span>Copyright &copy; {{ moment().format('YYYY') }}
+            <a href="https://www.linkedin.com/in/drew-sullivan/">Drew Sullivan</a>
+        </span>
+    </div>
+    {% endblock %}
 </div>
 {% endblock %}
 
