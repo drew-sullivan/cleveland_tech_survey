@@ -4,36 +4,43 @@
 
 {% block page_content %}
 <div class="page-header">
-    <div class="profile-header">
-        <h1>Survey Responses</h1>
-
-        {% for question in questions %}
-        <h4>{{ question|replace("_", " ")|title }}</h4>
-        {% set answer = user[question] %}
-        <ul class="survey-{{ question|replace("_", "-") }}">
-        {% if answer is string %}
-            {% if '|' in answer %}
-                {% set answer_list = answer.split('|') %}
-                {% for answer in answer_list %}
-                    <li>{{ answer }}</li>
-                {% endfor %}
-            {% else %}
+    <h1>Survey Responses</h1>
+    <p>
+        {% if user == current_user %}
+        <a class="btn btn-default" href="{{ url_for('.edit_survey') }}">Edit Survey Responses</a>
+        {% endif %}
+        {% if current_user.is_administrator() %}
+        <a class="btn btn-danger" href="{{ url_for('.edit_survey', id=user.id) }}">Edit Survey Responses [Admin]</a>
+        {% endif %}
+    </p>
+</div>
+<div>
+    {% for question in questions %}
+    <h4>{{ question|replace("_", " ")|title }}</h4>
+    {% set answer = user[question] %}
+    <ul class="survey-{{ question|replace("_", "-") }}">
+    {% if answer is string %}
+        {% if '|' in answer %}
+            {% set answer_list = answer.split('|') %}
+            {% for answer in answer_list %}
                 <li>{{ answer }}</li>
-            {% endif %}
+            {% endfor %}
         {% else %}
             <li>{{ answer }}</li>
         {% endif %}
-        </ul>
-        {% endfor %}
+    {% else %}
+        <li>{{ answer }}</li>
+    {% endif %}
+    </ul>
+    {% endfor %}
 
-        <p>
-            {% if user == current_user %}
-            <a class="btn btn-default" href="{{ url_for('.edit_survey') }}">Edit Survey Responses</a>
-            {% endif %}
-            {% if current_user.is_administrator() %}
-            <a class="btn btn-danger" href="{{ url_for('.edit_survey', id=user.id) }}">Edit Survey Responses [Admin]</a>
-            {% endif %}
-        </p>
-    </div>
+    <p>
+        {% if user == current_user %}
+        <a class="btn btn-default" href="{{ url_for('.edit_survey') }}">Edit Survey Responses</a>
+        {% endif %}
+        {% if current_user.is_administrator() %}
+        <a class="btn btn-danger" href="{{ url_for('.edit_survey', id=user.id) }}">Edit Survey Responses [Admin]</a>
+        {% endif %}
+    </p>
 </div>
 {% endblock %}

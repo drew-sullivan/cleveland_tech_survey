@@ -7,7 +7,10 @@
     margin-left: 280px;
 }
 
-#jobs {
+ul {
     list-style: none;
 }
 
+li label {
+    font-weight: normal;
+}

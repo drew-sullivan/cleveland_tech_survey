@@ -1,20 +1,22 @@
 from flask import render_template, redirect, url_for, abort, flash
 from flask_login import login_required, current_user
 from . import main
-from ..data_analysis import get_ratio_of_genders_among_users, print_it_all
 from .forms import EditProfileForm, EditProfileAdminForm, EditSurveyForm
 from .. import db
-from ..models import Role, User
 from ..decorators import admin_required
+from ..data_analysis import get_user_data_df
+from ..graphs import compile_graph_data
+from ..models import Role, User
 from ..survey_questions_and_answers import labels
 
 
 @main.route('/')
 def index():
     users = User.query.filter_by().all()
-    gender_data = get_ratio_of_genders_among_users()
-    stuff = print_it_all()
-    return render_template('index.html', users=users, gender_data=gender_data, stuff=stuff)
+    num_respondents = len(users)
+    df = get_user_data_df(users)
+    ids, graphJSON = compile_graph_data(df)
+    return render_template('index.html', ids=ids, graphJSON=graphJSON, num_respondents=num_respondents)
 
 
 @main.route('/user/<username>')
