@@ -72,10 +72,10 @@ def tech_roles(df):
     for k, v in counter.iteritems():
         counter[k] = round(100 * (float(counter[k]) / float(num_users)), 2)
 
-    sorted_dict = sorted(counter.items(), key=operator.itemgetter(1), reverse=True)
+    sorted_role_pct_list = sorted(counter.items(), key=operator.itemgetter(1), reverse=True)
 
-    y = [item[1] for item in sorted_dict]
-    x = [item[0] for item in sorted_dict]
+    y = [item[1] for item in sorted_role_pct_list]
+    x = [item[0] for item in sorted_role_pct_list]
 
     return _generate_graph_dict(x=x, y=y, graph_type='bar', xaxis_title=None,
                                 title='Percentage of Respondents who Identify with Tech Role', yaxis_title=None,
