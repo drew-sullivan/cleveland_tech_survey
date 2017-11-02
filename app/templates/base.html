@@ -65,20 +65,17 @@
 
     {% block page_content %}{% endblock %}
     {% block footer %}
-    <div class="col-md-12">
+    <footer class="col-md-12">
         <hr>
         <span>Copyright &copy; {{ moment().format('YYYY') }}
             <a href="https://www.linkedin.com/in/drew-sullivan/">Drew Sullivan</a>
         </span>
-    </div>
+    </footer>
     {% endblock %}
 </div>
 {% endblock %}
 
-
-
 {% block scripts %}
 {{ super() }}
-<!--{{ moment.include_moment() }}-->
 <script src="{{ url_for('static', filename='js/main.js') }}"></script>
 {% endblock %}
