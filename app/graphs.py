@@ -1,9 +1,16 @@
 import json
+import operator
 import plotly
 
 
-def generate_graph_dict(title='Insert title here', x=None, y=None, mode=None, graph_type=None, xaxis_title=None,
-                        yaxis_title=None, color='#FF0000', line_width=2, line_color='#ffba13'):
+def _get_list_from_multiple_field_entry(pd_series):
+    pd_series = pd_series.dropna()
+    return pd_series.str.split('|')
+
+
+def _generate_graph_dict(title='Insert title here', x=None, y=None, mode=None, graph_type=None, orientation=None,
+                         xaxis_title='Insert xaxis title here', yaxis_title='Insert yaxis title here', color='#FF0000',
+                         line_width=2, line_color='#ffba13'):
     graph = {
         'data': [
             {
@@ -11,6 +18,7 @@ def generate_graph_dict(title='Insert title here', x=None, y=None, mode=None, gr
                 'y': y,
                 'mode': mode,
                 'type': graph_type,
+                'orientation': orientation,
                 'marker': {
                     'color': color,
                     'line': {
@@ -36,7 +44,7 @@ def gender_count(df):
     y = g.values
     graph_type = 'bar'
     title = 'Gender Count'
-    return generate_graph_dict(title=title, x=x, y=y, graph_type=graph_type, color='#7e113a', line_color='#ffba13')
+    return _generate_graph_dict(title=title, x=x, y=y, graph_type=graph_type, color='#7e113a', line_color='#ffba13')
 
 
 def salary_for_years_of_exp(df):
@@ -48,13 +56,36 @@ def salary_for_years_of_exp(df):
     xaxis_title = 'Total Compensation'
     yaxis_title = 'Years of Professional Experience'
     title = 'Total Compensation for Years of Professional Experience'
-    return generate_graph_dict(title=title, x=x, y=y, mode=mode, xaxis_title=xaxis_title, yaxis_title=yaxis_title,
-                               color='#fb000f', line_color='#042755')
+    return _generate_graph_dict(title=title, x=x, y=y, mode=mode, xaxis_title=xaxis_title, yaxis_title=yaxis_title,
+                                color='#fb000f', line_color='#042755')
+
+
+def tech_roles(df):
+    roles = _get_list_from_multiple_field_entry(df['tech_roles'])
+    num_users = len(roles)
+
+    counter = {}
+    for index, role_list in roles.iteritems():
+        for item in role_list:
+            counter[item] = counter.get(item, 0) + 1
+
+    for k, v in counter.iteritems():
+        counter[k] = round(100 * (float(counter[k]) / float(num_users)), 2)
+
+    sorted_dict = sorted(counter.items(), key=operator.itemgetter(1), reverse=True)
+
+    y = [item[1] for item in sorted_dict]
+    x = [item[0] for item in sorted_dict]
+
+    return _generate_graph_dict(x=x, y=y, graph_type='bar', xaxis_title=None,
+                                title='Percentage of Respondents who Identify with Tech Role', yaxis_title=None,
+                                color='#ff0900', line_color='#341b00')
 
 
 def compile_graph_data(df):
     graphs = (gender_count(df),
-              salary_for_years_of_exp(df))
+              salary_for_years_of_exp(df),
+              tech_roles(df))
 
 
     # Add "ids" to each of the graphs
