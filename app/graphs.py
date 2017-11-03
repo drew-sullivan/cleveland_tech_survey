@@ -112,11 +112,19 @@ def tech_roles(df):
                                         color='#ff0900', line_color='#341b00')
 
 
+def gender_percent(df):
+    gender_data = df['gender'].value_counts(normalize=True)
+    labels = gender_data.sort_index().index
+    values = gender_data.round(2).sort_index().values
+    return _generate_pie_chart_dict(title='Gender Breakdown', labels=labels, values=values,
+                                    colors=['#0e1945', '#7c2533', '#ffba13', '#d3d3d3'])
+
+
 def compile_graph_data(df):
     graphs = (gender_count(df),
               salary_for_years_of_exp(df),
               tech_roles(df),
-              _generate_pie_chart_dict())
+              gender_percent(df))
 
 
     # Add "ids" to each of the graphs
