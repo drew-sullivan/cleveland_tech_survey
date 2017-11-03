@@ -86,15 +86,10 @@ def generate_horizontal_line_chart_dict(title='Title Here', pd_series=None, colo
     c = Counter(flat_list)
     list_of_least_common_elements = c.most_common()
     list_of_most_common_elements = list_of_least_common_elements[::-1]
-    left_margin = None
     labels = [item[0] for item in list_of_most_common_elements]
-    for item in labels:
-        if len(item) > 10:
-            left_margin = 180
-            break
     percentages = [round(100 * float(item[1]) / float(num_users), 2) for item in list_of_most_common_elements]
     return generate_non_pie_chart_dict(title=title, x=percentages, y=labels, graph_type='bar',
-                                       color=color_1, line_color=color_2, orientation='h', left_margin=left_margin)
+                                       color=color_1, line_color=color_2, orientation='h', left_margin=210)
 
 
 def get_values_as_lists(pd_series):
