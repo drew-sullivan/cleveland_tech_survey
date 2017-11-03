@@ -1,6 +1,10 @@
 import json
 import operator
+
+import itertools
 import plotly
+
+from collections import Counter
 
 
 CAVS_COLORS = ['#6F263D', '#FFB81C', '#041E42']
@@ -9,9 +13,15 @@ BROWNS_COLORS = ['#EB3300', '#382F2D', '#FFFFFF']
 MONSTERS_COLORS = ['#004EA6', '#F8F9FB', '#000000', '#FFBA00', '#FFFFFF']
 
 
-def _get_list_from_multiple_field_entry(pd_series):
-    pd_series = pd_series.dropna()
-    return pd_series.str.split('|')
+def _get_values_as_lists(pd_series):
+    """
+    Turns values from pd_series from |-delimited strings to lists
+    :param pd_series:
+    :return list of lists:
+    """
+    values_as_strings = pd_series.dropna().values
+    values_as_lists = [item.split('|') for item in values_as_strings]
+    return values_as_lists
 
 
 def _generate_non_pie_chart_dict(title='Insert title here', x=None, y=None, mode=None, graph_type=None,
@@ -96,23 +106,15 @@ def salary_for_years_of_exp(df):
 
 
 def tech_roles(df):
-    roles = _get_list_from_multiple_field_entry(df['tech_roles'])
-    num_users = len(roles)
+    roles_as_lists_per_user = _get_values_as_lists(df['tech_roles'])
+    num_users = len(roles_as_lists_per_user)
+    flat_list = itertools.chain.from_iterable(roles_as_lists_per_user)
+    c = Counter(flat_list)
+    c = c.most_common()
+    tech_role_names = [item[0] for item in c]
+    tech_role_percents = [round(100 * float(item[1]) / float(num_users), 2) for item in c]
 
-    counter = {}
-    for index, role_list in roles.iteritems():
-        for item in role_list:
-            counter[item] = counter.get(item, 0) + 1
-
-    for k, v in counter.iteritems():
-        counter[k] = round(100 * (float(counter[k]) / float(num_users)), 2)
-
-    sorted_role_pct_list = sorted(counter.items(), key=operator.itemgetter(1), reverse=True)
-
-    y = [item[1] for item in sorted_role_pct_list]
-    x = [item[0] for item in sorted_role_pct_list]
-
-    return _generate_non_pie_chart_dict(x=x, y=y, graph_type='bar', xaxis_title=None,
+    return _generate_non_pie_chart_dict(x=tech_role_names, y=tech_role_percents, graph_type='bar', xaxis_title=None,
                                         title='Percentage of Respondents who Identify with Tech Role', yaxis_title=None,
                                         color=BROWNS_COLORS[0], line_color=BROWNS_COLORS[1])
 
