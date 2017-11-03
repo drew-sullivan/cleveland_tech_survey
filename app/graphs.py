@@ -20,11 +20,26 @@ def gender_count(df):
 
 
 def gender_by_percent(df):
-    gender_data = df['gender'].value_counts(normalize=True)
-    labels = gender_data.sort_index().index
-    values = gender_data.round(2).sort_index().values
-    return graph_tools.generate_pie_chart_dict(title='Gender by Percent', labels=labels, values=values,
-                                               colors=color['cavaliers'].values() + ['#d3d3d3'])
+    title = 'Gender by Percent'
+    colors = color['cavaliers'].values() + ['#d3d3d3']
+    pd_series = df['gender']
+    return graph_tools.generate_pie_chart_percentage_dict(title=title, colors=colors, pd_series=pd_series)
+
+
+def years_of_pro_experience(df):
+    title = 'Range of Experience'
+    colors = color['cavaliers'].values() + ['#d3d3d3']
+    pd_series = df['years_of_professional_experience']
+    suffix = ' year(s)'
+    return graph_tools.generate_pie_chart_percentage_dict(title=title, colors=colors, pd_series=pd_series,
+                                                          suffix=suffix)
+
+
+def ethnicities(df):
+    title = 'Ethnicities'
+    colors = color['cavaliers'].values() + ['#d3d3d3']
+    pd_series = df['ethnicity']
+    return graph_tools.generate_pie_chart_percentage_dict(title=title, colors=colors, pd_series=pd_series)
 
 
 def salary_for_years_of_exp(df):
@@ -39,6 +54,17 @@ def salary_for_years_of_exp(df):
     return graph_tools.generate_non_pie_chart_dict(title=title, x=x, y=y, mode=mode, xaxis_title=xaxis_title,
                                                    yaxis_title=yaxis_title, color=color['indians']['red'],
                                                    line_color=color['indians']['navy'])
+
+
+def salary_for_language(df):
+    sal_lang = df[
+        ['annual_amount_earned_from_all_tech_activities_combined', 'primary_programming_languages_used_at_work']].dropna()
+    salaries = sal_lang['annual_amount_earned_from_all_tech_activities_combined'].replace(
+        '[\$,)]', '', regex=True).replace('[(]', '-', regex=True).astype(float)
+    languages = sal_lang['primary_programming_languages_used_at_work']
+    languages_as_lists = graph_tools.get_values_as_lists(languages)
+    flat_list = itertools.chain.from_iterable(languages_as_lists)
+    c = Counter(flat_list)
 
 
 def tech_roles(df):
@@ -110,7 +136,9 @@ def compile_graph_data(df):
               most_common_db_technologies(df),
               most_common_platform(df),
               most_common_dev_env(df),
-              most_common_version_control(df))
+              most_common_version_control(df),
+              years_of_pro_experience(df),
+              ethnicities(df))
 
     # Add "ids" to each of the graphs
     ids = ['graph-{}'.format(i) for i, _ in enumerate(graphs)]

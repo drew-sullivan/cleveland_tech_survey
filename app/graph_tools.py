@@ -76,8 +76,8 @@ def generate_pie_chart_dict(title='Insert Title Here', labels=['1st label', '2nd
     return pie_chart_dict
 
 
-def generate_horizontal_line_chart_dict(title='Title Here', pd_series=None, color_scheme=None,
-                                        color_1=None, color_2=None):
+def generate_horizontal_line_chart_dict(title='Title Here', pd_series=None, color_scheme=None, color_1=None,
+                                        color_2=None):
     color_1 = COLORS[color_scheme][color_1]
     color_2 = COLORS[color_scheme][color_2]
     lists_per_user = get_values_as_lists(pd_series)
@@ -90,6 +90,16 @@ def generate_horizontal_line_chart_dict(title='Title Here', pd_series=None, colo
     percentages = [round(100 * float(item[1]) / float(num_users), 2) for item in list_of_most_common_elements]
     return generate_non_pie_chart_dict(title=title, x=percentages, y=labels, graph_type='bar',
                                        color=color_1, line_color=color_2, orientation='h', left_margin=210)
+
+
+def generate_pie_chart_percentage_dict(title=None, colors=None, pd_series=None, suffix=''):
+    exp_data = pd_series.value_counts(normalize=True)
+    sorted_labels = exp_data.sort_index()
+    labels = sorted_labels.index.astype(str)
+    labels += suffix
+    values = exp_data.round(2).sort_index().values
+    return generate_pie_chart_dict(title=title, labels=labels, values=values,
+                                   colors=COLORS['cavaliers'].values() + ['#d3d3d3'])
 
 
 def get_values_as_lists(pd_series):
