@@ -8,9 +8,10 @@ def _get_list_from_multiple_field_entry(pd_series):
     return pd_series.str.split('|')
 
 
-def _generate_graph_dict(title='Insert title here', x=None, y=None, mode=None, graph_type=None, orientation=None,
-                         xaxis_title='Insert xaxis title here', yaxis_title='Insert yaxis title here', color='#FF0000',
-                         line_width=2, line_color='#ffba13'):
+def _generate_non_pie_chart_dict(title='Insert title here', x=None, y=None, mode=None, graph_type=None,
+                                 orientation=None, xaxis_title='Insert xaxis title here',
+                                 yaxis_title='Insert yaxis title here', color='#FF0000', line_width=2,
+                                 line_color='#ffba13'):
     graph = {
         'data': [
             {
@@ -37,6 +38,34 @@ def _generate_graph_dict(title='Insert title here', x=None, y=None, mode=None, g
     return graph
 
 
+def _generate_pie_chart_dict(title='Insert Title Here', labels=['1st label', '2nd label'], values=[75, 25],
+                             colors=['rgb(146, 123, 21)', 'rgb(177, 180, 34)'], chart_type='pie',
+                             hoverinfo='label+percent', textinfo='none', showlegend=True, line_width=2,
+                             line_color='black'):
+    pie_chart_dict = {
+        'data': [
+            {
+                'labels': labels,
+                'values': values,
+                'marker': {
+                    'colors': colors,
+                    'line': {
+                        'width': line_width,
+                        'color': line_color
+                    }
+                },
+                'type': chart_type,
+                'hoverinfo': hoverinfo,
+                'textinfo': textinfo
+            }
+        ],
+        'layout': {
+            'title': title,
+            'showlegend': showlegend}
+    }
+    return pie_chart_dict
+
+
 def gender_count(df):
     g = df['gender'].value_counts()
     g.sort_index(inplace=True)
@@ -44,7 +73,8 @@ def gender_count(df):
     y = g.values
     graph_type = 'bar'
     title = 'Gender Count'
-    return _generate_graph_dict(title=title, x=x, y=y, graph_type=graph_type, color='#7e113a', line_color='#ffba13')
+    return _generate_non_pie_chart_dict(title=title, x=x, y=y, graph_type=graph_type,
+                                        color='#7e113a', line_color='#ffba13')
 
 
 def salary_for_years_of_exp(df):
@@ -56,8 +86,8 @@ def salary_for_years_of_exp(df):
     xaxis_title = 'Total Compensation'
     yaxis_title = 'Years of Professional Experience'
     title = 'Total Compensation for Years of Professional Experience'
-    return _generate_graph_dict(title=title, x=x, y=y, mode=mode, xaxis_title=xaxis_title, yaxis_title=yaxis_title,
-                                color='#fb000f', line_color='#042755')
+    return _generate_non_pie_chart_dict(title=title, x=x, y=y, mode=mode, xaxis_title=xaxis_title,
+                                        yaxis_title=yaxis_title, color='#fb000f', line_color='#042755')
 
 
 def tech_roles(df):
@@ -77,15 +107,16 @@ def tech_roles(df):
     y = [item[1] for item in sorted_role_pct_list]
     x = [item[0] for item in sorted_role_pct_list]
 
-    return _generate_graph_dict(x=x, y=y, graph_type='bar', xaxis_title=None,
-                                title='Percentage of Respondents who Identify with Tech Role', yaxis_title=None,
-                                color='#ff0900', line_color='#341b00')
+    return _generate_non_pie_chart_dict(x=x, y=y, graph_type='bar', xaxis_title=None,
+                                        title='Percentage of Respondents who Identify with Tech Role', yaxis_title=None,
+                                        color='#ff0900', line_color='#341b00')
 
 
 def compile_graph_data(df):
     graphs = (gender_count(df),
               salary_for_years_of_exp(df),
-              tech_roles(df))
+              tech_roles(df),
+              _generate_pie_chart_dict())
 
 
     # Add "ids" to each of the graphs
