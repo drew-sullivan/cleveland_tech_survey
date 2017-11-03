@@ -3,14 +3,19 @@ import operator
 import plotly
 
 
+CAVS_COLORS = ['#6F263D', '#FFB81C', '#041E42']
+INDIANS_COLORS = ['#D50032', '#0C2340', '#FFFFFF']
+BROWNS_COLORS = ['#EB3300', '#382F2D', '#FFFFFF']
+MONSTERS_COLORS = ['#004EA6', '#F8F9FB', '#000000', '#FFBA00', '#FFFFFF']
+
+
 def _get_list_from_multiple_field_entry(pd_series):
     pd_series = pd_series.dropna()
     return pd_series.str.split('|')
 
 
 def _generate_non_pie_chart_dict(title='Insert title here', x=None, y=None, mode=None, graph_type=None,
-                                 orientation=None, xaxis_title='Insert xaxis title here',
-                                 yaxis_title='Insert yaxis title here', color='#FF0000', line_width=2,
+                                 orientation=None, xaxis_title=None, yaxis_title=None, color='#FF0000', line_width=2,
                                  line_color='#ffba13'):
     graph = {
         'data': [
@@ -74,7 +79,7 @@ def gender_count(df):
     graph_type = 'bar'
     title = 'Gender Count'
     return _generate_non_pie_chart_dict(title=title, x=x, y=y, graph_type=graph_type,
-                                        color='#7e113a', line_color='#ffba13')
+                                        color=CAVS_COLORS[0], line_color=CAVS_COLORS[1])
 
 
 def salary_for_years_of_exp(df):
@@ -87,7 +92,7 @@ def salary_for_years_of_exp(df):
     yaxis_title = 'Years of Professional Experience'
     title = 'Total Compensation for Years of Professional Experience'
     return _generate_non_pie_chart_dict(title=title, x=x, y=y, mode=mode, xaxis_title=xaxis_title,
-                                        yaxis_title=yaxis_title, color='#fb000f', line_color='#042755')
+                                        yaxis_title=yaxis_title, color=INDIANS_COLORS[0], line_color=INDIANS_COLORS[1])
 
 
 def tech_roles(df):
@@ -109,7 +114,7 @@ def tech_roles(df):
 
     return _generate_non_pie_chart_dict(x=x, y=y, graph_type='bar', xaxis_title=None,
                                         title='Percentage of Respondents who Identify with Tech Role', yaxis_title=None,
-                                        color='#ff0900', line_color='#341b00')
+                                        color=BROWNS_COLORS[0], line_color=BROWNS_COLORS[1])
 
 
 def gender_percent(df):
@@ -117,14 +122,14 @@ def gender_percent(df):
     labels = gender_data.sort_index().index
     values = gender_data.round(2).sort_index().values
     return _generate_pie_chart_dict(title='Gender Breakdown', labels=labels, values=values,
-                                    colors=['#0e1945', '#7c2533', '#ffba13', '#d3d3d3'])
+                                    colors=CAVS_COLORS+['#d3d3d3'])
 
 
 def compile_graph_data(df):
     graphs = (gender_count(df),
+              gender_percent(df),
               salary_for_years_of_exp(df),
-              tech_roles(df),
-              gender_percent(df))
+              tech_roles(df))
 
 
     # Add "ids" to each of the graphs
