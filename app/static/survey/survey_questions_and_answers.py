@@ -59,7 +59,8 @@ survey_questions_and_answers = OrderedDict([
         "Computer science or software engineering",
         "Computer engineering or electrical/electronics engineering",
         "Computer programming or Web development",
-        "Engineering (non­computer­focused)",
+        "Engineering (non computer focused)",
+        "Economics",
         "Health science",
         "Humanities",
         "Information technology, networking, or system administration Management information systems",
@@ -71,15 +72,14 @@ survey_questions_and_answers = OrderedDict([
         "Other"
     ]),
     ("How You Learned to Code", [
-        "Self taught",
-        "Online course",
-        "On the job training",
-        "Open source contributions",
-        "Hackathon",
-        "Coding competition Part­time/evening course",
-        "Industry certification",
         "Bootcamp",
+        "Coding competition or part­time course",
         "College",
+        "Hackathon",
+        "Industry certification",
+        "Online course",
+        "Open source contributions",
+        "Self taught",
         "Other"
     ]),
     ("Primary Programming Languages Used at Work", [
@@ -158,6 +158,7 @@ survey_questions_and_answers = OrderedDict([
         "PyCharm",
         "RStudio",
         "RubyMine",
+        "Sublime Text",
         "TextMate",
         "Vim",
         "Visual Studio",
@@ -216,8 +217,12 @@ survey_questions_and_answers = OrderedDict([
         "Bureaucracy",
         "Loud workplace",
         "Overly­dependent junior developers",
+        "Negligent team leads/Managers",
+        "Unhelpful project managers",
         "Unknowledgeable middle management",
         "Unknowledgeable upper management",
+        "Always being 'on call'",
+        "Long work hours",
         "No natural light",
         "Nothing annoys me at work",
         "Other"
@@ -229,7 +234,10 @@ survey_questions_and_answers = OrderedDict([
         "Free or discounted food",
         "In office art",
         "Flexible hours",
-        "Other"
+        "Company Culture",
+        "Gym or health reimbursement",
+        "Other",
+        "Nothing"
     ]),
     ("What Keeps You in Cleveland", [
         "Pro Sports teams",
@@ -284,5 +292,12 @@ survey_questions_and_answers = OrderedDict([
         "Other"
     ])
 ])
+
+# v2 TODO:
+# Questions to add:
+# 1. Do you feel you are paid enough?
+# 2. How many hours do you work per week?
+# 3. If a customer calls at 4:55 and needs help, what do you do?
+# 4. Add comments section to end
 
 labels = [question.replace(' ', '_').lower() for question in survey_questions_and_answers.keys()]

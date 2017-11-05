@@ -10,7 +10,7 @@ from wtforms import StringField, TextAreaField, BooleanField, SelectField,\
 from wtforms.validators import DataRequired, Length, Email, Regexp
 from wtforms import ValidationError
 from ..models import Role, User
-from ..survey_questions_and_answers import survey_questions_and_answers
+from app.static.survey.survey_questions_and_answers import survey_questions_and_answers
 
 
 class NameForm(FlaskForm):
@@ -92,10 +92,3 @@ class EditSurveyForm(FlaskForm):
     favorite_cleveland_hangout_area = SelectField('24. Favorite Cleveland Hangout Area', choices=questions["Favorite Cleveland Hangout Area"])
     favorite_cleveland_activity = SelectField('25. Favorite Cleveland Activity', choices=questions["Favorite Cleveland Activity"])
     submit = SubmitField('Submit')
-
-
-
-
-
-
-
