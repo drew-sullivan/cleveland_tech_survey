@@ -175,7 +175,7 @@ def how_many_days_per_week_you_work_from_home(df):
     color_1 = 'wine'
     color_2 = 'gold'
     yaxis_title = 'Days Per Week'
-    return graph_tools.generate_single_response_horizontal_line_chart_dict(title=title, pd_series=pd_series,
+    return graph_tools.generate_multiple_response_horizontal_line_chart_dict(title=title, pd_series=pd_series,
                                                                            color_scheme=color_scheme,
                                                                            color_1=color_1, color_2=color_2,
                                                                            yaxis_title=yaxis_title)

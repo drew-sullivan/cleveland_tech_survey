@@ -93,22 +93,6 @@ def generate_multiple_response_horizontal_line_chart_dict(title='Title Here', pd
                                        xaxis_title=xaxis_title, yaxis_title=yaxis_title)
 
 
-def generate_single_response_horizontal_line_chart_dict(title='Title Here', pd_series=None, color_scheme=None,
-                                                        color_1=None, color_2=None,
-                                                        xaxis_title='Percentage of Respondents', yaxis_title=None):
-    pd_series = pd_series.dropna()
-    user_responses = pd_series.values
-    num_users = len(user_responses)
-    c = Counter(user_responses)
-    sorted_c = sorted(c.items())
-    percentages = _get_percentage_list(num_users, sorted_c)
-    labels = _get_labels(sorted_c)
-    color_1, color_2 = _get_colors(color_scheme, color_1, color_2)
-    return generate_non_pie_chart_dict(title=title, x=percentages, y=labels, graph_type='bar',
-                                       color=color_1, line_color=color_2, orientation='h', left_margin=210,
-                                       xaxis_title=xaxis_title, yaxis_title=yaxis_title)
-
-
 def generate_pie_chart_percentage_dict(title=None, colors=COLORS['cavaliers'].values() + ['#d3d3d3'], pd_series=None,
                                        suffix=''):
     pd_series = pd_series.dropna()
@@ -126,7 +110,8 @@ def _transform_strings_to_lists(pd_series):
     :param pd_series:
     :return list of lists:
     """
-    values_as_strings = pd_series.dropna().values
+    # values_as_strings = pd_series.dropna().values
+    values_as_strings = pd_series.dropna().values.astype(str)
     values_as_lists = [item.split('|') for item in values_as_strings]
     return values_as_lists
 
