@@ -92,10 +92,3 @@ class EditSurveyForm(FlaskForm):
     favorite_cleveland_hangout_area = SelectField('24. Favorite Cleveland Hangout Area', choices=questions["Favorite Cleveland Hangout Area"])
     favorite_cleveland_activity = SelectField('25. Favorite Cleveland Activity', choices=questions["Favorite Cleveland Activity"])
     submit = SubmitField('Submit')
-
-
-
-
-
-
-
