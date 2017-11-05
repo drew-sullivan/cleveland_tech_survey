@@ -15,7 +15,7 @@ def generate_non_pie_chart_dict(title='Insert title here', x=None, y=None, mode=
                                 orientation=None, xaxis_title=None, yaxis_title=None, text=None,
                                 color='#FF0000', line_width=2, line_color='#ffba13', left_margin=None,
                                 right_margin=None, top_margin=None, bottom_margin=None, xaxis_ticksuffix=None,
-                                xaxis_showticksuffix=None):
+                                xaxis_showticksuffix=None, yaxis_side=None):
     graph = {
         'data': [
             {
@@ -41,7 +41,8 @@ def generate_non_pie_chart_dict(title='Insert title here', x=None, y=None, mode=
                 'showticksuffix': xaxis_showticksuffix
             },
             'yaxis': {
-                'title': yaxis_title},
+                'title': yaxis_title,
+                'side': yaxis_side},
             'title': title,
             'margin': {
                 'l': left_margin,
@@ -84,14 +85,15 @@ def generate_pie_chart_dict(title='Insert Title Here', labels=['1st label', '2nd
 
 
 def generate_horizontal_line_chart_dict(title='Title Here', pd_series=None, color_scheme=None,
-                                        color_1=None, color_2=None,
-                                        xaxis_title='Percentage of Respondents', yaxis_title=None):
+                                        color_1=None, color_2=None, xaxis_title='Percentage of Respondents',
+                                        yaxis_title=None):
     user_responses = _transform_strings_to_lists(pd_series)
     num_users = len(user_responses)
     flat_list = itertools.chain.from_iterable(user_responses)
     c = Counter(flat_list)
     list_of_least_common_elements = c.most_common()
-    list_of_most_common_elements = list_of_least_common_elements[::-1]
+    list_of_most_common_elements = list_of_least_common_elements[::-1]\
+
     percentages = _get_percentage_list(num_users, list_of_most_common_elements)
     labels = _get_labels(list_of_most_common_elements)
     color_1, color_2 = _get_colors(color_scheme, color_1, color_2)

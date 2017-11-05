@@ -293,10 +293,11 @@ survey_questions_and_answers = OrderedDict([
     ])
 ])
 
-# TODO:
+# v2 TODO:
 # Questions to add:
 # 1. Do you feel you are paid enough?
 # 2. How many hours do you work per week?
 # 3. If a customer calls at 4:55 and needs help, what do you do?
+# 4. Add comments section to end
 
 labels = [question.replace(' ', '_').lower() for question in survey_questions_and_answers.keys()]

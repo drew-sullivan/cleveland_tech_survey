@@ -1,10 +1,9 @@
-import itertools
 import json
+
 import plotly
 
-from . import graph_tools
-from graph_tools import COLORS as color
-from collections import Counter
+from app.static.graphing import graph_tools
+from app.static.graphing.graph_tools import COLORS as color
 
 
 def gender_count(df):
@@ -152,22 +151,118 @@ def what_you_value_most_in_compensation(df):
     color_scheme = 'cavaliers'
     color_1 = 'wine'
     color_2 = 'gold'
-    return graph_tools.generate_horizontal_line_chart_dict(title=title, pd_series=pd_series,
-                                                           color_scheme=color_scheme,
+    return graph_tools.generate_horizontal_line_chart_dict(title=title, pd_series=pd_series, color_scheme=color_scheme,
                                                            color_1=color_1, color_2=color_2)
 
 
 def how_many_days_per_week_you_work_from_home(df):
-    pd_series = df['how_many_days_per_week_you_work_from_home']
     title = 'How Many Days Per Week You Work From Home'
+    pd_series = df['how_many_days_per_week_you_work_from_home']
     color_scheme = 'cavaliers'
     color_1 = 'wine'
     color_2 = 'gold'
     yaxis_title = 'Days Per Week'
-    return graph_tools.generate_horizontal_line_chart_dict(title=title, pd_series=pd_series,
-                                                           color_scheme=color_scheme,
-                                                           color_1=color_1, color_2=color_2,
-                                                           yaxis_title=yaxis_title)
+    return graph_tools.generate_horizontal_line_chart_dict(title=title, pd_series=pd_series, color_scheme=color_scheme,
+                                                           color_1=color_1, color_2=color_2, yaxis_title=yaxis_title)
+
+
+def company_size(df):
+    title = 'Company Size'
+    pd_series = df['company_size']
+    color_scheme = 'cavaliers'
+    color_1 = 'wine'
+    color_2 = 'gold'
+    return graph_tools.generate_horizontal_line_chart_dict(title=title, pd_series=pd_series, color_scheme=color_scheme,
+                                                           color_1=color_1, color_2=color_2)
+
+
+def job_satisfaction(df):
+    title = 'Job Satisfaction'
+    pd_series = df['job_satisfaction']
+    color_scheme = 'cavaliers'
+    color_1 = 'wine'
+    color_2 = 'gold'
+    yaxis_title = 'Deeply Unsatisfied --> Extremely Satisfied'
+    return graph_tools.generate_horizontal_line_chart_dict(title=title, pd_series=pd_series, color_scheme=color_scheme,
+                                                           color_1=color_1, color_2=color_2, yaxis_title=yaxis_title)
+
+
+def work_life_balance(df):
+    title = 'Work Life Balance'
+    pd_series = df['work_life_balance']
+    color_scheme = 'cavaliers'
+    color_1 = 'wine'
+    color_2 = 'gold'
+    yaxis_title = 'Non-Stop Work --> Extremely Flexible'
+    return graph_tools.generate_horizontal_line_chart_dict(title=title, pd_series=pd_series, color_scheme=color_scheme,
+                                                           color_1=color_1, color_2=color_2, yaxis_title=yaxis_title)
+
+
+def how_you_found_your_current_job(df):
+    title = 'How You Found Your Current Job'
+    pd_series = df['how_you_found_your_current_job']
+    color_scheme = 'cavaliers'
+    color_1 = 'wine'
+    color_2 = 'gold'
+    return graph_tools.generate_horizontal_line_chart_dict(title=title, pd_series=pd_series, color_scheme=color_scheme,
+                                                           color_1=color_1, color_2=color_2)
+
+
+def most_annoying_work_issue(df):
+    title = 'Most Annoying Work Issue'
+    pd_series = df['most_annoying_work_issue']
+    color_scheme = 'cavaliers'
+    color_1 = 'wine'
+    color_2 = 'gold'
+    return graph_tools.generate_horizontal_line_chart_dict(title=title, pd_series=pd_series, color_scheme=color_scheme,
+                                                           color_1=color_1, color_2=color_2)
+
+
+def favorite_office_perk(df):
+    title = 'Favorite Office Perk'
+    pd_series = df['favorite_office_perk']
+    color_scheme = 'cavaliers'
+    color_1 = 'wine'
+    color_2 = 'gold'
+    return graph_tools.generate_horizontal_line_chart_dict(title=title, pd_series=pd_series, color_scheme=color_scheme,
+                                                           color_1=color_1, color_2=color_2)
+
+
+def what_keeps_you_in_cleveland(df):
+    title = 'What Keeps You in Cleveland'
+    pd_series = df['what_keeps_you_in_cleveland']
+    color_scheme = 'cavaliers'
+    color_1 = 'wine'
+    color_2 = 'gold'
+    return graph_tools.generate_horizontal_line_chart_dict(title=title, pd_series=pd_series, color_scheme=color_scheme,
+                                                           color_1=color_1, color_2=color_2)
+
+
+def favorite_cleveland_pro_sports_team(df):
+    title = 'Favorite Cleveland Pro Sports Team'
+    colors = color['cavaliers'].values() + ['#d3d3d3']
+    pd_series = df['favorite_cleveland_pro_sports_team']
+    return graph_tools.generate_pie_chart_percentage_dict(title=title, colors=colors, pd_series=pd_series)
+
+
+def favorite_cleveland_hangout_area(df):
+    title = 'Favorite Cleveland Hangout Area'
+    pd_series = df['favorite_cleveland_hangout_area']
+    color_scheme = 'cavaliers'
+    color_1 = 'wine'
+    color_2 = 'gold'
+    return graph_tools.generate_horizontal_line_chart_dict(title=title, pd_series=pd_series, color_scheme=color_scheme,
+                                                           color_1=color_1, color_2=color_2)
+
+
+def favorite_cleveland_activity(df):
+    title = 'Favorite Cleveland Activity'
+    pd_series = df['favorite_cleveland_activity']
+    color_scheme = 'cavaliers'
+    color_1 = 'wine'
+    color_2 = 'gold'
+    return graph_tools.generate_horizontal_line_chart_dict(title=title, pd_series=pd_series, color_scheme=color_scheme,
+                                                           color_1=color_1, color_2=color_2)
 
 
 def compile_graph_data(df):
@@ -186,10 +281,20 @@ def compile_graph_data(df):
               undergraduate_major(df),
               how_you_learned_to_code(df),
               what_you_value_most_in_compensation(df),
-              how_many_days_per_week_you_work_from_home(df)
+              how_many_days_per_week_you_work_from_home(df),
+              company_size(df),
+              job_satisfaction(df),
+              work_life_balance(df),
+              how_you_found_your_current_job(df),
+              most_annoying_work_issue(df),
+              favorite_office_perk(df),
+              what_keeps_you_in_cleveland(df),
+              favorite_cleveland_pro_sports_team(df),
+              favorite_cleveland_hangout_area(df),
+              favorite_cleveland_activity(df)
               )
 
-    # Add "ids" to each of the graphs
+    # Add "ids" to each of the graphing
     ids = ['graph-{}'.format(i) for i, _ in enumerate(graphs)]
 
     # Convert the figures to JSON
