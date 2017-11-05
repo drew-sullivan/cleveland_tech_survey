@@ -12,9 +12,10 @@ COLORS = {
 
 
 def generate_non_pie_chart_dict(title='Insert title here', x=None, y=None, mode=None, graph_type=None,
-                                orientation=None, xaxis_title=None, yaxis_title=None, color='#FF0000', line_width=2,
-                                line_color='#ffba13', left_margin=None, right_margin=None, top_margin=None,
-                                bottom_margin=None):
+                                orientation=None, xaxis_title=None, yaxis_title=None, text=None,
+                                color='#FF0000', line_width=2, line_color='#ffba13', left_margin=None,
+                                right_margin=None, top_margin=None, bottom_margin=None, xaxis_ticksuffix=None,
+                                xaxis_showticksuffix=None):
     graph = {
         'data': [
             {
@@ -29,12 +30,18 @@ def generate_non_pie_chart_dict(title='Insert title here', x=None, y=None, mode=
                         'width': line_width,
                         'color': line_color
                     }
-                }
+                },
+                'text': text
             }
         ],
         'layout': {
-            'xaxis': {'title': xaxis_title},
-            'yaxis': {'title': yaxis_title},
+            'xaxis': {
+                'title': xaxis_title,
+                'ticksuffix': xaxis_ticksuffix,
+                'showticksuffix': xaxis_showticksuffix
+            },
+            'yaxis': {
+                'title': yaxis_title},
             'title': title,
             'margin': {
                 'l': left_margin,
@@ -76,9 +83,9 @@ def generate_pie_chart_dict(title='Insert Title Here', labels=['1st label', '2nd
     return pie_chart_dict
 
 
-def generate_multiple_response_horizontal_line_chart_dict(title='Title Here', pd_series=None, color_scheme=None,
-                                                          color_1=None, color_2=None,
-                                                          xaxis_title='Percentage of Respondents', yaxis_title=None):
+def generate_horizontal_line_chart_dict(title='Title Here', pd_series=None, color_scheme=None,
+                                        color_1=None, color_2=None,
+                                        xaxis_title='Percentage of Respondents', yaxis_title=None):
     user_responses = _transform_strings_to_lists(pd_series)
     num_users = len(user_responses)
     flat_list = itertools.chain.from_iterable(user_responses)
@@ -90,7 +97,8 @@ def generate_multiple_response_horizontal_line_chart_dict(title='Title Here', pd
     color_1, color_2 = _get_colors(color_scheme, color_1, color_2)
     return generate_non_pie_chart_dict(title=title, x=percentages, y=labels, graph_type='bar',
                                        color=color_1, line_color=color_2, orientation='h', left_margin=210,
-                                       xaxis_title=xaxis_title, yaxis_title=yaxis_title)
+                                       xaxis_title=xaxis_title, yaxis_title=yaxis_title, xaxis_ticksuffix='%',
+                                       xaxis_showticksuffix='all')
 
 
 def generate_pie_chart_percentage_dict(title=None, colors=COLORS['cavaliers'].values() + ['#d3d3d3'], pd_series=None,
@@ -110,14 +118,13 @@ def _transform_strings_to_lists(pd_series):
     :param pd_series:
     :return list of lists:
     """
-    # values_as_strings = pd_series.dropna().values
     values_as_strings = pd_series.dropna().values.astype(str)
     values_as_lists = [item.split('|') for item in values_as_strings]
     return values_as_lists
 
 
 def _get_percentage_list(num_users, list_of_items):
-    return [round(100 * float(item[1]) / float(num_users), 2) for item in list_of_items]
+    return ['{}%'.format(round(100 * float(item[1]) / float(num_users), 2)) for item in list_of_items]
 
 
 def _get_labels(list_of_items):

@@ -56,25 +56,14 @@ def salary_for_years_of_exp(df):
                                                    line_color=color['indians']['navy'])
 
 
-def salary_for_language(df):
-    sal_lang = df[
-        ['annual_amount_earned_from_all_tech_activities_combined', 'primary_programming_languages_used_at_work']].dropna()
-    salaries = sal_lang['annual_amount_earned_from_all_tech_activities_combined'].replace(
-        '[\$,)]', '', regex=True).replace('[(]', '-', regex=True).astype(float)
-    languages = sal_lang['primary_programming_languages_used_at_work']
-    languages_as_lists = graph_tools.transform_series_floats_to_ints(languages)
-    flat_list = itertools.chain.from_iterable(languages_as_lists)
-    c = Counter(flat_list)
-
-
 def tech_roles(df):
     title = 'Percentage of Respondents who Identify with Tech Role'
     pd_series = df['tech_roles']
     color_scheme = 'browns'
     color_1 = 'orange'
     color_2 = 'brown'
-    return graph_tools.generate_multiple_response_horizontal_line_chart_dict(title=title, pd_series=pd_series, color_scheme=color_scheme,
-                                                                             color_1=color_1, color_2=color_2)
+    return graph_tools.generate_horizontal_line_chart_dict(title=title, pd_series=pd_series, color_scheme=color_scheme,
+                                                           color_1=color_1, color_2=color_2)
 
 
 def most_common_languages(df):
@@ -83,8 +72,8 @@ def most_common_languages(df):
     color_scheme = 'cavaliers'
     color_1 = 'wine'
     color_2 = 'gold'
-    return graph_tools.generate_multiple_response_horizontal_line_chart_dict(title=title, pd_series=pd_series, color_scheme=color_scheme,
-                                                                             color_1=color_1, color_2=color_2)
+    return graph_tools.generate_horizontal_line_chart_dict(title=title, pd_series=pd_series, color_scheme=color_scheme,
+                                                           color_1=color_1, color_2=color_2)
 
 
 def most_common_db_technologies(df):
@@ -93,8 +82,8 @@ def most_common_db_technologies(df):
     color_scheme = 'browns'
     color_1 = 'brown'
     color_2 = 'orange'
-    return graph_tools.generate_multiple_response_horizontal_line_chart_dict(title=title, pd_series=pd_series, color_scheme=color_scheme,
-                                                                             color_1=color_1, color_2=color_2)
+    return graph_tools.generate_horizontal_line_chart_dict(title=title, pd_series=pd_series, color_scheme=color_scheme,
+                                                           color_1=color_1, color_2=color_2)
 
 
 def most_common_platform(df):
@@ -103,8 +92,8 @@ def most_common_platform(df):
     color_scheme = 'monsters'
     color_1 = 'blue'
     color_2 = 'wine'
-    return graph_tools.generate_multiple_response_horizontal_line_chart_dict(title=title, pd_series=pd_series, color_scheme=color_scheme,
-                                                                             color_1=color_1, color_2=color_2)
+    return graph_tools.generate_horizontal_line_chart_dict(title=title, pd_series=pd_series, color_scheme=color_scheme,
+                                                           color_1=color_1, color_2=color_2)
 
 
 def most_common_dev_env(df):
@@ -113,8 +102,8 @@ def most_common_dev_env(df):
     color_scheme = 'indians'
     color_1 = 'navy'
     color_2 = 'red'
-    return graph_tools.generate_multiple_response_horizontal_line_chart_dict(title=title, pd_series=pd_series, color_scheme=color_scheme,
-                                                                             color_1=color_1, color_2=color_2)
+    return graph_tools.generate_horizontal_line_chart_dict(title=title, pd_series=pd_series, color_scheme=color_scheme,
+                                                           color_1=color_1, color_2=color_2)
 
 
 def most_common_version_control(df):
@@ -123,8 +112,8 @@ def most_common_version_control(df):
     color_scheme = 'cavaliers'
     color_1 = 'wine'
     color_2 = 'gold'
-    return graph_tools.generate_multiple_response_horizontal_line_chart_dict(title=title, pd_series=pd_series, color_scheme=color_scheme,
-                                                                             color_1=color_1, color_2=color_2)
+    return graph_tools.generate_horizontal_line_chart_dict(title=title, pd_series=pd_series, color_scheme=color_scheme,
+                                                           color_1=color_1, color_2=color_2)
 
 
 def educational_attainment(df):
@@ -133,8 +122,8 @@ def educational_attainment(df):
     color_scheme = 'cavaliers'
     color_1 = 'wine'
     color_2 = 'gold'
-    return graph_tools.generate_multiple_response_horizontal_line_chart_dict(title=title, pd_series=pd_series, color_scheme=color_scheme,
-                                                                             color_1=color_1, color_2=color_2)
+    return graph_tools.generate_horizontal_line_chart_dict(title=title, pd_series=pd_series, color_scheme=color_scheme,
+                                                           color_1=color_1, color_2=color_2)
 
 
 def undergraduate_major(df):
@@ -143,8 +132,8 @@ def undergraduate_major(df):
     color_scheme = 'cavaliers'
     color_1 = 'wine'
     color_2 = 'gold'
-    return graph_tools.generate_multiple_response_horizontal_line_chart_dict(title=title, pd_series=pd_series, color_scheme=color_scheme,
-                                                                             color_1=color_1, color_2=color_2)
+    return graph_tools.generate_horizontal_line_chart_dict(title=title, pd_series=pd_series, color_scheme=color_scheme,
+                                                           color_1=color_1, color_2=color_2)
 
 
 def how_you_learned_to_code(df):
@@ -153,8 +142,8 @@ def how_you_learned_to_code(df):
     color_scheme = 'cavaliers'
     color_1 = 'wine'
     color_2 = 'gold'
-    return graph_tools.generate_multiple_response_horizontal_line_chart_dict(title=title, pd_series=pd_series, color_scheme=color_scheme,
-                                                                             color_1=color_1, color_2=color_2)
+    return graph_tools.generate_horizontal_line_chart_dict(title=title, pd_series=pd_series, color_scheme=color_scheme,
+                                                           color_1=color_1, color_2=color_2)
 
 
 def what_you_value_most_in_compensation(df):
@@ -163,9 +152,9 @@ def what_you_value_most_in_compensation(df):
     color_scheme = 'cavaliers'
     color_1 = 'wine'
     color_2 = 'gold'
-    return graph_tools.generate_multiple_response_horizontal_line_chart_dict(title=title, pd_series=pd_series,
-                                                                             color_scheme=color_scheme,
-                                                                             color_1=color_1, color_2=color_2)
+    return graph_tools.generate_horizontal_line_chart_dict(title=title, pd_series=pd_series,
+                                                           color_scheme=color_scheme,
+                                                           color_1=color_1, color_2=color_2)
 
 
 def how_many_days_per_week_you_work_from_home(df):
@@ -175,11 +164,10 @@ def how_many_days_per_week_you_work_from_home(df):
     color_1 = 'wine'
     color_2 = 'gold'
     yaxis_title = 'Days Per Week'
-    return graph_tools.generate_multiple_response_horizontal_line_chart_dict(title=title, pd_series=pd_series,
-                                                                           color_scheme=color_scheme,
-                                                                           color_1=color_1, color_2=color_2,
-                                                                           yaxis_title=yaxis_title)
-
+    return graph_tools.generate_horizontal_line_chart_dict(title=title, pd_series=pd_series,
+                                                           color_scheme=color_scheme,
+                                                           color_1=color_1, color_2=color_2,
+                                                           yaxis_title=yaxis_title)
 
 
 def compile_graph_data(df):
