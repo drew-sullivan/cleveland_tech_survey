@@ -241,8 +241,7 @@ def favorite_cleveland_activity(pd_series):
 
 
 def compile_graph_data(df):
-    graphs = (
-              tech_roles(df['tech_roles']),
+    graphs = (tech_roles(df['tech_roles']),
               years_of_pro_experience(df['years_of_professional_experience']),
               gender_count(df['gender']),
               gender_by_percent(df['gender']),
@@ -250,16 +249,13 @@ def compile_graph_data(df):
               educational_attainment(df['highest_educational_attainment']),
               undergraduate_major(df['undergraduate_major']),
               how_you_learned_to_code(df['how_you_learned_to_code']),
-
               most_common_languages(df['primary_programming_languages_used_at_work']),
               most_common_db_technologies(df['primary_database_technologies_used_at_work']),
               most_common_platform(df['primary_platforms_used_at_work']),
               most_common_dev_env(df['primary_development_environments_used_at_work']),
               most_common_version_control(df['primary_version_control_systems_used_at_work']),
-
               salary_for_years_of_exp(df[['annual_amount_earned_from_all_tech_activities_combined',
                                           'years_of_professional_experience']]),
-
               what_you_value_most_in_compensation(df['what_you_value_most_in_compensation']),
               how_many_days_per_week_you_work_from_home(df['how_many_days_per_week_you_work_from_home']),
               company_size(df['company_size']),
@@ -268,12 +264,10 @@ def compile_graph_data(df):
               how_you_found_your_current_job(df['how_you_found_your_current_job']),
               most_annoying_work_issue(df['most_annoying_work_issue']),
               favorite_office_perk(df['favorite_office_perk']),
-
               what_keeps_you_in_cleveland(df['what_keeps_you_in_cleveland']),
               favorite_cleveland_pro_sports_team(df['favorite_cleveland_pro_sports_team']),
               favorite_cleveland_hangout_area(df['favorite_cleveland_hangout_area']),
-              favorite_cleveland_activity(df['favorite_cleveland_activity'])
-              )
+              favorite_cleveland_activity(df['favorite_cleveland_activity']))
 
     # Add "ids" to each of the graphing
     ids = ['graph-{}'.format(i) for i, _ in enumerate(graphs)]
