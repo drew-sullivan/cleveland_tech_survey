@@ -14,7 +14,7 @@
             {% for id, title in ids_and_titles %}
             <a href="#{{ id }}">{{ title }}</a>
             {% endfor %}
-            <a href="#top">Top</a>
+            <a href="#">Top</a>
         </li>
     </ul>
 </nav>
@@ -57,10 +57,6 @@ $(document).ready(function() {
         }
     });
 })
-$("a[href='#top']").click(function() {
-    $("html, body").animate({ scrollTop: 0 }, "slow");
-    return false;
-});
 </script>
 {% endblock %}
 
