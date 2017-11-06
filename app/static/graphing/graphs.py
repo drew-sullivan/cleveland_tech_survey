@@ -266,20 +266,28 @@ def favorite_cleveland_activity(df):
 
 
 def compile_graph_data(df):
-    graphs = (gender_count(df),
-              gender_by_percent(df),
-              salary_for_years_of_exp(df),
+    graphs = (
+              # User Profile
               tech_roles(df),
+              years_of_pro_experience(df),
+              gender_count(df),
+              gender_by_percent(df),
+              ethnicities(df),
+              educational_attainment(df),
+              undergraduate_major(df),
+              how_you_learned_to_code(df),
+
+              # Technology
               most_common_languages(df),
               most_common_db_technologies(df),
               most_common_platform(df),
               most_common_dev_env(df),
               most_common_version_control(df),
-              years_of_pro_experience(df),
-              ethnicities(df),
-              educational_attainment(df),
-              undergraduate_major(df),
-              how_you_learned_to_code(df),
+
+              # Money
+              salary_for_years_of_exp(df),
+
+              # At Work
               what_you_value_most_in_compensation(df),
               how_many_days_per_week_you_work_from_home(df),
               company_size(df),
@@ -288,6 +296,8 @@ def compile_graph_data(df):
               how_you_found_your_current_job(df),
               most_annoying_work_issue(df),
               favorite_office_perk(df),
+
+              # Cleveland
               what_keeps_you_in_cleveland(df),
               favorite_cleveland_pro_sports_team(df),
               favorite_cleveland_hangout_area(df),

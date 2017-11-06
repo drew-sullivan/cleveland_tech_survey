@@ -8,9 +8,18 @@
     <h1>Welcome to the Cleveland Tech Survey!</h1>
     <h4>Total Respondents: {{ num_respondents }}</h4>
 </div>
-<div>
+<!-- Nav tabs -->
+<ul id="myTab" class="nav nav-tabs" role="tablist">
     {% for id in ids %}
+    <li role="presentation"><a href="#{{ id }}-graph" aria-controls="{{ id }}-graph" role="tab" data-toggle="tab">{{ id }}-graph</a></li>
+    {% endfor %}
+</ul>
+<!-- Tab panes -->
+<div class="tab-content">
+    {% for id in ids %}
+    <div role="tabpanel" class="tab-pane" id="{{ id }}-graph">
         <div id="{{ id }}"></div>
+    </div>
     {% endfor %}
 </div>
 {% endblock %}
@@ -25,14 +34,13 @@
     <script src="https://d14fo0winaifog.cloudfront.net/plotly-basic.js"></script>
 
     <script type="text/javascript">
-        var graphs = {{graphJSON | safe}};
-        var ids = {{ids | safe}};
-        for(var i in graphs) {
-            Plotly.plot(ids[i], // the ID of the div, created above
-                        graphs[i].data,
-                        graphs[i].layout || {});
+        var graphs = {{ graphJSON | safe }};
+        var ids = {{ ids | safe }};
+        for(var id in graphs) {
+            Plotly.plot(ids[id],
+                graphs[id].data,
+                graphs[id].layout || {});
         }
     </script>
-<!--https://plot.ly/javascript/responsive-fluid-layout/-->
 {% endblock %}
 
