@@ -18,3 +18,9 @@ li label {
 footer {
     margin-bottom: 12px;
 }
+
+.affix {
+    top: 20px;
+    z-index: 9999 !important;
+    width: 250px;
+}

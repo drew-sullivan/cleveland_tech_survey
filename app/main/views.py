@@ -16,8 +16,8 @@ def index():
     users = User.query.filter_by().all()
     num_respondents = len(users)
     df = get_user_data_df(users)
-    ids, graphJSON = compile_graph_data(df)
-    return render_template('index.html', ids=ids, graphJSON=graphJSON, num_respondents=num_respondents)
+    ids, ids_and_titles, graphJSON = compile_graph_data(df)
+    return render_template('index.html', ids=ids, ids_and_titles=ids_and_titles, graphJSON=graphJSON, num_respondents=num_respondents)
 
 
 @main.route('/user/<username>')

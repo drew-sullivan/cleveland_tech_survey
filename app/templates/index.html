@@ -6,20 +6,18 @@
 {% block page_content %}
 <div class="page-header">
     <h1>Welcome to the Cleveland Tech Survey!</h1>
-    <h4>Total Respondents: {{ num_respondents }}</h4>
+    <h3>Total Respondents: {{ num_respondents }}</h3>
 </div>
-<!-- Nav tabs -->
-<ul id="myTab" class="nav nav-tabs" role="tablist">
-    {% for id in ids %}
-    <li role="presentation"><a href="#{{ id }}-graph" aria-controls="{{ id }}-graph" role="tab" data-toggle="tab">{{ id }}-graph</a></li>
-    {% endfor %}
-</ul>
-<!-- Tab panes -->
-<div class="tab-content">
-    {% for id in ids %}
-    <div role="tabpanel" class="tab-pane" id="{{ id }}-graph">
-        <div id="{{ id }}"></div>
-    </div>
+<nav class="col-sm-3" id="myScrollspy">
+    <ul class="affix-top" data-spy="affix" data-offset-top="205">
+        {% for id, title in ids_and_titles %}
+        <li><a href="#{{ id }}">{{ title }}</a></li>
+        {% endfor %}
+    </ul>
+</nav>
+<div class="col-md-9 pull-right">
+    {% for id, title in ids_and_titles %}
+    <div id="{{ id }}"></div>
     {% endfor %}
 </div>
 {% endblock %}
