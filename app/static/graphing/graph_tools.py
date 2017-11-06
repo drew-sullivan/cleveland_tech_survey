@@ -87,8 +87,8 @@ def generate_pie_chart_dict(title='Insert Title Here', labels=['1st label', '2nd
     return pie_chart_dict
 
 
-def generate_horizontal_line_chart_dict(title='Title Here', pd_series=None, color_scheme=None,
-                                        xaxis_title='Percentage of Respondents', yaxis_title=None):
+def generate_horizontal_line_chart_dict(title='Title Here', pd_series=None, xaxis_title='Percentage of Respondents',
+                                        yaxis_title=None):
     user_responses = _transform_strings_to_lists(pd_series)
     num_users = len(user_responses)
     flat_list = itertools.chain.from_iterable(user_responses)
