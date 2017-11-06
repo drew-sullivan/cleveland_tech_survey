@@ -31,7 +31,7 @@ footer {
 }
 
 .graph-nav>li>a {
-    padding: 5px;
+    padding: 0 0 1px 0;
 }
 
 a, a:hover {

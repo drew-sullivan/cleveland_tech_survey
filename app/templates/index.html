@@ -39,8 +39,10 @@
     var ids = {{ ids | safe }};
     for(var id in graphs) {
         Plotly.plot(ids[id],
-            graphs[id].data,
-            graphs[id].layout || {});
+                    graphs[id].data,
+                    graphs[id].layout,
+                    {showLink: false,
+                    displayModeBar: false});
     }
 </script>
 <script>

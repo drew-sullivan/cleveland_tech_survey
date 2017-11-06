@@ -50,7 +50,8 @@ def generate_non_pie_chart_dict(title='Insert title here', x=None, y=None, mode=
                 't': top_margin,
                 'b': bottom_margin
             }
-        }
+        },
+        'show_link': False
     }
     return graph
 
@@ -79,7 +80,8 @@ def generate_pie_chart_dict(title='Insert Title Here', labels=['1st label', '2nd
         'layout': {
             'title': title,
             'showlegend': showlegend
-        }
+        },
+        'show_link': False
     }
     return pie_chart_dict
 
