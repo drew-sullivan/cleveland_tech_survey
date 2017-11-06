@@ -19,17 +19,21 @@ footer {
     margin-bottom: 12px;
 }
 
-.affix {
+.affix, .affix-top {
     top: 20px;
     z-index: 9999 !important;
     width: 250px;
     padding-left: 0;
 }
 
-.affix-top {
+#myScrollspy {
     padding-left: 0;
 }
 
-#myScrollspy {
-    padding-left: 0;
+.graph-nav>li>a {
+    padding: 5px;
+}
+
+a, a:hover {
+    color: inherit;
 }

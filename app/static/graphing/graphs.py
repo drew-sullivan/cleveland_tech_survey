@@ -39,13 +39,13 @@ def ethnicities(pd_series):
 
 
 def salary_for_years_of_exp(pd_series):
+    title = 'Compensation for Years of Professional Experience'
     sal_exp = (pd_series.replace('[\$,)]', '', regex=True).replace('[(]', '-', regex=True).astype(float))
     x = sal_exp['annual_amount_earned_from_all_tech_activities_combined']
     y = sal_exp['years_of_professional_experience']
     mode = 'markers'
     xaxis_title = 'Total Compensation'
     yaxis_title = 'Years of Professional Experience'
-    title = 'Total Compensation for Years of Professional Experience'
     return graph_tools.generate_non_pie_chart_dict(title=title, x=x, y=y, mode=mode, xaxis_title=xaxis_title,
                                                    yaxis_title=yaxis_title, color=color['indians']['red'],
                                                    line_color=color['indians']['navy'])
@@ -61,7 +61,7 @@ def tech_roles(pd_series):
 
 
 def most_common_languages(pd_series):
-    title = 'Most Common Programming Languages Used'
+    title = 'Programming Languages Used'
     color_scheme = 'cavaliers'
     color_1 = 'wine'
     color_2 = 'gold'
@@ -70,7 +70,7 @@ def most_common_languages(pd_series):
 
 
 def most_common_db_technologies(pd_series):
-    title = 'Most Common Database Technologies Used'
+    title = 'Database Technologies Used'
     color_scheme = 'browns'
     color_1 = 'brown'
     color_2 = 'orange'
@@ -79,7 +79,7 @@ def most_common_db_technologies(pd_series):
 
 
 def most_common_platform(pd_series):
-    title = 'Most Common Platforms Used'
+    title = 'Platforms Used'
     color_scheme = 'monsters'
     color_1 = 'blue'
     color_2 = 'wine'
@@ -88,7 +88,7 @@ def most_common_platform(pd_series):
 
 
 def most_common_dev_env(pd_series):
-    title = 'Most Common Development Environments Used'
+    title = 'Development Environments Used'
     color_scheme = 'indians'
     color_1 = 'navy'
     color_2 = 'red'
@@ -97,7 +97,7 @@ def most_common_dev_env(pd_series):
 
 
 def most_common_version_control(pd_series):
-    title = 'Most Common Version Control Systems Used'
+    title = 'Version Control Systems Used'
     color_scheme = 'cavaliers'
     color_1 = 'wine'
     color_2 = 'gold'
@@ -124,7 +124,7 @@ def undergraduate_major(pd_series):
 
 
 def how_you_learned_to_code(pd_series):
-    title = 'How You Learned to Code'
+    title = 'Learning to Code'
     color_scheme = 'cavaliers'
     color_1 = 'wine'
     color_2 = 'gold'
@@ -133,7 +133,7 @@ def how_you_learned_to_code(pd_series):
 
 
 def what_you_value_most_in_compensation(pd_series):
-    title = 'What You Value Most in Compensation'
+    title = 'Most Valued Compensation'
     color_scheme = 'cavaliers'
     color_1 = 'wine'
     color_2 = 'gold'
@@ -142,7 +142,7 @@ def what_you_value_most_in_compensation(pd_series):
 
 
 def how_many_days_per_week_you_work_from_home(pd_series):
-    title = 'How Many Days Per Week You Work From Home'
+    title = 'Remote Work Per Week'
     color_scheme = 'cavaliers'
     color_1 = 'wine'
     color_2 = 'gold'
@@ -217,7 +217,7 @@ def what_keeps_you_in_cleveland(pd_series):
 
 
 def favorite_cleveland_pro_sports_team(pd_series):
-    title = 'Favorite Cleveland Pro Sports Team'
+    title = 'Favorite Cleveland Sports Team'
     colors = color['cavaliers'].values() + ['#d3d3d3']
     return graph_tools.generate_pie_chart_percentage_dict(title=title, colors=colors, pd_series=pd_series)
 

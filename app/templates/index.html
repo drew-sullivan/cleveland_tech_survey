@@ -9,10 +9,13 @@
     <h3>Total Respondents: {{ num_respondents }}</h3>
 </div>
 <nav class="col-sm-3" id="myScrollspy">
-    <ul class="affix-top" data-spy="affix" data-offset-top="205">
-        {% for id, title in ids_and_titles %}
-        <li><a href="#{{ id }}">{{ title }}</a></li>
-        {% endfor %}
+    <ul class="nav graph-nav flex-column affix-top" data-spy="affix" data-offset-top="205">
+        <li>
+            {% for id, title in ids_and_titles %}
+            <a href="#{{ id }}">{{ title }}</a>
+            {% endfor %}
+            <a href="#top">Top</a>
+        </li>
     </ul>
 </nav>
 <div class="col-md-9 pull-right">
@@ -24,21 +27,40 @@
 
 {% block scripts %}
 {{ super() }}
-    <!-- D3.js -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/3.5.6/d3.min.js"></script>
-    <!-- jQuery -->
-    <script src="https://code.jquery.com/jquery-2.1.4.min.js"></script>
-    <!-- Plotly.js -->
-    <script src="https://d14fo0winaifog.cloudfront.net/plotly-basic.js"></script>
+<!-- D3.js -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/d3/3.5.6/d3.min.js"></script>
+<!-- jQuery -->
+<script src="https://code.jquery.com/jquery-2.1.4.min.js"></script>
+<!-- Plotly.js -->
+<script src="https://d14fo0winaifog.cloudfront.net/plotly-basic.js"></script>
 
-    <script type="text/javascript">
-        var graphs = {{ graphJSON | safe }};
-        var ids = {{ ids | safe }};
-        for(var id in graphs) {
-            Plotly.plot(ids[id],
-                graphs[id].data,
-                graphs[id].layout || {});
+<script type="text/javascript">
+    var graphs = {{ graphJSON | safe }};
+    var ids = {{ ids | safe }};
+    for(var id in graphs) {
+        Plotly.plot(ids[id],
+            graphs[id].data,
+            graphs[id].layout || {});
+    }
+</script>
+<script>
+$(document).ready(function() {
+    $("nav a").on('click', function(event) {
+        if (this.hash !== "") {
+            event.preventDefault();
+            var hash = this.hash;
+            $('html, body').animate({
+                scrollTop: $(hash).offset().top
+            }, 333, function() {
+                window.location.hash = hash;
+            });
         }
-    </script>
+    });
+})
+$("a[href='#top']").click(function() {
+    $("html, body").animate({ scrollTop: 0 }, "slow");
+    return false;
+});
+</script>
 {% endblock %}
 
