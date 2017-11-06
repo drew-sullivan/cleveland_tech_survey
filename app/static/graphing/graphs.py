@@ -6,8 +6,8 @@ from app.static.graphing import graph_tools
 from app.static.graphing.graph_tools import COLORS as color
 
 
-def gender_count(df):
-    g = df['gender'].value_counts()
+def gender_count(pd_series):
+    g = pd_series.value_counts()
     g.sort_index(inplace=True)
     x = g.index
     y = g.values
@@ -18,32 +18,28 @@ def gender_count(df):
                                                    line_color=color['cavaliers']['gold'])
 
 
-def gender_by_percent(df):
+def gender_by_percent(pd_series):
     title = 'Gender by Percent'
     colors = color['cavaliers'].values() + ['#d3d3d3']
-    pd_series = df['gender']
     return graph_tools.generate_pie_chart_percentage_dict(title=title, colors=colors, pd_series=pd_series)
 
 
-def years_of_pro_experience(df):
+def years_of_pro_experience(pd_series):
     title = 'Range of Experience'
     colors = color['cavaliers'].values() + ['#d3d3d3']
-    pd_series = df['years_of_professional_experience']
     suffix = ' year(s)'
     return graph_tools.generate_pie_chart_percentage_dict(title=title, colors=colors, pd_series=pd_series,
                                                           suffix=suffix)
 
 
-def ethnicities(df):
+def ethnicities(pd_series):
     title = 'Ethnicities'
     colors = color['cavaliers'].values() + ['#d3d3d3']
-    pd_series = df['ethnicity']
     return graph_tools.generate_pie_chart_percentage_dict(title=title, colors=colors, pd_series=pd_series)
 
 
-def salary_for_years_of_exp(df):
-    sal_exp = (df[['annual_amount_earned_from_all_tech_activities_combined', 'years_of_professional_experience']].replace(
-                   '[\$,)]', '', regex=True).replace('[(]', '-', regex=True).astype(float))
+def salary_for_years_of_exp(pd_series):
+    sal_exp = (pd_series.replace('[\$,)]', '', regex=True).replace('[(]', '-', regex=True).astype(float))
     x = sal_exp['annual_amount_earned_from_all_tech_activities_combined']
     y = sal_exp['years_of_professional_experience']
     mode = 'markers'
@@ -55,9 +51,8 @@ def salary_for_years_of_exp(df):
                                                    line_color=color['indians']['navy'])
 
 
-def tech_roles(df):
+def tech_roles(pd_series):
     title = 'Percentage of Respondents who Identify with Tech Role'
-    pd_series = df['tech_roles']
     color_scheme = 'browns'
     color_1 = 'orange'
     color_2 = 'brown'
@@ -65,9 +60,8 @@ def tech_roles(df):
                                                            color_1=color_1, color_2=color_2)
 
 
-def most_common_languages(df):
+def most_common_languages(pd_series):
     title = 'Most Common Programming Languages Used'
-    pd_series = df['primary_programming_languages_used_at_work']
     color_scheme = 'cavaliers'
     color_1 = 'wine'
     color_2 = 'gold'
@@ -75,9 +69,8 @@ def most_common_languages(df):
                                                            color_1=color_1, color_2=color_2)
 
 
-def most_common_db_technologies(df):
+def most_common_db_technologies(pd_series):
     title = 'Most Common Database Technologies Used'
-    pd_series = df['primary_database_technologies_used_at_work']
     color_scheme = 'browns'
     color_1 = 'brown'
     color_2 = 'orange'
@@ -85,9 +78,8 @@ def most_common_db_technologies(df):
                                                            color_1=color_1, color_2=color_2)
 
 
-def most_common_platform(df):
+def most_common_platform(pd_series):
     title = 'Most Common Platforms Used'
-    pd_series = df['primary_platforms_used_at_work']
     color_scheme = 'monsters'
     color_1 = 'blue'
     color_2 = 'wine'
@@ -95,9 +87,8 @@ def most_common_platform(df):
                                                            color_1=color_1, color_2=color_2)
 
 
-def most_common_dev_env(df):
+def most_common_dev_env(pd_series):
     title = 'Most Common Development Environments Used'
-    pd_series = df['primary_development_environments_used_at_work']
     color_scheme = 'indians'
     color_1 = 'navy'
     color_2 = 'red'
@@ -105,9 +96,8 @@ def most_common_dev_env(df):
                                                            color_1=color_1, color_2=color_2)
 
 
-def most_common_version_control(df):
+def most_common_version_control(pd_series):
     title = 'Most Common Version Control Systems Used'
-    pd_series = df['primary_version_control_systems_used_at_work']
     color_scheme = 'cavaliers'
     color_1 = 'wine'
     color_2 = 'gold'
@@ -115,9 +105,8 @@ def most_common_version_control(df):
                                                            color_1=color_1, color_2=color_2)
 
 
-def educational_attainment(df):
+def educational_attainment(pd_series):
     title = 'Educational Attainment'
-    pd_series = df['highest_educational_attainment']
     color_scheme = 'cavaliers'
     color_1 = 'wine'
     color_2 = 'gold'
@@ -125,9 +114,8 @@ def educational_attainment(df):
                                                            color_1=color_1, color_2=color_2)
 
 
-def undergraduate_major(df):
+def undergraduate_major(pd_series):
     title = 'Undergraduate Major'
-    pd_series = df['undergraduate_major']
     color_scheme = 'cavaliers'
     color_1 = 'wine'
     color_2 = 'gold'
@@ -135,9 +123,8 @@ def undergraduate_major(df):
                                                            color_1=color_1, color_2=color_2)
 
 
-def how_you_learned_to_code(df):
+def how_you_learned_to_code(pd_series):
     title = 'How You Learned to Code'
-    pd_series = df['how_you_learned_to_code']
     color_scheme = 'cavaliers'
     color_1 = 'wine'
     color_2 = 'gold'
@@ -145,9 +132,8 @@ def how_you_learned_to_code(df):
                                                            color_1=color_1, color_2=color_2)
 
 
-def what_you_value_most_in_compensation(df):
+def what_you_value_most_in_compensation(pd_series):
     title = 'What You Value Most in Compensation'
-    pd_series = df['what_you_value_most_in_compensation']
     color_scheme = 'cavaliers'
     color_1 = 'wine'
     color_2 = 'gold'
@@ -155,9 +141,8 @@ def what_you_value_most_in_compensation(df):
                                                            color_1=color_1, color_2=color_2)
 
 
-def how_many_days_per_week_you_work_from_home(df):
+def how_many_days_per_week_you_work_from_home(pd_series):
     title = 'How Many Days Per Week You Work From Home'
-    pd_series = df['how_many_days_per_week_you_work_from_home']
     color_scheme = 'cavaliers'
     color_1 = 'wine'
     color_2 = 'gold'
@@ -166,9 +151,8 @@ def how_many_days_per_week_you_work_from_home(df):
                                                            color_1=color_1, color_2=color_2, yaxis_title=yaxis_title)
 
 
-def company_size(df):
+def company_size(pd_series):
     title = 'Company Size'
-    pd_series = df['company_size']
     color_scheme = 'cavaliers'
     color_1 = 'wine'
     color_2 = 'gold'
@@ -176,9 +160,8 @@ def company_size(df):
                                                            color_1=color_1, color_2=color_2)
 
 
-def job_satisfaction(df):
+def job_satisfaction(pd_series):
     title = 'Job Satisfaction'
-    pd_series = df['job_satisfaction']
     color_scheme = 'cavaliers'
     color_1 = 'wine'
     color_2 = 'gold'
@@ -187,9 +170,8 @@ def job_satisfaction(df):
                                                            color_1=color_1, color_2=color_2, yaxis_title=yaxis_title)
 
 
-def work_life_balance(df):
+def work_life_balance(pd_series):
     title = 'Work Life Balance'
-    pd_series = df['work_life_balance']
     color_scheme = 'cavaliers'
     color_1 = 'wine'
     color_2 = 'gold'
@@ -198,9 +180,8 @@ def work_life_balance(df):
                                                            color_1=color_1, color_2=color_2, yaxis_title=yaxis_title)
 
 
-def how_you_found_your_current_job(df):
+def how_you_found_your_current_job(pd_series):
     title = 'How You Found Your Current Job'
-    pd_series = df['how_you_found_your_current_job']
     color_scheme = 'cavaliers'
     color_1 = 'wine'
     color_2 = 'gold'
@@ -208,9 +189,8 @@ def how_you_found_your_current_job(df):
                                                            color_1=color_1, color_2=color_2)
 
 
-def most_annoying_work_issue(df):
+def most_annoying_work_issue(pd_series):
     title = 'Most Annoying Work Issue'
-    pd_series = df['most_annoying_work_issue']
     color_scheme = 'cavaliers'
     color_1 = 'wine'
     color_2 = 'gold'
@@ -218,9 +198,8 @@ def most_annoying_work_issue(df):
                                                            color_1=color_1, color_2=color_2)
 
 
-def favorite_office_perk(df):
+def favorite_office_perk(pd_series):
     title = 'Favorite Office Perk'
-    pd_series = df['favorite_office_perk']
     color_scheme = 'cavaliers'
     color_1 = 'wine'
     color_2 = 'gold'
@@ -228,9 +207,8 @@ def favorite_office_perk(df):
                                                            color_1=color_1, color_2=color_2)
 
 
-def what_keeps_you_in_cleveland(df):
+def what_keeps_you_in_cleveland(pd_series):
     title = 'What Keeps You in Cleveland'
-    pd_series = df['what_keeps_you_in_cleveland']
     color_scheme = 'cavaliers'
     color_1 = 'wine'
     color_2 = 'gold'
@@ -238,16 +216,14 @@ def what_keeps_you_in_cleveland(df):
                                                            color_1=color_1, color_2=color_2)
 
 
-def favorite_cleveland_pro_sports_team(df):
+def favorite_cleveland_pro_sports_team(pd_series):
     title = 'Favorite Cleveland Pro Sports Team'
     colors = color['cavaliers'].values() + ['#d3d3d3']
-    pd_series = df['favorite_cleveland_pro_sports_team']
     return graph_tools.generate_pie_chart_percentage_dict(title=title, colors=colors, pd_series=pd_series)
 
 
-def favorite_cleveland_hangout_area(df):
+def favorite_cleveland_hangout_area(pd_series):
     title = 'Favorite Cleveland Hangout Area'
-    pd_series = df['favorite_cleveland_hangout_area']
     color_scheme = 'cavaliers'
     color_1 = 'wine'
     color_2 = 'gold'
@@ -255,9 +231,8 @@ def favorite_cleveland_hangout_area(df):
                                                            color_1=color_1, color_2=color_2)
 
 
-def favorite_cleveland_activity(df):
+def favorite_cleveland_activity(pd_series):
     title = 'Favorite Cleveland Activity'
-    pd_series = df['favorite_cleveland_activity']
     color_scheme = 'cavaliers'
     color_1 = 'wine'
     color_2 = 'gold'
@@ -268,40 +243,40 @@ def favorite_cleveland_activity(df):
 def compile_graph_data(df):
     graphs = (
               # User Profile
-              tech_roles(df),
-              years_of_pro_experience(df),
-              gender_count(df),
-              gender_by_percent(df),
-              ethnicities(df),
-              educational_attainment(df),
-              undergraduate_major(df),
-              how_you_learned_to_code(df),
+              tech_roles(df['tech_roles']),
+              years_of_pro_experience(df['years_of_professional_experience']),
+              gender_count(df['gender']),
+              gender_by_percent(df['gender']),
+              ethnicities(df['ethnicity']),
+              educational_attainment(df['highest_educational_attainment']),
+              undergraduate_major(df['undergraduate_major']),
+              how_you_learned_to_code(df['how_you_learned_to_code']),
 
               # Technology
-              most_common_languages(df),
-              most_common_db_technologies(df),
-              most_common_platform(df),
-              most_common_dev_env(df),
-              most_common_version_control(df),
+              most_common_languages(df['primary_programming_languages_used_at_work']),
+              most_common_db_technologies(df['primary_database_technologies_used_at_work']),
+              most_common_platform(df['primary_platforms_used_at_work']),
+              most_common_dev_env(df['primary_development_environments_used_at_work']),
+              most_common_version_control(df['primary_version_control_systems_used_at_work']),
 
               # Money
-              salary_for_years_of_exp(df),
+              salary_for_years_of_exp(df[['annual_amount_earned_from_all_tech_activities_combined', 'years_of_professional_experience']]),
 
               # At Work
-              what_you_value_most_in_compensation(df),
-              how_many_days_per_week_you_work_from_home(df),
-              company_size(df),
-              job_satisfaction(df),
-              work_life_balance(df),
-              how_you_found_your_current_job(df),
-              most_annoying_work_issue(df),
-              favorite_office_perk(df),
+              what_you_value_most_in_compensation(df['what_you_value_most_in_compensation']),
+              how_many_days_per_week_you_work_from_home(df['how_many_days_per_week_you_work_from_home']),
+              company_size(df['company_size']),
+              job_satisfaction(df['job_satisfaction']),
+              work_life_balance(df['work_life_balance']),
+              how_you_found_your_current_job(df['how_you_found_your_current_job']),
+              most_annoying_work_issue(df['most_annoying_work_issue']),
+              favorite_office_perk(df['favorite_office_perk']),
 
               # Cleveland
-              what_keeps_you_in_cleveland(df),
-              favorite_cleveland_pro_sports_team(df),
-              favorite_cleveland_hangout_area(df),
-              favorite_cleveland_activity(df)
+              what_keeps_you_in_cleveland(df['what_keeps_you_in_cleveland']),
+              favorite_cleveland_pro_sports_team(df['favorite_cleveland_pro_sports_team']),
+              favorite_cleveland_hangout_area(df['favorite_cleveland_hangout_area']),
+              favorite_cleveland_activity(df['favorite_cleveland_activity'])
               )
 
     # Add "ids" to each of the graphing
