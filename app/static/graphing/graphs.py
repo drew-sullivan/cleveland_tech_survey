@@ -1,5 +1,4 @@
 import json
-
 import plotly
 
 from app.static.graphing import graph_tools
@@ -54,166 +53,115 @@ def salary_for_years_of_exp(pd_series):
 def tech_roles(pd_series):
     title = 'Tech Roles'
     color_scheme = 'browns'
-    color_1 = 'orange'
-    color_2 = 'brown'
-    return graph_tools.generate_horizontal_line_chart_dict(title=title, pd_series=pd_series, color_scheme=color_scheme,
-                                                           color_1=color_1, color_2=color_2)
+    return graph_tools.generate_horizontal_line_chart_dict(title=title, pd_series=pd_series, color_scheme=color_scheme)
 
 
 def most_common_languages(pd_series):
     title = 'Programming Languages Used'
     color_scheme = 'cavaliers'
-    color_1 = 'wine'
-    color_2 = 'gold'
-    return graph_tools.generate_horizontal_line_chart_dict(title=title, pd_series=pd_series, color_scheme=color_scheme,
-                                                           color_1=color_1, color_2=color_2)
+    return graph_tools.generate_horizontal_line_chart_dict(title=title, pd_series=pd_series, color_scheme=color_scheme)
 
 
 def most_common_db_technologies(pd_series):
     title = 'Database Technologies Used'
     color_scheme = 'browns'
-    color_1 = 'brown'
-    color_2 = 'orange'
-    return graph_tools.generate_horizontal_line_chart_dict(title=title, pd_series=pd_series, color_scheme=color_scheme,
-                                                           color_1=color_1, color_2=color_2)
+    return graph_tools.generate_horizontal_line_chart_dict(title=title, pd_series=pd_series, color_scheme=color_scheme)
 
 
 def most_common_platform(pd_series):
     title = 'Platforms Used'
     color_scheme = 'monsters'
-    color_1 = 'blue'
-    color_2 = 'wine'
-    return graph_tools.generate_horizontal_line_chart_dict(title=title, pd_series=pd_series, color_scheme=color_scheme,
-                                                           color_1=color_1, color_2=color_2)
+    return graph_tools.generate_horizontal_line_chart_dict(title=title, pd_series=pd_series, color_scheme=color_scheme)
 
 
 def most_common_dev_env(pd_series):
     title = 'Development Environments Used'
     color_scheme = 'indians'
-    color_1 = 'navy'
-    color_2 = 'red'
-    return graph_tools.generate_horizontal_line_chart_dict(title=title, pd_series=pd_series, color_scheme=color_scheme,
-                                                           color_1=color_1, color_2=color_2)
+    return graph_tools.generate_horizontal_line_chart_dict(title=title, pd_series=pd_series, color_scheme=color_scheme)
 
 
 def most_common_version_control(pd_series):
     title = 'Version Control Systems Used'
     color_scheme = 'cavaliers'
-    color_1 = 'wine'
-    color_2 = 'gold'
-    return graph_tools.generate_horizontal_line_chart_dict(title=title, pd_series=pd_series, color_scheme=color_scheme,
-                                                           color_1=color_1, color_2=color_2)
+    return graph_tools.generate_horizontal_line_chart_dict(title=title, pd_series=pd_series, color_scheme=color_scheme)
 
 
 def educational_attainment(pd_series):
     title = 'Educational Attainment'
     color_scheme = 'cavaliers'
-    color_1 = 'wine'
-    color_2 = 'gold'
-    return graph_tools.generate_horizontal_line_chart_dict(title=title, pd_series=pd_series, color_scheme=color_scheme,
-                                                           color_1=color_1, color_2=color_2)
+    return graph_tools.generate_horizontal_line_chart_dict(title=title, pd_series=pd_series, color_scheme=color_scheme)
 
 
 def undergraduate_major(pd_series):
     title = 'Undergraduate Major'
     color_scheme = 'cavaliers'
-    color_1 = 'wine'
-    color_2 = 'gold'
-    return graph_tools.generate_horizontal_line_chart_dict(title=title, pd_series=pd_series, color_scheme=color_scheme,
-                                                           color_1=color_1, color_2=color_2)
+    return graph_tools.generate_horizontal_line_chart_dict(title=title, pd_series=pd_series, color_scheme=color_scheme)
 
 
 def how_you_learned_to_code(pd_series):
     title = 'Learning to Code'
     color_scheme = 'cavaliers'
-    color_1 = 'wine'
-    color_2 = 'gold'
-    return graph_tools.generate_horizontal_line_chart_dict(title=title, pd_series=pd_series, color_scheme=color_scheme,
-                                                           color_1=color_1, color_2=color_2)
+    return graph_tools.generate_horizontal_line_chart_dict(title=title, pd_series=pd_series, color_scheme=color_scheme)
 
 
 def what_you_value_most_in_compensation(pd_series):
     title = 'Most Valued Compensation'
     color_scheme = 'cavaliers'
-    color_1 = 'wine'
-    color_2 = 'gold'
-    return graph_tools.generate_horizontal_line_chart_dict(title=title, pd_series=pd_series, color_scheme=color_scheme,
-                                                           color_1=color_1, color_2=color_2)
+    return graph_tools.generate_horizontal_line_chart_dict(title=title, pd_series=pd_series, color_scheme=color_scheme)
 
 
 def how_many_days_per_week_you_work_from_home(pd_series):
     title = 'Remote Work Per Week'
     color_scheme = 'cavaliers'
-    color_1 = 'wine'
-    color_2 = 'gold'
     yaxis_title = 'Days Per Week'
     return graph_tools.generate_horizontal_line_chart_dict(title=title, pd_series=pd_series, color_scheme=color_scheme,
-                                                           color_1=color_1, color_2=color_2, yaxis_title=yaxis_title)
+                                                           yaxis_title=yaxis_title)
 
 
 def company_size(pd_series):
     title = 'Company Size'
     color_scheme = 'cavaliers'
-    color_1 = 'wine'
-    color_2 = 'gold'
-    return graph_tools.generate_horizontal_line_chart_dict(title=title, pd_series=pd_series, color_scheme=color_scheme,
-                                                           color_1=color_1, color_2=color_2)
+    return graph_tools.generate_horizontal_line_chart_dict(title=title, pd_series=pd_series, color_scheme=color_scheme)
 
 
 def job_satisfaction(pd_series):
     title = 'Job Satisfaction'
     color_scheme = 'cavaliers'
-    color_1 = 'wine'
-    color_2 = 'gold'
     yaxis_title = 'Deeply Unsatisfied --> Extremely Satisfied'
     return graph_tools.generate_horizontal_line_chart_dict(title=title, pd_series=pd_series, color_scheme=color_scheme,
-                                                           color_1=color_1, color_2=color_2, yaxis_title=yaxis_title)
+                                                           yaxis_title=yaxis_title)
 
 
 def work_life_balance(pd_series):
     title = 'Work Life Balance'
     color_scheme = 'cavaliers'
-    color_1 = 'wine'
-    color_2 = 'gold'
     yaxis_title = 'Non-Stop Work --> Extremely Flexible'
     return graph_tools.generate_horizontal_line_chart_dict(title=title, pd_series=pd_series, color_scheme=color_scheme,
-                                                           color_1=color_1, color_2=color_2, yaxis_title=yaxis_title)
+                                                           yaxis_title=yaxis_title)
 
 
 def how_you_found_your_current_job(pd_series):
     title = 'How You Found Your Current Job'
     color_scheme = 'cavaliers'
-    color_1 = 'wine'
-    color_2 = 'gold'
-    return graph_tools.generate_horizontal_line_chart_dict(title=title, pd_series=pd_series, color_scheme=color_scheme,
-                                                           color_1=color_1, color_2=color_2)
+    return graph_tools.generate_horizontal_line_chart_dict(title=title, pd_series=pd_series, color_scheme=color_scheme)
 
 
 def most_annoying_work_issue(pd_series):
     title = 'Most Annoying Work Issue'
     color_scheme = 'cavaliers'
-    color_1 = 'wine'
-    color_2 = 'gold'
-    return graph_tools.generate_horizontal_line_chart_dict(title=title, pd_series=pd_series, color_scheme=color_scheme,
-                                                           color_1=color_1, color_2=color_2)
+    return graph_tools.generate_horizontal_line_chart_dict(title=title, pd_series=pd_series, color_scheme=color_scheme)
 
 
 def favorite_office_perk(pd_series):
     title = 'Favorite Office Perk'
     color_scheme = 'cavaliers'
-    color_1 = 'wine'
-    color_2 = 'gold'
-    return graph_tools.generate_horizontal_line_chart_dict(title=title, pd_series=pd_series, color_scheme=color_scheme,
-                                                           color_1=color_1, color_2=color_2)
+    return graph_tools.generate_horizontal_line_chart_dict(title=title, pd_series=pd_series, color_scheme=color_scheme)
 
 
 def what_keeps_you_in_cleveland(pd_series):
     title = 'What Keeps You in Cleveland'
     color_scheme = 'cavaliers'
-    color_1 = 'wine'
-    color_2 = 'gold'
-    return graph_tools.generate_horizontal_line_chart_dict(title=title, pd_series=pd_series, color_scheme=color_scheme,
-                                                           color_1=color_1, color_2=color_2)
+    return graph_tools.generate_horizontal_line_chart_dict(title=title, pd_series=pd_series, color_scheme=color_scheme)
 
 
 def favorite_cleveland_pro_sports_team(pd_series):
@@ -225,19 +173,13 @@ def favorite_cleveland_pro_sports_team(pd_series):
 def favorite_cleveland_hangout_area(pd_series):
     title = 'Favorite Cleveland Hangout Area'
     color_scheme = 'cavaliers'
-    color_1 = 'wine'
-    color_2 = 'gold'
-    return graph_tools.generate_horizontal_line_chart_dict(title=title, pd_series=pd_series, color_scheme=color_scheme,
-                                                           color_1=color_1, color_2=color_2)
+    return graph_tools.generate_horizontal_line_chart_dict(title=title, pd_series=pd_series, color_scheme=color_scheme)
 
 
 def favorite_cleveland_activity(pd_series):
     title = 'Favorite Cleveland Activity'
     color_scheme = 'cavaliers'
-    color_1 = 'wine'
-    color_2 = 'gold'
-    return graph_tools.generate_horizontal_line_chart_dict(title=title, pd_series=pd_series, color_scheme=color_scheme,
-                                                           color_1=color_1, color_2=color_2)
+    return graph_tools.generate_horizontal_line_chart_dict(title=title, pd_series=pd_series, color_scheme=color_scheme)
 
 
 def compile_graph_data(df):

@@ -1,5 +1,5 @@
 import itertools
-
+import random
 from collections import Counter
 
 
@@ -42,7 +42,8 @@ def generate_non_pie_chart_dict(title='Insert title here', x=None, y=None, mode=
             },
             'yaxis': {
                 'title': yaxis_title,
-                'side': yaxis_side},
+                'side': yaxis_side
+            },
             'title': title,
             'margin': {
                 'l': left_margin,
@@ -87,8 +88,7 @@ def generate_pie_chart_dict(title='Insert Title Here', labels=['1st label', '2nd
 
 
 def generate_horizontal_line_chart_dict(title='Title Here', pd_series=None, color_scheme=None,
-                                        color_1=None, color_2=None, xaxis_title='Percentage of Respondents',
-                                        yaxis_title=None):
+                                        xaxis_title='Percentage of Respondents', yaxis_title=None):
     user_responses = _transform_strings_to_lists(pd_series)
     num_users = len(user_responses)
     flat_list = itertools.chain.from_iterable(user_responses)
@@ -98,9 +98,9 @@ def generate_horizontal_line_chart_dict(title='Title Here', pd_series=None, colo
 
     percentages = _get_percentage_list(num_users, list_of_most_common_elements)
     labels = _get_labels(list_of_most_common_elements)
-    color_1, color_2 = _get_colors(color_scheme, color_1, color_2)
+    color_1, color_2 = _get_colors()
     return generate_non_pie_chart_dict(title=title, x=percentages, y=labels, graph_type='bar',
-                                       color=color_1, line_color=color_2, orientation='h', left_margin=210,
+                                       color=color_1, line_color=color_2, orientation='h', left_margin=225,
                                        xaxis_title=xaxis_title, yaxis_title=yaxis_title, xaxis_ticksuffix='%',
                                        xaxis_showticksuffix='all')
 
@@ -135,7 +135,19 @@ def _get_labels(list_of_items):
     return [item[0] for item in list_of_items]
 
 
-def _get_colors(color_scheme='cavaliers', color_1='wine', color_2='gold'):
-    color_1 = COLORS[color_scheme][color_1]
-    color_2 = COLORS[color_scheme][color_2]
+def _get_colors():
+    random_team = random.choice(COLORS.keys())
+    color_scheme = COLORS[random_team]
+    if random_team == 'cavaliers':
+        color_1 = color_scheme['wine']
+        color_2 = color_scheme['gold']
+    elif random_team == 'browns':
+        color_1 = color_scheme['brown']
+        color_2 = color_scheme['orange']
+    elif random_team == 'indians':
+        color_1 = color_scheme['red']
+        color_2 = color_scheme['navy']
+    else:
+        color_1 = color_scheme['wine']
+        color_2 = color_scheme['blue']
     return color_1, color_2
