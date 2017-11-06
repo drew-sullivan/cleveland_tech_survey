@@ -23,4 +23,13 @@ footer {
     top: 20px;
     z-index: 9999 !important;
     width: 250px;
+    padding-left: 0;
+}
+
+.affix-top {
+    padding-left: 0;
+}
+
+#myScrollspy {
+    padding-left: 0;
 }
