@@ -8,16 +8,35 @@
     <h1>Welcome to the Cleveland Tech Survey!</h1>
     <h3>Total Respondents: {{ num_respondents }}</h3>
 </div>
-<nav class="col-sm-3" id="myScrollspy">
-    <ul class="nav graph-nav flex-column affix-top" data-spy="affix" data-offset-top="205">
-        <li>
-            {% for id, title in ids_and_titles %}
-            <a href="#{{ id }}">{{ title }}</a>
+<nav class="col-md-3 sidebar-offcanvas" id="myScrollspy">
+    <div class="panel list-group" data-spy="affix" data-offset-top="205">
+        {% for category in categories %}
+        <a href="#" class="list-group-item" data-toggle="collapse" data-target="#{{ category }}" data-parent="#menu">{{ category }} <span class="caret"></span></a>
+        <div id="{{ category }}" class="collapse">
+            <h6>{{ category }}</h6>
+            {% for cat, title in cats_and_titles %}
+                {% if cat == category %}
+                <a href="#{{ id }}" class="list-group-item">{{ title }}</a>
+                {% else %}
+                <a href="#{{ id }}" class="list-group-item">**ERROR** category is {{ category }} when it should be {{ cat }}</a>
+                {% endif %}
             {% endfor %}
-            <a href="#">Top</a>
-        </li>
-    </ul>
+        </div>
+        {% endfor %}
+        <a href="#" class="list-group-item">Top</a>
+    </div>
 </nav>
+<!--<nav class="col-md-3 sidebar-offcanvas" id="myScrollspy">-->
+    <!--<div class="panel list-group" data-spy="affix" data-offset-top="205">-->
+        <!--<a href="#" class="list-group-item" data-toggle="collapse" data-target="#sl" data-parent="#menu">Results <span class="caret"></span></a>-->
+        <!--<div id="sl" class="collapse">-->
+            <!--{% for id, title in ids_and_titles %}-->
+            <!--<a href="#{{ id }}" class="list-group-item">{{ title }}</a>-->
+            <!--{% endfor %}-->
+            <!--<a href="#" class="list-group-item">Top</a>-->
+        <!--</div>-->
+    <!--</div>-->
+<!--</nav>-->
 <div class="col-md-9 pull-right">
     {% for id, title in ids_and_titles %}
     <div id="{{ id }}"></div>

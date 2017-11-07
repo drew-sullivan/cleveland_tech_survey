@@ -34,6 +34,6 @@ footer {
     padding: 0 0 1px 0;
 }
 
-a, a:hover {
+a, a:hover, a:focus {
     color: inherit;
 }

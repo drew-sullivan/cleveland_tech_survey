@@ -188,14 +188,31 @@ def compile_graph_data(df):
               favorite_cleveland_hangout_area(df['favorite_cleveland_hangout_area']),
               favorite_cleveland_activity(df['favorite_cleveland_activity']))
 
-    # Add "ids" to each of the graphing
     ids = ['graph-{}'.format(i) for i, _ in enumerate(graphs)]
 
     ids_and_titles = tuple(('graph-{}'.format(i), graph['layout']['title']) for i, graph in enumerate(graphs))
+
+    cats_and_titles = []
+
+    for i, graph in enumerate(graphs):
+        title = graph['layout']['title']
+        if i <= 7:
+            cats_and_titles.append(('Community Profile', title))
+        elif 8 <= i <= 12:
+            cats_and_titles.append(('Technology', title))
+        elif i == 13:
+            cats_and_titles.append(('Money', title))
+        elif 14 <= i <= 21:
+            cats_and_titles.append(('At Work', title))
+        else:
+            cats_and_titles.append(('Cleveland', title))
+
+    categories = ['Community Profile', 'Technology', 'Money', 'At Work', 'Cleveland']
+
 
     # Convert the figures to JSON
     # PlotlyJSONEncoder appropriately converts pandas, datetime, etc
     # objects to their JSON equivalents
     graphJSON = json.dumps(graphs, cls=plotly.utils.PlotlyJSONEncoder)
 
-    return ids, ids_and_titles, graphJSON
+    return ids, ids_and_titles, categories, cats_and_titles, graphJSON
