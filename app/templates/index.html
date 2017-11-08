@@ -18,8 +18,8 @@
                 }
             }).done(function(jsonifiedStringFromPython) {
                 if (jsonifiedStringFromPython) {
-                    console.log(jsonifiedStringFromPython.new_button_id);
-                    $('#welcome p').text(jsonifiedStringFromPython.new_button_id);
+                    console.log(jsonifiedStringFromPython.title);
+                    $('#welcome p').text(jsonifiedStringFromPython.title);
                 } else {
                     $('#welcome p').text('PROBLEM!!!');
                 }
@@ -51,15 +51,6 @@
         <p>Please select one of the tabs to see how everyone has been responding.</p>
     </div>
 </div>
-<!--<ul class="nav nav-tabs">-->
-    <!--{% for id, title in ids_and_titles %}-->
-    <!--<li><a href="#{{ id }}" data-toggle="tab" value='TEST' name='{{ title }}' id="test" onclick="return loadXMLDoc()">{{ title }}</a></li>-->
-    <!--{% endfor %}-->
-<!--</ul>-->
-
-<!--<p id="demo"></p>-->
-
-<!--<div class="tab-content"></div>-->
 {% endblock %}
 
 {% block scripts %}
@@ -85,12 +76,6 @@
                     {showLink: false,
                     displayModeBar: false});
     }
-
-    window.onresize = function() {
-        Plotly.Plots.resize(gd);
-    };
-
-
 
     (function() {
     var d3 = Plotly.d3;
@@ -132,9 +117,6 @@
     };
 
     })();
-
-
-
 </script>
 {% endblock %}
 
