@@ -1,9 +1,8 @@
 from flask import render_template, redirect, url_for, abort, flash, request, jsonify
 from flask_login import login_required, current_user
 from app.static.graphing.data_analysis import get_user_data_df
-from app.static.graphing.graphs import compile_graph_data, get_graph_title
+from app.static.graphing.graphs import get_chart_ids_and_titles, get_title_and_df_key_from_tab_value, get_graph_dict
 from app.static.survey.survey_questions_and_answers import labels
-from app.cts_calculate import get_num
 from . import main
 from .forms import EditProfileForm, EditProfileAdminForm, EditSurveyForm
 from .. import db
@@ -13,22 +12,19 @@ from ..models import Role, User
 
 @main.route('/')
 def index():
-    users = User.query.filter_by().all()
-    num_respondents = len(users)
-    df = get_user_data_df(users)
-    ids, ids_and_titles, titles, graphJSON = compile_graph_data(df)
-    return render_template('index.html', ids=ids, ids_and_titles=ids_and_titles, titles=titles,
-                           graphJSON=graphJSON, num_respondents=num_respondents)
+    num_respondents = User.query.filter_by().count()
+    ids_and_titles = get_chart_ids_and_titles()
+    return render_template('index.html', ids_and_titles=ids_and_titles, num_respondents=num_respondents)
 
 
 @main.route('/data', methods=['GET', 'POST'])
 def data_post():
     users = User.query.filter_by().all()
     df = get_user_data_df(users)
-    button_id = request.data
-    new_button_id = get_num(button_id)
-    title = get_graph_title(df, button_id)
-    return jsonify({'new_button_id': new_button_id, 'title': title})
+    tab_value = request.data
+    title, df_key = get_title_and_df_key_from_tab_value(tab_value)
+    graph_dict = get_graph_dict(title, df[df_key])
+    return jsonify({'graph_dict': graph_dict})
 
 
 @main.route('/user/<username>')

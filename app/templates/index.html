@@ -18,8 +18,8 @@
                 }
             }).done(function(jsonifiedStringFromPython) {
                 if (jsonifiedStringFromPython) {
-                    console.log(jsonifiedStringFromPython.title);
-                    $('#welcome p').text(jsonifiedStringFromPython.title);
+                    console.log(jsonifiedStringFromPython.graph_dict)
+                    $('#welcome p').text(jsonifiedStringFromPython.graph_dict);
                 } else {
                     $('#welcome p').text('PROBLEM!!!');
                 }
@@ -35,11 +35,11 @@
     <h3>Total Respondents: {{ num_respondents }}</h3>
 </div>
 <ul class="nav nav-tabs">
-    <li class="active" id="tab-00" name="button_name_1" value="button_value_1">
+    <li class="active" id="tab-00" name="button_name_1" value="welcome">
         <a data-toggle="tab" href="#welcome">Home</a>
     </li>
     {% for id, title in ids_and_titles %}
-    <li id="graph-{{ id }}" name='button_{{ id }}_name' value="button_{{ id }}_value">
+    <li id="graph-{{ id }}" name='button_{{ id }}_name' value="{{ title }}">
         <a href="#menu{{ id }}" data-toggle="tab">{{ title }}</a>
     </li>
     {% endfor %}
