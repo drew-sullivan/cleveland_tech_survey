@@ -16,7 +16,14 @@
                 success: function(data) {
                     console.log(data);
                 }
-            });
+            }).done(function(jsonifiedStringFromPython) {
+                if (jsonifiedStringFromPython) {
+                    console.log(jsonifiedStringFromPython.new_button_id);
+                    $('#welcome p').text(jsonifiedStringFromPython.new_button_id);
+                } else {
+                    $('#welcome p').text('PROBLEM!!!');
+                }
+            })
         });
     });
 </script>
@@ -28,10 +35,12 @@
     <h3>Total Respondents: {{ num_respondents }}</h3>
 </div>
 <ul class="nav nav-tabs">
-    <li class="active" id="tab-00" name="button_name_1" value="button_value_1"><a data-toggle="tab" href="#welcome">Home</a></li>
+    <li class="active" id="tab-00" name="button_name_1" value="button_value_1">
+        <a data-toggle="tab" href="#welcome">Home</a>
+    </li>
     {% for id, title in ids_and_titles %}
     <li id="graph-{{ id }}" name='button_{{ id }}_name' value="button_{{ id }}_value">
-        <a href="#{{ id }}" data-toggle="tab">{{ title }}</a>
+        <a href="#menu{{ id }}" data-toggle="tab">{{ title }}</a>
     </li>
     {% endfor %}
 </ul>
@@ -40,18 +49,6 @@
     <div id="welcome" class="tab-pane fade in active">
         <h3>HOME</h3>
         <p>Please select one of the tabs to see how everyone has been responding.</p>
-    </div>
-    <div id="menu1" class="tab-pane fade">
-        <h3>Menu 1</h3>
-        <p>Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
-    </div>
-    <div id="menu2" class="tab-pane fade">
-        <h3>Menu 2</h3>
-        <p>Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam.</p>
-    </div>
-        <div id="menu3" class="tab-pane fade">
-        <h3>Menu 3</h3>
-    <p>Eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo.</p>
     </div>
 </div>
 <!--<ul class="nav nav-tabs">-->
@@ -138,30 +135,6 @@
 
 
 
-</script>
-<script>
-    function loadXMLDoc() {
-        var req = new XMLHttpRequest()
-        req.onreadystatechange = function() {
-            if (req.readyState == 4) {
-                if (req.status != 200) {
-                    //error handling code here
-                }
-                else {
-                    var response = JSON.parse(req.responseText)
-                    document.getElementById('demo').innerHTML = response.username
-                }
-            }
-        }
-
-        req.open('POST', '/get_chart_by_id')
-        req.setRequestHeader("Content-type", "application/x-www-form-urlencoded")
-        var un = document.getElementById('test').name
-        var postVars = 'username='+un
-        req.send(postVars)
-
-        return false
-    }
 </script>
 {% endblock %}
 
