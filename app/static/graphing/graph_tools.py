@@ -100,7 +100,7 @@ def generate_horizontal_line_chart_dict(title='Title Here', pd_series=None, xaxi
     labels = _get_labels(list_of_most_common_elements)
     color_1, color_2 = _get_colors()
     return generate_non_pie_chart_dict(title=title, x=percentages, y=labels, graph_type='bar',
-                                       color=color_1, line_color=color_2, orientation='h', left_margin=225,
+                                       color=color_1, line_color=color_2, orientation='h', left_margin=325,
                                        xaxis_title=xaxis_title, yaxis_title=yaxis_title, xaxis_ticksuffix='%',
                                        xaxis_showticksuffix='all')
 

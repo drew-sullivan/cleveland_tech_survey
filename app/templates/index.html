@@ -3,45 +3,66 @@
 
 {% block title %}Cleveland Tech Survey{% endblock %}
 
+{% block head %}
+{{ super() }}
+<script type="text/javascript">
+    $(document).ready(function() {
+        $('.nav-tabs li').on('click', function() {
+            $.ajax({
+                url: "{{ url_for('main.data_post') }}",
+                method: "POST",
+                data: JSON.stringify($(this).attr("value")),
+                contentType: 'application/json;charset=UTF-8',
+                success: function(data) {
+                    console.log(data);
+                }
+            });
+        });
+    });
+</script>
+{% endblock %}
+
 {% block page_content %}
 <div class="page-header">
     <h1>Welcome to the Cleveland Tech Survey!</h1>
     <h3>Total Respondents: {{ num_respondents }}</h3>
 </div>
-<nav class="col-md-3 sidebar-offcanvas" id="myScrollspy">
-    <div class="panel list-group" data-spy="affix" data-offset-top="205">
-        {% for category in categories %}
-        <a href="#" class="list-group-item" data-toggle="collapse" data-target="#{{ category }}" data-parent="#menu">{{ category }} <span class="caret"></span></a>
-        <div id="{{ category }}" class="collapse">
-            <h6>{{ category }}</h6>
-            {% for cat, title in cats_and_titles %}
-                {% if cat == category %}
-                <a href="#{{ id }}" class="list-group-item">{{ title }}</a>
-                {% else %}
-                <a href="#{{ id }}" class="list-group-item">**ERROR** category is {{ category }} when it should be {{ cat }}</a>
-                {% endif %}
-            {% endfor %}
-        </div>
-        {% endfor %}
-        <a href="#" class="list-group-item">Top</a>
-    </div>
-</nav>
-<!--<nav class="col-md-3 sidebar-offcanvas" id="myScrollspy">-->
-    <!--<div class="panel list-group" data-spy="affix" data-offset-top="205">-->
-        <!--<a href="#" class="list-group-item" data-toggle="collapse" data-target="#sl" data-parent="#menu">Results <span class="caret"></span></a>-->
-        <!--<div id="sl" class="collapse">-->
-            <!--{% for id, title in ids_and_titles %}-->
-            <!--<a href="#{{ id }}" class="list-group-item">{{ title }}</a>-->
-            <!--{% endfor %}-->
-            <!--<a href="#" class="list-group-item">Top</a>-->
-        <!--</div>-->
-    <!--</div>-->
-<!--</nav>-->
-<div class="col-md-9 pull-right">
+<ul class="nav nav-tabs">
+    <li class="active" id="tab-00" name="button_name_1" value="button_value_1"><a data-toggle="tab" href="#welcome">Home</a></li>
     {% for id, title in ids_and_titles %}
-    <div id="{{ id }}"></div>
+    <li id="graph-{{ id }}" name='button_{{ id }}_name' value="button_{{ id }}_value">
+        <a href="#{{ id }}" data-toggle="tab">{{ title }}</a>
+    </li>
     {% endfor %}
+</ul>
+
+<div class="tab-content">
+    <div id="welcome" class="tab-pane fade in active">
+        <h3>HOME</h3>
+        <p>Please select one of the tabs to see how everyone has been responding.</p>
+    </div>
+    <div id="menu1" class="tab-pane fade">
+        <h3>Menu 1</h3>
+        <p>Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
+    </div>
+    <div id="menu2" class="tab-pane fade">
+        <h3>Menu 2</h3>
+        <p>Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam.</p>
+    </div>
+        <div id="menu3" class="tab-pane fade">
+        <h3>Menu 3</h3>
+    <p>Eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo.</p>
+    </div>
 </div>
+<!--<ul class="nav nav-tabs">-->
+    <!--{% for id, title in ids_and_titles %}-->
+    <!--<li><a href="#{{ id }}" data-toggle="tab" value='TEST' name='{{ title }}' id="test" onclick="return loadXMLDoc()">{{ title }}</a></li>-->
+    <!--{% endfor %}-->
+<!--</ul>-->
+
+<!--<p id="demo"></p>-->
+
+<!--<div class="tab-content"></div>-->
 {% endblock %}
 
 {% block scripts %}
@@ -56,28 +77,91 @@
 <script type="text/javascript">
     var graphs = {{ graphJSON | safe }};
     var ids = {{ ids | safe }};
-    for(var id in graphs) {
-        Plotly.plot(ids[id],
-                    graphs[id].data,
-                    graphs[id].layout,
+
+    function getGraphById(graphId) {
+        document.getElementById("demo").innerHTML = "Graph ID: " + graphId;
+        var $div = $("<div>", {"class": "tab-pane", id: graphId});
+        $(".tab-content").append($div)
+        Plotly.plot(ids[graphId], // this arg is the id of the tag where the chart will go
+                    graphs[graphId].data,
+                    graphs[graphId].layout,
                     {showLink: false,
                     displayModeBar: false});
     }
-</script>
-<script>
-$(document).ready(function() {
-    $("nav a").on('click', function(event) {
-        if (this.hash !== "") {
-            event.preventDefault();
-            var hash = this.hash;
-            $('html, body').animate({
-                scrollTop: $(hash).offset().top
-            }, 333, function() {
-                window.location.hash = hash;
-            });
+
+    window.onresize = function() {
+        Plotly.Plots.resize(gd);
+    };
+
+
+
+    (function() {
+    var d3 = Plotly.d3;
+
+    var WIDTH_IN_PERCENT_OF_PARENT = 60,
+        HEIGHT_IN_PERCENT_OF_PARENT = 80;
+
+    var gd3 = d3.select('body')
+        .append('div')
+        .style({
+            width: WIDTH_IN_PERCENT_OF_PARENT + '%',
+            'margin-left': (100 - WIDTH_IN_PERCENT_OF_PARENT) / 2 + '%',
+
+            height: HEIGHT_IN_PERCENT_OF_PARENT + 'vh',
+            'margin-top': (100 - HEIGHT_IN_PERCENT_OF_PARENT) / 2 + 'vh'
+        });
+
+    var gd = gd3.node();
+
+    Plotly.plot(gd, [{
+        type: 'bar',
+        x: [1, 2, 3, 4],
+        y: [5, 10, 2, 8],
+        marker: {
+            color: '#C8A2C8',
+            line: {
+                width: 2.5
+            }
+        }
+    }], {
+        title: 'Auto-Resize',
+        font: {
+            size: 16
         }
     });
-})
+
+    window.onresize = function() {
+        Plotly.Plots.resize(gd);
+    };
+
+    })();
+
+
+
+</script>
+<script>
+    function loadXMLDoc() {
+        var req = new XMLHttpRequest()
+        req.onreadystatechange = function() {
+            if (req.readyState == 4) {
+                if (req.status != 200) {
+                    //error handling code here
+                }
+                else {
+                    var response = JSON.parse(req.responseText)
+                    document.getElementById('demo').innerHTML = response.username
+                }
+            }
+        }
+
+        req.open('POST', '/get_chart_by_id')
+        req.setRequestHeader("Content-type", "application/x-www-form-urlencoded")
+        var un = document.getElementById('test').name
+        var postVars = 'username='+un
+        req.send(postVars)
+
+        return false
+    }
 </script>
 {% endblock %}
 

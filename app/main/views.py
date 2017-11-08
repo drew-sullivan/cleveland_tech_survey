@@ -1,9 +1,9 @@
-from flask import render_template, redirect, url_for, abort, flash
+from flask import render_template, redirect, url_for, abort, flash, request, jsonify
 from flask_login import login_required, current_user
-
 from app.static.graphing.data_analysis import get_user_data_df
 from app.static.graphing.graphs import compile_graph_data
 from app.static.survey.survey_questions_and_answers import labels
+from app.cts_calculate import get_num
 from . import main
 from .forms import EditProfileForm, EditProfileAdminForm, EditSurveyForm
 from .. import db
@@ -16,9 +16,16 @@ def index():
     users = User.query.filter_by().all()
     num_respondents = len(users)
     df = get_user_data_df(users)
-    ids, ids_and_titles, categories, cats_and_titles, graphJSON = compile_graph_data(df)
-    return render_template('index.html', ids=ids, ids_and_titles=ids_and_titles, categories=categories,
-                           cats_and_titles=cats_and_titles, graphJSON=graphJSON, num_respondents=num_respondents)
+    ids, ids_and_titles, graphJSON = compile_graph_data(df)
+    return render_template('index.html', ids=ids, ids_and_titles=ids_and_titles, graphJSON=graphJSON,
+                           num_respondents=num_respondents)
+
+
+@main.route('/data', methods=['GET', 'POST'])
+def data_post():
+    button_id = request.data
+    new_button_id = get_num(button_id)
+    return jsonify({'new_button_id': new_button_id})
 
 
 @main.route('/user/<username>')
