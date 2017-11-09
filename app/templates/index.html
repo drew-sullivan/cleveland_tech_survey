@@ -27,44 +27,37 @@
                 contentType: 'application/json;charset=UTF-8',
                 success: function(python) {
                     var graph = python.graph_dict;
-                    $chart = $('#chart');
-                    $chart.replaceWith($('<div/>',{id : 'chart', href: '#_', style: 'height: 500px;'}));
-                    Plotly.plot('chart', // the ID of the div
-                                graph.data,
-                                graph.layout || {},
-                                graph["show_link"]);
+                    $welcomeTabPane = $('#welcomeTabPane');
+                    $welcomeTabPane.replaceWith($('<div/>',{id : 'welcomeTabPane'}));
+                    (function() {
+                        var d3 = Plotly.d3;
+
+                        var WIDTH_IN_PERCENT_OF_PARENT = 100,
+                            HEIGHT_IN_PERCENT_OF_PARENT = 100;
+
+                        var gd3 = d3.select('#welcomeTabPane')
+                            .append('div')
+                            .style({
+                                width: WIDTH_IN_PERCENT_OF_PARENT + '%',
+                                'margin-left': (100 - WIDTH_IN_PERCENT_OF_PARENT) / 2 + '%',
+
+                                height: HEIGHT_IN_PERCENT_OF_PARENT + 'vh',
+                                'margin-top': (100 - HEIGHT_IN_PERCENT_OF_PARENT) / 2 + 'vh'
+                            });
+
+                        var gd = gd3.node();
+
+                        Plotly.plot(gd, graph.data, graph.layout, graph.show_link);
+
+                        window.onresize = function() {
+                            Plotly.Plots.resize(gd);
+                        };
+                    })();
                 }
             })
         });
     });
 </script>
-<!--<script>-->
-<!--$(document).ready(function(){-->
-  <!--// Add smooth scrolling to all links in navbar + footer link-->
-  <!--$('.nav-tabs li').on('click', function(event) {-->
-
-   <!--// Make sure this.hash has a value before overriding default behavior-->
-  <!--if (this.hash !== "") {-->
-
-    <!--// Prevent default anchor click behavior-->
-    <!--event.preventDefault();-->
-
-    <!--// Store hash-->
-    <!--var hash = this.hash;-->
-
-    <!--// Using jQuery's animate() method to add smooth page scroll-->
-    <!--// The optional number (900) specifies the number of milliseconds it takes to scroll to the specified area-->
-    <!--$('html, body').animate({-->
-      <!--scrollTop: $(hash).offset().top-->
-    <!--}, 900, function(){-->
-
-      <!--// Add hash (#) to URL when done scrolling (default click behavior)-->
-      <!--window.location.hash = hash;-->
-      <!--});-->
-    <!--} // End if-->
-  <!--});-->
-<!--})-->
-<!--</script>-->
 {% endblock %}
 
 {% block page_content %}
@@ -84,8 +77,8 @@
 </ul>
 
 <div class="tab-content" id="current-tab">
-    <div id="welcome" class="tab-pane active">
-        <div id="chart" style="height: 500px;">Please select one of the tabs to see how everyone has been responding.</div>
+    <div id="welcomeTabPane" class="tab-pane active">
+        <div id="chart">Please select one of the tabs to see how everyone has been responding.</div>
     </div>
 </div>
 {% endblock %}
@@ -93,13 +86,13 @@
 {% block scripts %}
 {{ super() }}
 <script type="text/javascript">
-    <!--(function() {-->
+<!--(function() {-->
     <!--var d3 = Plotly.d3;-->
 
     <!--var WIDTH_IN_PERCENT_OF_PARENT = 60,-->
         <!--HEIGHT_IN_PERCENT_OF_PARENT = 80;-->
 
-    <!--var gd3 = d3.select('body')-->
+    <!--var gd3 = d3.select('#TEST')-->
         <!--.append('div')-->
         <!--.style({-->
             <!--width: WIDTH_IN_PERCENT_OF_PARENT + '%',-->
@@ -117,9 +110,9 @@
         <!--y: [5, 10, 2, 8],-->
         <!--marker: {-->
             <!--color: '#C8A2C8',-->
-            <!--line: {-->
-                <!--width: 2.5-->
-            <!--}-->
+                <!--line: {-->
+                    <!--width: 2.5-->
+                <!--}-->
         <!--}-->
     <!--}], {-->
         <!--title: 'Auto-Resize',-->
@@ -131,35 +124,8 @@
     <!--window.onresize = function() {-->
         <!--Plotly.Plots.resize(gd);-->
     <!--};-->
+<!--})();-->
 
-    <!--})();-->
-</script>
-<script>
-$(document).ready(function(){
-  // Add smooth scrolling to all links in navbar + footer link
-  $(".title-tab").on('click', function(event) {
-
-   // Make sure this.hash has a value before overriding default behavior
-  if (this.hash !== "") {
-
-    // Prevent default anchor click behavior
-    event.preventDefault();
-
-    // Store hash
-    var hash = this.hash;
-
-    // Using jQuery's animate() method to add smooth page scroll
-    // The optional number (900) specifies the number of milliseconds it takes to scroll to the specified area
-    $('html, body').animate({
-      scrollTop: $(hash).offset().top
-    }, 900, function(){
-
-      // Add hash (#) to URL when done scrolling (default click behavior)
-      window.location.hash = hash;
-      });
-    } // End if
-  });
-})
 </script>
 {% endblock %}
 

@@ -16,7 +16,3 @@ $(document).ready(function() {
     });
     $('#myTab').tabCollapse();
 });
-
-
-
-

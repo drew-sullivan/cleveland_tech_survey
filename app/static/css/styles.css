@@ -18,3 +18,7 @@ li label {
 footer {
     margin-bottom: 12px;
 }
+
+.gtitle {
+    font-size: inherit !important;
+}
