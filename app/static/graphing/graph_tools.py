@@ -109,9 +109,6 @@ def generate_pie_chart_percentage_dict(title=None, pd_series=None, suffix=''):
     pd_series = pd_series.dropna()
     exp_data = pd_series.value_counts(normalize=True)
     sorted_labels = exp_data.sort_index()
-    print '\n'
-    print sorted_labels.index
-    print '\n'
     labels = [str(label) for label in sorted_labels.index]
     labels += suffix
     labels = list(labels)  # changed to list to accommodate json encoding for ajax call

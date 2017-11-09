@@ -13,7 +13,13 @@
 <script src="https://d14fo0winaifog.cloudfront.net/plotly-basic.js"></script>
 <script type="text/javascript">
     $(document).ready(function() {
-        $('.nav-tabs li').on('click', function() {
+        $('.nav-tabs li').on('click', function(e) {
+            e.preventDefault();
+            var scrollTo = $('.nav-tabs');
+            console.log(scrollTo)
+            $('html, body').animate({
+               scrollTop: $(scrollTo).offset().top
+            }, 500);
             $.ajax({
                 url: "{{ url_for('main.data_post') }}",
                 method: "POST",
@@ -21,11 +27,17 @@
                 contentType: 'application/json;charset=UTF-8',
                 success: function(python) {
                     var graph = python.graph_dict;
-                    console.log(graph)
-                    $howdy = $('#howdy');
-                    $howdy.remove()
-                    $('<div/>',{ id : 'howdy'}).appendTo("#welcome");
-                    Plotly.plot('howdy', // the ID of the div
+
+                    <!--var scrollTo = $('.nav-tabs');-->
+                    <!--console.log(scrollTo)-->
+                    <!--$('html, body').animate({-->
+                        <!--scrollTop: $(scrollTo).offset().top-->
+                    <!--}, 500);-->
+
+                    $chart = $('#chart');
+                    $chart.remove()
+                    $('<div/>',{ id : 'chart', href: '#_'}).appendTo(".tab-pane");
+                    Plotly.plot('chart', // the ID of the div
                                 graph.data,
                                 graph.layout || {},
                                 graph["show_link"]);
@@ -34,6 +46,33 @@
         });
     });
 </script>
+<!--<script>-->
+<!--$(document).ready(function(){-->
+  <!--// Add smooth scrolling to all links in navbar + footer link-->
+  <!--$('.nav-tabs li').on('click', function(event) {-->
+
+   <!--// Make sure this.hash has a value before overriding default behavior-->
+  <!--if (this.hash !== "") {-->
+
+    <!--// Prevent default anchor click behavior-->
+    <!--event.preventDefault();-->
+
+    <!--// Store hash-->
+    <!--var hash = this.hash;-->
+
+    <!--// Using jQuery's animate() method to add smooth page scroll-->
+    <!--// The optional number (900) specifies the number of milliseconds it takes to scroll to the specified area-->
+    <!--$('html, body').animate({-->
+      <!--scrollTop: $(hash).offset().top-->
+    <!--}, 900, function(){-->
+
+      <!--// Add hash (#) to URL when done scrolling (default click behavior)-->
+      <!--window.location.hash = hash;-->
+      <!--});-->
+    <!--} // End if-->
+  <!--});-->
+<!--})-->
+<!--</script>-->
 {% endblock %}
 
 {% block page_content %}
@@ -42,19 +81,19 @@
     <h3>Total Respondents: {{ num_respondents }}</h3>
 </div>
 <ul class="nav nav-tabs">
-    <li class="active" id="tab-00" name="button_name_1" value="welcome">
-        <a data-toggle="tab" href="#welcome">Home</a>
+    <li class="active" id="welcomeTab" name="button_name_1" value="welcome">
+        <a data-toggle="tab" href=".tab-pane">Home</a>
     </li>
     {% for id, title in ids_and_titles %}
-    <li id="graph-{{ id }}" name='button_{{ id }}_name' value="{{ title }}">
-        <a href="#howdy" data-toggle="tab">{{ title }}</a>
+    <li class="title-tab" id="graph-{{ id }}" name='button_{{ id }}_name' value="{{ title }}">
+        <a href=".nav-tabs" data-toggle="tab">{{ title }}</a>
     </li>
     {% endfor %}
 </ul>
 
-<div class="tab-content">
-    <div id="welcome" class="tab-pane fade in active">
-        <div id="howdy" style="height: 500px;">Please select one of the tabs to see how everyone has been responding.</div>
+<div class="tab-content" id="current-tab">
+    <div id="welcome" class="tab-pane active">
+        <div id="chart" style="height: 500px;">Please select one of the tabs to see how everyone has been responding.</div>
     </div>
 </div>
 {% endblock %}
@@ -102,6 +141,33 @@
     <!--};-->
 
     <!--})();-->
+</script>
+<script>
+$(document).ready(function(){
+  // Add smooth scrolling to all links in navbar + footer link
+  $(".title-tab").on('click', function(event) {
+
+   // Make sure this.hash has a value before overriding default behavior
+  if (this.hash !== "") {
+
+    // Prevent default anchor click behavior
+    event.preventDefault();
+
+    // Store hash
+    var hash = this.hash;
+
+    // Using jQuery's animate() method to add smooth page scroll
+    // The optional number (900) specifies the number of milliseconds it takes to scroll to the specified area
+    $('html, body').animate({
+      scrollTop: $(hash).offset().top
+    }, 900, function(){
+
+      // Add hash (#) to URL when done scrolling (default click behavior)
+      window.location.hash = hash;
+      });
+    } // End if
+  });
+})
 </script>
 {% endblock %}
 
