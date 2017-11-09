@@ -27,16 +27,8 @@
                 contentType: 'application/json;charset=UTF-8',
                 success: function(python) {
                     var graph = python.graph_dict;
-
-                    <!--var scrollTo = $('.nav-tabs');-->
-                    <!--console.log(scrollTo)-->
-                    <!--$('html, body').animate({-->
-                        <!--scrollTop: $(scrollTo).offset().top-->
-                    <!--}, 500);-->
-
                     $chart = $('#chart');
-                    $chart.remove()
-                    $('<div/>',{ id : 'chart', href: '#_'}).appendTo(".tab-pane");
+                    $chart.replaceWith($('<div/>',{id : 'chart', href: '#_', style: 'height: 500px;'}));
                     Plotly.plot('chart', // the ID of the div
                                 graph.data,
                                 graph.layout || {},
