@@ -35,8 +35,7 @@ def get_title_and_df_key_from_tab_value(tab_value):
     return title, df_key
 
 
-def get_graph_dict(title, pd_series, colors=None, suffix=None, yaxis_title=None):
-    if colors:
-        chart_dict = graph_tools.generate_pie_chart_percentage_dict(title=title, pd_series=pd_series, colors=colors, suffix=suffix)
-    chart_dict = graph_tools.generate_horizontal_line_chart_dict(title=title, pd_series=pd_series, yaxis_title=yaxis_title)
-    return chart_dict
+def get_graph_dict(title, pd_series, suffix='', yaxis_title=None):
+    if len(pd_series.unique()) <= 5:
+        return graph_tools.generate_pie_chart_percentage_dict(title=title, pd_series=pd_series, suffix=suffix)
+    return graph_tools.generate_horizontal_line_chart_dict(title=title, pd_series=pd_series, yaxis_title=yaxis_title)

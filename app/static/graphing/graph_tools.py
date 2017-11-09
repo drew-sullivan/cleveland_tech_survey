@@ -58,7 +58,7 @@ def generate_non_pie_chart_dict(title='Insert title here', x=None, y=None, mode=
 
 
 def generate_pie_chart_dict(title='Insert Title Here', labels=['1st label', '2nd label'], values=[75, 25],
-                             colors=['rgb(146, 123, 21)', 'rgb(177, 180, 34)'], chart_type='pie',
+                             colors=COLORS['cavaliers'].values() + ['#d3d3d3'], chart_type='pie',
                              hoverinfo='label+percent', textinfo='none', showlegend=True, line_width=2,
                              line_color='black'):
     pie_chart_dict = {
@@ -105,15 +105,18 @@ def generate_horizontal_line_chart_dict(title='Title Here', pd_series=None, xaxi
                                        xaxis_showticksuffix='all')
 
 
-def generate_pie_chart_percentage_dict(title=None, colors=COLORS['cavaliers'].values() + ['#d3d3d3'], pd_series=None,
-                                       suffix=''):
+def generate_pie_chart_percentage_dict(title=None, pd_series=None, suffix=''):
     pd_series = pd_series.dropna()
     exp_data = pd_series.value_counts(normalize=True)
     sorted_labels = exp_data.sort_index()
-    labels = sorted_labels.index.astype(str)
+    print '\n'
+    print sorted_labels.index
+    print '\n'
+    labels = [str(label) for label in sorted_labels.index]
     labels += suffix
-    values = exp_data.round(2).sort_index().values
-    return generate_pie_chart_dict(title=title, labels=labels, values=values, colors=colors)
+    labels = list(labels)  # changed to list to accommodate json encoding for ajax call
+    values = list(exp_data.round(2).sort_index().values)  # changed to list to accommodate json encoding for ajax call
+    return generate_pie_chart_dict(title=title, labels=labels, values=values)
 
 
 def _transform_strings_to_lists(pd_series):
