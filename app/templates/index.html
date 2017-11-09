@@ -13,15 +13,27 @@
                 method: "POST",
                 data: JSON.stringify($(this).attr("value")),
                 contentType: 'application/json;charset=UTF-8',
-                success: function(data) {
-                    console.log(data);
+                success: function(python) {
+                    var a = python.graph_dict;
+                    console.log(a)
+                    <!--for (x in a) {-->
+                        <!--console.log(x)-->
+                    <!--}-->
+                    <!--console.log(a.data);-->
                 }
             }).done(function(jsonifiedStringFromPython) {
                 if (jsonifiedStringFromPython) {
-                    console.log(jsonifiedStringFromPython.graph_dict)
-                    $('#welcome p').text(jsonifiedStringFromPython.graph_dict);
+                    <!--console.log(jsonifiedStringFromPython.graph_dict);-->
+                    <!--var graph = jsonifiedStringFromPython.graph_dict;-->
+                    <!--console.log(graph.data)-->
+                    <!--console.log(graph[data])-->
+                    <!--console.log(graph.layout)-->
+                    <!--$('#welcome div').text(graph.data);-->
+                    <!--Plotly.plot('welcome', // the ID of the div, created above-->
+                                <!--graph.data,-->
+                                <!--graphs.layout || {});-->
                 } else {
-                    $('#welcome p').text('PROBLEM!!!');
+                    $('#welcome div').text('PROBLEM!!!');
                 }
             })
         });
@@ -48,7 +60,7 @@
 <div class="tab-content">
     <div id="welcome" class="tab-pane fade in active">
         <h3>HOME</h3>
-        <p>Please select one of the tabs to see how everyone has been responding.</p>
+        <div>Please select one of the tabs to see how everyone has been responding.</div>
     </div>
 </div>
 {% endblock %}

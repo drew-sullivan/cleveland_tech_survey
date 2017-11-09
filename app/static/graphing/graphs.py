@@ -39,5 +39,4 @@ def get_graph_dict(title, pd_series, colors=None, suffix=None, yaxis_title=None)
     if colors:
         chart_dict = graph_tools.generate_pie_chart_percentage_dict(title=title, pd_series=pd_series, colors=colors, suffix=suffix)
     chart_dict = graph_tools.generate_horizontal_line_chart_dict(title=title, pd_series=pd_series, yaxis_title=yaxis_title)
-    print chart_dict
     return json.dumps(chart_dict, cls=plotly.utils.PlotlyJSONEncoder)
