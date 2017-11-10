@@ -14,5 +14,4 @@ $(document).ready(function() {
     $.each(checkBoxFields, function(i, val) {
         $("#" + val).removeClass('form-control');
     });
-    $('#myTab').tabCollapse();
 });
