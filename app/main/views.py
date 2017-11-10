@@ -17,7 +17,7 @@ def index():
 
 
 @main.route('/data', methods=['GET', 'POST'])
-def data_post():
+def get_chart_data():
     users = User.query.filter_by().all()
     df = get_user_data_df(users)
     tab_value = request.data

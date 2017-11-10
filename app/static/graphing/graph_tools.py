@@ -13,7 +13,7 @@ COLORS = {
 
 def generate_non_pie_chart_dict(title='Insert title here', x=None, y=None, mode=None, graph_type=None,
                                 orientation=None, xaxis_title=None, yaxis_title=None, text=None,
-                                color='#FF0000', line_width=2, line_color='#ffba13', left_margin=250,
+                                color='#FF0000', line_width=2, line_color='#FFBA13', left_margin=250,
                                 right_margin=None, top_margin=None, bottom_margin=None, xaxis_ticksuffix=None,
                                 xaxis_showticksuffix=None, yaxis_side=None, tooltip_labels=None):
     graph = {
@@ -58,7 +58,7 @@ def generate_non_pie_chart_dict(title='Insert title here', x=None, y=None, mode=
 
 
 def generate_pie_chart_dict(title='Insert Title Here', labels=['1st label', '2nd label'], values=[75, 25],
-                             colors=COLORS['cavaliers'].values() + ['#d3d3d3'], chart_type='pie',
+                             colors=COLORS['cavaliers'].values() + ['#D3D3D3'], chart_type='pie',
                              hoverinfo='label+percent', textinfo='none', showlegend=True, line_width=2,
                              line_color='black'):
     pie_chart_dict = {
