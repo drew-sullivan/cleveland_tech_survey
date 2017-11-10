@@ -13,7 +13,7 @@ COLORS = {
 
 def generate_non_pie_chart_dict(title='Insert title here', x=None, y=None, mode=None, graph_type=None,
                                 orientation=None, xaxis_title=None, yaxis_title=None, text=None,
-                                color='#FF0000', line_width=2, line_color='#ffba13', left_margin=None,
+                                color='#FF0000', line_width=2, line_color='#ffba13', left_margin=250,
                                 right_margin=None, top_margin=None, bottom_margin=None, xaxis_ticksuffix=None,
                                 xaxis_showticksuffix=None, yaxis_side=None, tooltip_labels=None):
     graph = {
@@ -101,7 +101,7 @@ def generate_horizontal_line_chart_dict(title='Title Here', pd_series=None, xaxi
     yaxis_labels = _get_short_yaxis_labels(tooltip_labels)
     color_1, color_2 = _get_colors()
     return generate_non_pie_chart_dict(title=title, x=percentages, y=yaxis_labels, graph_type='bar',
-                                       color=color_1, line_color=color_2, orientation='h', left_margin=325,
+                                       color=color_1, line_color=color_2, orientation='h',
                                        xaxis_title=xaxis_title, yaxis_title=yaxis_title, xaxis_ticksuffix='%',
                                        xaxis_showticksuffix='all', tooltip_labels=tooltip_labels)
 

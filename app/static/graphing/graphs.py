@@ -3,12 +3,6 @@ from app.static.graphing.graph_tools import COLORS as color
 from app.static.survey.survey_questions_and_answers import survey_questions_and_answers
 
 
-def gender_by_percent(pd_series):
-    title = 'Gender by Percent'
-    colors = color['cavaliers'].values() + ['#d3d3d3']
-    return graph_tools.generate_pie_chart_percentage_dict(title=title, colors=colors, pd_series=pd_series)
-
-
 def salary_for_years_of_exp(pd_series):
     title = 'Compensation for Years of Professional Experience'
     sal_exp = (pd_series.replace('[\$,)]', '', regex=True).replace('[(]', '-', regex=True).astype(float))
@@ -32,7 +26,9 @@ def get_title_and_df_key_from_tab_value(tab_value):
     return title, df_key
 
 
-def get_graph_dict(title, pd_series, suffix='', yaxis_title=None):
+def get_graph_dict(title, pd_series, suffix='', yaxis_title=None, *args):
+    if len(args) > 0:
+        print '{} pd_series were passed in'.format(len(pd_series))
     if len(pd_series.unique()) <= 5:
         return graph_tools.generate_pie_chart_percentage_dict(title=title, pd_series=pd_series, suffix=suffix)
     return graph_tools.generate_horizontal_line_chart_dict(title=title, pd_series=pd_series, yaxis_title=yaxis_title)
