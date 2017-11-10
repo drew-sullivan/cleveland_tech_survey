@@ -15,7 +15,7 @@ def generate_non_pie_chart_dict(title='Insert title here', x=None, y=None, mode=
                                 orientation=None, xaxis_title=None, yaxis_title=None, text=None,
                                 color='#FF0000', line_width=2, line_color='#ffba13', left_margin=None,
                                 right_margin=None, top_margin=None, bottom_margin=None, xaxis_ticksuffix=None,
-                                xaxis_showticksuffix=None, yaxis_side=None):
+                                xaxis_showticksuffix=None, yaxis_side=None, tooltip_labels=None):
     graph = {
         'data': [
             {
@@ -31,7 +31,7 @@ def generate_non_pie_chart_dict(title='Insert title here', x=None, y=None, mode=
                         'color': line_color
                     }
                 },
-                'text': text
+                'text': tooltip_labels
             }
         ],
         'layout': {
@@ -97,12 +97,13 @@ def generate_horizontal_line_chart_dict(title='Title Here', pd_series=None, xaxi
     list_of_most_common_elements = list_of_least_common_elements[::-1]\
 
     percentages = _get_percentage_list(num_users, list_of_most_common_elements)
-    labels = _get_labels(list_of_most_common_elements)
+    tooltip_labels = _get_labels(list_of_most_common_elements)
+    yaxis_labels = _get_short_yaxis_labels(tooltip_labels)
     color_1, color_2 = _get_colors()
-    return generate_non_pie_chart_dict(title=title, x=percentages, y=labels, graph_type='bar',
+    return generate_non_pie_chart_dict(title=title, x=percentages, y=yaxis_labels, graph_type='bar',
                                        color=color_1, line_color=color_2, orientation='h', left_margin=325,
                                        xaxis_title=xaxis_title, yaxis_title=yaxis_title, xaxis_ticksuffix='%',
-                                       xaxis_showticksuffix='all')
+                                       xaxis_showticksuffix='all', tooltip_labels=tooltip_labels)
 
 
 def generate_pie_chart_percentage_dict(title=None, pd_series=None, suffix=''):
@@ -151,3 +152,8 @@ def _get_colors():
         color_1 = color_scheme['wine']
         color_2 = color_scheme['blue']
     return color_1, color_2
+
+
+def _get_short_yaxis_labels(labels):
+    MAX_LABEL_LEN = 35
+    return ['{}...'.format(label[:MAX_LABEL_LEN - 3]) if len(label) >= MAX_LABEL_LEN else label for label in labels]
