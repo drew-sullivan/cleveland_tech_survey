@@ -216,7 +216,7 @@ survey_questions_and_answers = OrderedDict([
         "Office Politics",
         "Bureaucracy",
         "Loud workplace",
-        "Overly­dependent junior developers",
+        "Overly dependent junior developers",
         "Negligent team leads/Managers",
         "Unhelpful project managers",
         "Unknowledgeable middle management",

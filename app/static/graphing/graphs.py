@@ -1,6 +1,3 @@
-import json
-import plotly
-
 from app.static.graphing import graph_tools
 from app.static.graphing.graph_tools import COLORS as color
 from app.static.survey.survey_questions_and_answers import survey_questions_and_answers
