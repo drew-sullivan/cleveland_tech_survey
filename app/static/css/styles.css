@@ -17,3 +17,7 @@ footer {
 .gtitle {
     font-size: inherit !important;
 }
+
+#donate {
+    display: inline-block;
+}
