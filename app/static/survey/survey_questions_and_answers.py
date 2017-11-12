@@ -176,7 +176,7 @@ survey_questions_and_answers = OrderedDict([
         "None",
         "Other"
     ]),
-    ("Annual Amount Earned From all Tech Activities Combined", ['${:,}'.format(x) for x in range(5000, 300001, 5000)]),
+    ("Total Compensation", ['${:,}'.format(x) for x in range(5000, 300001, 5000)]),
     ("What You Value Most in Compensation", [
         "Vacation/days off",
         "Remote options",
