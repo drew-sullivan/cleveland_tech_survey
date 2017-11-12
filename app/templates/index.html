@@ -21,7 +21,7 @@
                scrollTop: $(scrollTo).offset().top
             }, 500);
             $.ajax({
-                url: "{{ url_for('main.get_chart_data') }}",
+                url: "{{ url_for('main.post_chart_data') }}",
                 method: "POST",
                 data: JSON.stringify($(this).attr("value")),
                 contentType: 'application/json;charset=UTF-8',

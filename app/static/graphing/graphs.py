@@ -16,6 +16,11 @@ def salary_for_years_of_exp(pd_series):
                                                    line_color=color['indians']['navy'])
 
 
+def special_chart(modifier, mode, pd_series_1, pd_series_2, xaxis_title=None, y_axis_title=None):
+    x = pd_series_1
+    y = pd_series_2
+
+
 def get_chart_ids_and_titles():
     return tuple((i, title) for i, title in enumerate(survey_questions_and_answers.keys()))
 
