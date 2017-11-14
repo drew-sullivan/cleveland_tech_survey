@@ -2,7 +2,7 @@ from flask import render_template, redirect, url_for, abort, flash, request, jso
 from flask_login import login_required, current_user
 from app.static.graphing.data_analysis import get_user_data_df
 from app.static.graphing.graphs import get_chart_ids_and_titles, get_title_and_df_key_from_tab_value, get_graph_dict
-from app.static.survey.survey_questions_and_answers import labels
+from app.static.survey.survey import labels
 from . import main
 from .forms import EditSurveyForm
 from .. import db

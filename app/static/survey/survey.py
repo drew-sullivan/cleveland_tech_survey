@@ -204,7 +204,7 @@ survey = OrderedDict([
             "< 10", "10 - 19", "20 - 99", "100 - 499",
             "500 - 999", "1,000 - 4,999", " 5,000 - 9,999",
             "> 10,000"]]),
-        ("How Many Hours You Work Per Week", range(1, 101)),
+        ("Total Hours Worked Per Week", range(1, 101)),
         ("Work Life Balance", range(1, 11)),
         ("Job Satisfaction", range(1, 11)),
         ("A Customer Calls Late Friday Evening", [
