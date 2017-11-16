@@ -1,7 +1,7 @@
 from flask import render_template, redirect, url_for, abort, flash, request, jsonify
 from flask_login import login_required, current_user
 from app.static.graphing.data_analysis import get_user_data_df
-from app.static.graphing.graphs import get_chart_ids_and_questions, get_title_and_df_key_from_tab_value, get_graph_dict
+from app.static.graphing.graphs import get_categories, get_title_and_df_key_from_tab_value, get_graph_dict
 from app.static.survey.survey import labels, cleveland_tech_survey
 from . import main
 from .forms import EditSurveyForm
@@ -12,11 +12,9 @@ from ..models import User
 @main.route('/')
 def index():
     num_respondents = User.query.filter_by().count()
-    # ids_and_questions = get_chart_ids_and_questions()
-    categories = get_chart_ids_and_questions()
+    categories = get_categories()
     return render_template('index.html', cleveland_tech_survey=cleveland_tech_survey, categories=categories,
-    # =ids_and_questions,
-     num_respondents=num_respondents)
+                           num_respondents=num_respondents)
 
 
 @main.route('/data', methods=['GET', 'POST'])
@@ -27,15 +25,6 @@ def post_chart_data():
     title, df_key = get_title_and_df_key_from_tab_value(tab_value)
     graph_dict = get_graph_dict(title, df[df_key])
     return jsonify({'graph_dict': graph_dict})
-
-
-@main.route('/user/<username>')
-@login_required
-def user(username):
-    user = User.query.filter_by(username=username).first()
-    if user is None:
-        abort(404)
-    return render_template('user.html', user=user)
 
 
 @main.route('/survey/<username>')
@@ -112,7 +101,7 @@ def edit_survey():
     form.favorite_cleveland_hangout_area.data = current_user.favorite_cleveland_hangout_area
     form.favorite_cleveland_activity.data = current_user.favorite_cleveland_activity
     form.feedback.data = current_user.feedback
-    return render_template('edit_survey.html', form=form)
 
+    return render_template('edit_survey.html', form=form)
 
 # TODO: add admin-edit-survey

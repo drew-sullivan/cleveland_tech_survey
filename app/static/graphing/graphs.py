@@ -21,14 +21,7 @@ def special_chart(modifier, mode, pd_series_1, pd_series_2, xaxis_title=None, y_
     y = pd_series_2
 
 
-def get_chart_ids_and_questions():
-    # chart_ids_and_questions = []
-    # categories = survey.keys()
-    # for category in categories:
-    #     questions = survey[category]
-    #     for question in questions:
-    #         chart_ids_and_questions.append(('{}-{}'.format(category, question), question))
-    # return chart_ids_and_questions
+def get_categories():
     categories = cleveland_tech_survey.keys()
     return categories
 

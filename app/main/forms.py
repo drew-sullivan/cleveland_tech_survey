@@ -62,4 +62,5 @@ class EditSurveyForm(FlaskForm):
     favorite_cleveland_hangout_area = SelectField('Favorite Cleveland Hangout Area', choices=cleveland["Favorite Cleveland Hangout Area"])
     favorite_cleveland_activity = SelectField('Favorite Cleveland Activity', choices=cleveland["Favorite Cleveland Activity"])
     feedback = TextAreaField('Please provide feedback for the survey')
+
     submit = SubmitField('Submit')
