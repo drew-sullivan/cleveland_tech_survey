@@ -27,15 +27,15 @@
                 contentType: 'application/json;charset=UTF-8',
                 success: function(python) {
                     var graph = python.graph_dict;
-                    $welcomeTabPane = $('#welcomeTabPane');
-                    $welcomeTabPane.replaceWith($('<div/>',{id : 'welcomeTabPane'}));
+                    $chartContentWrapper = $('#chartContentWrapper');
+                    $chartContentWrapper.replaceWith($('<div/>',{id : 'chartContentWrapper'}));
                     (function() {
                         var d3 = Plotly.d3;
 
                         var WIDTH_IN_PERCENT_OF_PARENT = 100,
                             HEIGHT_IN_PERCENT_OF_PARENT = 100;
 
-                        var gd3 = d3.select('#welcomeTabPane')
+                        var gd3 = d3.select('#chartContentWrapper')
                             .append('div')
                             .style({
                                 width: WIDTH_IN_PERCENT_OF_PARENT + '%',
@@ -66,18 +66,23 @@
     <h3>Total Respondents: {{ num_respondents }}</h3>
 </div>
 <ul class="nav nav-tabs">
-    <li class="active" id="welcomeTab" name="button_name_1" value="welcome">
-        <a data-toggle="tab" href=".tab-pane">Home</a>
-    </li>
-    {% for id, title in ids_and_titles %}
-    <li class="title-tab" id="graph-{{ id }}" name='button_{{ id }}_name' value="{{ title }}">
-        <a href=".nav-tabs" data-toggle="tab">{{ title }}</a>
+    {% for category in categories %}
+    <li class="dropdown">
+        <a class="dropdown-toggle" data-toggle="dropdown" href="#">{{ category }}<span class="caret"></span></a>
+        <ul class="dropdown-menu">
+            {% set questions = cleveland_tech_survey[category] %}
+            {% for question in questions %}
+            <li class="title-tab" id="graph-{{ question }}" name='button_{{ question }}_name' value="{{ question }}">
+                <a href=".nav-tabs" data-toggle="tab">{{ question }}</a>
+            </li>
+            {% endfor %}
+        </ul>
     </li>
     {% endfor %}
 </ul>
 <div class="tab-content" id="current-tab">
-    <div id="welcomeTabPane" class="tab-pane active">
-        <div id="chart">Please select one of the tabs to see how everyone has been responding.</div>
+    <div id="chartContentWrapper" class="tab-pane active">
+        <div id="chart"></div>
     </div>
 </div>
 {% endblock %}

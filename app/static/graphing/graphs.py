@@ -1,6 +1,6 @@
 from app.static.graphing import graph_tools
 from app.static.graphing.graph_tools import COLORS as color
-from app.static.survey.survey import survey
+from app.static.survey.survey import cleveland_tech_survey
 
 
 def salary_for_years_of_exp(pd_series):
@@ -21,8 +21,16 @@ def special_chart(modifier, mode, pd_series_1, pd_series_2, xaxis_title=None, y_
     y = pd_series_2
 
 
-def get_chart_ids_and_titles():
-    return tuple((i, title) for i, title in enumerate(survey.keys()))
+def get_chart_ids_and_questions():
+    # chart_ids_and_questions = []
+    # categories = survey.keys()
+    # for category in categories:
+    #     questions = survey[category]
+    #     for question in questions:
+    #         chart_ids_and_questions.append(('{}-{}'.format(category, question), question))
+    # return chart_ids_and_questions
+    categories = cleveland_tech_survey.keys()
+    return categories
 
 
 def get_title_and_df_key_from_tab_value(tab_value):

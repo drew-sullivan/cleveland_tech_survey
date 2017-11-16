@@ -7,7 +7,7 @@ sys.setdefaultencoding('utf8')
 from flask_wtf import FlaskForm
 from wtforms import StringField, SelectField,SubmitField, SelectMultipleField, TextAreaField, widgets
 from wtforms.validators import DataRequired
-from app.static.survey.survey import survey
+from app.static.survey.survey import cleveland_tech_survey
 
 
 class NameForm(FlaskForm):
@@ -22,16 +22,16 @@ class MultiCheckboxField(SelectMultipleField):
 
 class EditSurveyForm(FlaskForm):
     answer_tuples = {}
-    categories = survey.keys()
+    categories = cleveland_tech_survey.keys()
     for category in categories:
-        questions = survey[category]
+        questions = cleveland_tech_survey[category]
         for question in questions:
-            answer_tuples[question] = [(answer, answer) for answer in survey[category][question]]
+            answer_tuples[question] = [(answer, answer) for answer in cleveland_tech_survey[category][question]]
 
-    community_profile = survey["Community Profile"]
-    technology = survey["Technology"]
-    work = survey["Work"]
-    cleveland = survey["Cleveland"]
+    community_profile = cleveland_tech_survey["Community Profile"]
+    technology = cleveland_tech_survey["Technology"]
+    work = cleveland_tech_survey["Work"]
+    cleveland = cleveland_tech_survey["Cleveland"]
 
     gender = SelectField('Gender', choices=community_profile["Gender"])
     ethnicity = SelectField('Ethnicity', choices=community_profile["Ethnicity"])

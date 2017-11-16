@@ -2,7 +2,7 @@
 
 from collections import OrderedDict
 
-survey = OrderedDict([
+cleveland_tech_survey = OrderedDict([
     ("Community Profile", OrderedDict([
         ("Gender", [
             "Female",
@@ -315,7 +315,7 @@ survey = OrderedDict([
 # 3. "A Customer Calls Late Friday Evening"
 # 4. Add comments section to end
 
-labels = [question.replace(' ', '_').lower() for category in survey.keys() for question in survey[category]]
+labels = [question.replace(' ', '_').lower() for category in cleveland_tech_survey.keys() for question in cleveland_tech_survey[category]]
 
 # labels = [question.replace(' ', '_').lower() for question in survey_questions_and_answers.keys()]
 # categories = [category for category in survey_questions_and_answers.keys()]
