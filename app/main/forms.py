@@ -5,8 +5,7 @@ reload(sys)
 sys.setdefaultencoding('utf8')
 
 from flask_wtf import FlaskForm
-from wtforms import StringField, SelectField,SubmitField, SelectMultipleField, TextAreaField, widgets
-from wtforms.validators import DataRequired
+from wtforms import SelectField, SubmitField, SelectMultipleField, TextAreaField, widgets
 from app.static.survey.survey import cleveland_tech_survey
 
 
@@ -20,11 +19,6 @@ def _get_answer_tuples():
     return answer_tuples
 
 
-class NameForm(FlaskForm):
-    name = StringField('What is your name?', validators=[DataRequired()])
-    submit = SubmitField('Submit')
-
-
 class MultiCheckboxField(SelectMultipleField):
     widget = widgets.ListWidget(prefix_label=False)
     option_widget = widgets.CheckboxInput()
@@ -33,17 +27,7 @@ class MultiCheckboxField(SelectMultipleField):
 class EditSurveyForm(FlaskForm):
     answer_tuples_by_question = _get_answer_tuples()
 
-    # community_profile = cleveland_tech_survey["Community Profile"]
-    # technology = cleveland_tech_survey["Technology"]
-    # work = cleveland_tech_survey["Work"]
-    # cleveland = cleveland_tech_survey["Cleveland"]
-
     gender = SelectField('Gender', choices=answer_tuples_by_question["Gender"])
-    # print '\n'
-    # print gender
-    # print '\n'
-    # print answer_tuples_by_question['Gender']
-    # print '\n'
     ethnicity = SelectField('Ethnicity', choices=answer_tuples_by_question["Ethnicity"])
     highest_educational_attainment = SelectField('Highest Educational Attainment', choices=answer_tuples_by_question["Highest Educational Attainment"])
     undergraduate_major = SelectField('Undergraduate Major', choices=answer_tuples_by_question["Undergraduate Major"])
