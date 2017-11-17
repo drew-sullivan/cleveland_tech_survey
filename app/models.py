@@ -64,8 +64,6 @@ class User(UserMixin, db.Model):
     last_seen = db.Column(db.DateTime(), default=datetime.utcnow)
     avatar_hash = db.Column(db.String(32))
 
-    tech_roles = db.Column(db.String(128))
-    years_of_professional_experience = db.Column(db.Integer)
     gender = db.Column(db.String(64))
     ethnicity = db.Column(db.String(64))
     highest_educational_attainment = db.Column(db.String(64))
@@ -76,11 +74,16 @@ class User(UserMixin, db.Model):
     primary_platforms_used_at_work = db.Column(db.String(128))
     primary_development_environments_used_at_work = db.Column(db.String(128))
     primary_version_control_systems_used_at_work = db.Column(db.String(128))
-    annual_amount_earned_from_all_tech_activities_combined = db.Column(db.String(32))
+    tech_roles = db.Column(db.String(128))
+    years_of_professional_experience = db.Column(db.Integer)
+    total_compensation = db.Column(db.String(32))
+    satisfaction_with_compensation = db.Column(db.Integer)
     what_you_value_most_in_compensation = db.Column(db.String(128))
     how_many_days_per_week_you_work_from_home = db.Column(db.Integer)
     company_size = db.Column(db.String(32))
+    total_hours_worked_per_week = db.Column(db.Integer)
     job_satisfaction = db.Column(db.Integer)
+    a_customer_calls_late_friday_evening = db.Column(db.String(64))
     work_life_balance = db.Column(db.Integer)
     how_you_found_your_current_job = db.Column(db.String(128))
     most_annoying_work_issue = db.Column(db.String(128))
@@ -89,6 +92,7 @@ class User(UserMixin, db.Model):
     favorite_cleveland_pro_sports_team = db.Column(db.String(64))
     favorite_cleveland_hangout_area = db.Column(db.String(32))
     favorite_cleveland_activity = db.Column(db.String(32))
+    feedback = db.Column(db.String(64))
 
     def __init__(self, **kwargs):
         super(User, self).__init__(**kwargs)
@@ -177,16 +181,6 @@ class User(UserMixin, db.Model):
 
     def is_administrator(self):
         return self.can(Permission.ADMINISTER)
-
-    def gravatar(self, size=100, default='identicon', rating='g'):
-        if request.is_secure:
-            url = 'https://secure.gravatar.com/avatar'
-        else:
-            url = 'http://www.gravatar.com/avatar'
-        hash = self.avatar_hash or hashlib.md5(
-            self.email.encode('utf-8')).hexdigest()
-        return '{url}/{hash}?s={size}&d={default}&r={rating}'.format(
-            url=url, hash=hash, size=size, default=default, rating=rating)
 
     def __repr__(self):
         return '<User %r>' % self.username

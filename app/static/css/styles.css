@@ -1,10 +1,5 @@
-.profile-thumbnail {
-    position: absolute;
-}
-
-.profile-header {
-    min-height: 260px;
-    margin-left: 280px;
+.navbar {
+    border-radius: 0;
 }
 
 ul {
@@ -17,4 +12,12 @@ li label {
 
 footer {
     margin-bottom: 12px;
+}
+
+.gtitle {
+    font-size: inherit !important;
+}
+
+#donate {
+    display: inline-block;
 }

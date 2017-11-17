@@ -1,5 +1,5 @@
 import itertools
-
+import random
 from collections import Counter
 
 
@@ -13,9 +13,9 @@ COLORS = {
 
 def generate_non_pie_chart_dict(title='Insert title here', x=None, y=None, mode=None, graph_type=None,
                                 orientation=None, xaxis_title=None, yaxis_title=None, text=None,
-                                color='#FF0000', line_width=2, line_color='#ffba13', left_margin=None,
+                                color='#FF0000', line_width=2, line_color='#FFBA13', left_margin=250,
                                 right_margin=None, top_margin=None, bottom_margin=None, xaxis_ticksuffix=None,
-                                xaxis_showticksuffix=None, yaxis_side=None):
+                                xaxis_showticksuffix=None, yaxis_side=None, tooltip_labels=None):
     graph = {
         'data': [
             {
@@ -31,7 +31,7 @@ def generate_non_pie_chart_dict(title='Insert title here', x=None, y=None, mode=
                         'color': line_color
                     }
                 },
-                'text': text
+                'text': tooltip_labels
             }
         ],
         'layout': {
@@ -42,7 +42,8 @@ def generate_non_pie_chart_dict(title='Insert title here', x=None, y=None, mode=
             },
             'yaxis': {
                 'title': yaxis_title,
-                'side': yaxis_side},
+                'side': yaxis_side
+            },
             'title': title,
             'margin': {
                 'l': left_margin,
@@ -50,13 +51,14 @@ def generate_non_pie_chart_dict(title='Insert title here', x=None, y=None, mode=
                 't': top_margin,
                 'b': bottom_margin
             }
-        }
+        },
+        'show_link': False
     }
     return graph
 
 
 def generate_pie_chart_dict(title='Insert Title Here', labels=['1st label', '2nd label'], values=[75, 25],
-                             colors=['rgb(146, 123, 21)', 'rgb(177, 180, 34)'], chart_type='pie',
+                             colors=COLORS['cavaliers'].values() + ['#D3D3D3'], chart_type='pie',
                              hoverinfo='label+percent', textinfo='none', showlegend=True, line_width=2,
                              line_color='black'):
     pie_chart_dict = {
@@ -79,13 +81,13 @@ def generate_pie_chart_dict(title='Insert Title Here', labels=['1st label', '2nd
         'layout': {
             'title': title,
             'showlegend': showlegend
-        }
+        },
+        'show_link': False
     }
     return pie_chart_dict
 
 
-def generate_horizontal_line_chart_dict(title='Title Here', pd_series=None, color_scheme=None,
-                                        color_1=None, color_2=None, xaxis_title='Percentage of Respondents',
+def generate_horizontal_line_chart_dict(title='Title Here', pd_series=None, xaxis_title='Percentage of Respondents',
                                         yaxis_title=None):
     user_responses = _transform_strings_to_lists(pd_series)
     num_users = len(user_responses)
@@ -95,23 +97,24 @@ def generate_horizontal_line_chart_dict(title='Title Here', pd_series=None, colo
     list_of_most_common_elements = list_of_least_common_elements[::-1]\
 
     percentages = _get_percentage_list(num_users, list_of_most_common_elements)
-    labels = _get_labels(list_of_most_common_elements)
-    color_1, color_2 = _get_colors(color_scheme, color_1, color_2)
-    return generate_non_pie_chart_dict(title=title, x=percentages, y=labels, graph_type='bar',
-                                       color=color_1, line_color=color_2, orientation='h', left_margin=210,
+    tooltip_labels = _get_labels(list_of_most_common_elements)
+    yaxis_labels = _get_short_yaxis_labels(tooltip_labels)
+    color_1, color_2 = _get_colors()
+    return generate_non_pie_chart_dict(title=title, x=percentages, y=yaxis_labels, graph_type='bar',
+                                       color=color_1, line_color=color_2, orientation='h',
                                        xaxis_title=xaxis_title, yaxis_title=yaxis_title, xaxis_ticksuffix='%',
-                                       xaxis_showticksuffix='all')
+                                       xaxis_showticksuffix='all', tooltip_labels=tooltip_labels)
 
 
-def generate_pie_chart_percentage_dict(title=None, colors=COLORS['cavaliers'].values() + ['#d3d3d3'], pd_series=None,
-                                       suffix=''):
+def generate_pie_chart_percentage_dict(title=None, pd_series=None, suffix=''):
     pd_series = pd_series.dropna()
     exp_data = pd_series.value_counts(normalize=True)
     sorted_labels = exp_data.sort_index()
-    labels = sorted_labels.index.astype(str)
+    labels = [str(label) for label in sorted_labels.index]
     labels += suffix
-    values = exp_data.round(2).sort_index().values
-    return generate_pie_chart_dict(title=title, labels=labels, values=values, colors=colors)
+    labels = list(labels)  # changed to list to accommodate json encoding for ajax call
+    values = list(exp_data.round(2).sort_index().values)  # changed to list to accommodate json encoding for ajax call
+    return generate_pie_chart_dict(title=title, labels=labels, values=values)
 
 
 def _transform_strings_to_lists(pd_series):
@@ -133,7 +136,24 @@ def _get_labels(list_of_items):
     return [item[0] for item in list_of_items]
 
 
-def _get_colors(color_scheme='cavaliers', color_1='wine', color_2='gold'):
-    color_1 = COLORS[color_scheme][color_1]
-    color_2 = COLORS[color_scheme][color_2]
+def _get_colors():
+    random_team = random.choice(COLORS.keys())
+    color_scheme = COLORS[random_team]
+    if random_team == 'cavaliers':
+        color_1 = color_scheme['wine']
+        color_2 = color_scheme['gold']
+    elif random_team == 'browns':
+        color_1 = color_scheme['brown']
+        color_2 = color_scheme['orange']
+    elif random_team == 'indians':
+        color_1 = color_scheme['red']
+        color_2 = color_scheme['navy']
+    else:
+        color_1 = color_scheme['wine']
+        color_2 = color_scheme['blue']
     return color_1, color_2
+
+
+def _get_short_yaxis_labels(labels):
+    MAX_LABEL_LEN = 35
+    return ['{}...'.format(label[:MAX_LABEL_LEN - 3]) if len(label) >= MAX_LABEL_LEN else label for label in labels]

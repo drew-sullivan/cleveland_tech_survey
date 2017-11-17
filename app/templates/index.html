@@ -3,36 +3,86 @@
 
 {% block title %}Cleveland Tech Survey{% endblock %}
 
+{% block head %}
+{{ super() }}
+<!-- D3.js -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/d3/3.5.6/d3.min.js"></script>
+<!-- jQuery -->
+<script src="https://code.jquery.com/jquery-2.1.4.min.js"></script>
+<!-- Plotly.js -->
+<script src="https://d14fo0winaifog.cloudfront.net/plotly-basic.js"></script>
+<script>
+    $(document).ready(function() {
+        $('.nav-tabs li').on('click', function(e) {
+            e.preventDefault();
+            var scrollTo = $('.nav-tabs');
+            console.log(scrollTo)
+            $('html, body').animate({
+               scrollTop: $(scrollTo).offset().top
+            }, 500);
+            $.ajax({
+                url: "{{ url_for('main.post_chart_data') }}",
+                method: "POST",
+                data: JSON.stringify($(this).attr("value")),
+                contentType: 'application/json;charset=UTF-8',
+                success: function(python) {
+                    var graph = python.graph_dict;
+                    $chartContentWrapper = $('#chartContentWrapper');
+                    $chartContentWrapper.replaceWith($('<div/>',{id : 'chartContentWrapper'}));
+                    (function() {
+                        var d3 = Plotly.d3;
+
+                        var WIDTH_IN_PERCENT_OF_PARENT = 100,
+                            HEIGHT_IN_PERCENT_OF_PARENT = 100;
+
+                        var gd3 = d3.select('#chartContentWrapper')
+                            .append('div')
+                            .style({
+                                width: WIDTH_IN_PERCENT_OF_PARENT + '%',
+                                'margin-left': (100 - WIDTH_IN_PERCENT_OF_PARENT) / 2 + '%',
+
+                                height: HEIGHT_IN_PERCENT_OF_PARENT + 'vh',
+                                'margin-top': (100 - HEIGHT_IN_PERCENT_OF_PARENT) / 2 + 'vh'
+                            });
+
+                        var gd = gd3.node();
+
+                        Plotly.plot(gd, graph.data, graph.layout, graph.show_link);
+
+                        window.onresize = function() {
+                            Plotly.Plots.resize(gd);
+                        };
+                    })();
+                }
+            })
+        });
+    });
+</script>
+{% endblock %}
+
 {% block page_content %}
 <div class="page-header">
     <h1>Welcome to the Cleveland Tech Survey!</h1>
-    <h4>Total Respondents: {{ num_respondents }}</h4>
+    <h3>Total Respondents: {{ num_respondents }}</h3>
 </div>
-<div>
-    {% for id in ids %}
-        <div id="{{ id }}"></div>
+<ul class="nav nav-tabs">
+    {% for category in categories %}
+    <li class="dropdown">
+        <a class="dropdown-toggle" data-toggle="dropdown" href="#">{{ category }}<span class="caret"></span></a>
+        <ul class="dropdown-menu">
+            {% set questions = cleveland_tech_survey[category] %}
+            {% for question in questions %}
+            <li class="title-tab" id="graph-{{ question }}" name='button_{{ question }}_name' value="{{ question }}">
+                <a href=".nav-tabs" data-toggle="tab">{{ question }}</a>
+            </li>
+            {% endfor %}
+        </ul>
+    </li>
     {% endfor %}
+</ul>
+<div class="tab-content" id="current-tab">
+    <div id="chartContentWrapper" class="tab-pane active">
+        <div id="chart"></div>
+    </div>
 </div>
 {% endblock %}
-
-{% block scripts %}
-{{ super() }}
-    <!-- D3.js -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/3.5.6/d3.min.js"></script>
-    <!-- jQuery -->
-    <script src="https://code.jquery.com/jquery-2.1.4.min.js"></script>
-    <!-- Plotly.js -->
-    <script src="https://d14fo0winaifog.cloudfront.net/plotly-basic.js"></script>
-
-    <script type="text/javascript">
-        var graphs = {{graphJSON | safe}};
-        var ids = {{ids | safe}};
-        for(var i in graphs) {
-            Plotly.plot(ids[i], // the ID of the div, created above
-                        graphs[i].data,
-                        graphs[i].layout || {});
-        }
-    </script>
-<!--https://plot.ly/javascript/responsive-fluid-layout/-->
-{% endblock %}
-

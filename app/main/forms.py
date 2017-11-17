@@ -5,55 +5,18 @@ reload(sys)
 sys.setdefaultencoding('utf8')
 
 from flask_wtf import FlaskForm
-from wtforms import StringField, TextAreaField, BooleanField, SelectField,\
-    SubmitField, SelectMultipleField, widgets
-from wtforms.validators import DataRequired, Length, Email, Regexp
-from wtforms import ValidationError
-from ..models import Role, User
-from app.static.survey.survey_questions_and_answers import survey_questions_and_answers
+from wtforms import SelectField, SubmitField, SelectMultipleField, TextAreaField, widgets
+from app.static.survey.survey import cleveland_tech_survey
 
 
-class NameForm(FlaskForm):
-    name = StringField('What is your name?', validators=[DataRequired()])
-    submit = SubmitField('Submit')
-
-
-class EditProfileForm(FlaskForm):
-    name = StringField('Real name', validators=[Length(0, 64)])
-    location = StringField('Location', validators=[Length(0, 64)])
-    about_me = TextAreaField('About me')
-    submit = SubmitField('Submit')
-
-
-class EditProfileAdminForm(FlaskForm):
-    email = StringField('Email', validators=[DataRequired(), Length(1, 64),
-                                             Email()])
-    username = StringField('Username', validators=[
-        DataRequired(), Length(1, 64), Regexp('^[A-Za-z][A-Za-z0-9_.]*$', 0,
-                                          'Usernames must have only letters, '
-                                          'numbers, dots or underscores')])
-    confirmed = BooleanField('Confirmed')
-    role = SelectField('Role', coerce=int)
-    name = StringField('Real name', validators=[Length(0, 64)])
-    location = StringField('Location', validators=[Length(0, 64)])
-    about_me = TextAreaField('About me')
-    submit = SubmitField('Submit')
-
-    def __init__(self, user, *args, **kwargs):
-        super(EditProfileAdminForm, self).__init__(*args, **kwargs)
-        self.role.choices = [(role.id, role.name)
-                             for role in Role.query.order_by(Role.name).all()]
-        self.user = user
-
-    def validate_email(self, field):
-        if field.data != self.user.email and \
-                User.query.filter_by(email=field.data).first():
-            raise ValidationError('Email already registered.')
-
-    def validate_username(self, field):
-        if field.data != self.user.username and \
-                User.query.filter_by(username=field.data).first():
-            raise ValidationError('Username already in use.')
+def _get_answer_tuples():
+    answer_tuples = {}
+    categories = cleveland_tech_survey.keys()
+    for category in categories:
+        questions = cleveland_tech_survey[category]
+        for question in questions:
+            answer_tuples[question] = [(answer, answer) for answer in cleveland_tech_survey[category][question]]
+    return answer_tuples
 
 
 class MultiCheckboxField(SelectMultipleField):
@@ -62,33 +25,36 @@ class MultiCheckboxField(SelectMultipleField):
 
 
 class EditSurveyForm(FlaskForm):
-    questions = {}
-    for k in survey_questions_and_answers.keys():
-        questions[k] = [(v, v) for v in survey_questions_and_answers[k]]
+    answer_tuples_by_question = _get_answer_tuples()
 
-    tech_roles = MultiCheckboxField('1. Tech Role', choices=questions["Tech Roles"])
-    years_of_professional_experience = SelectField('2. Years of Professional Experience', choices=questions["Years of Professional Experience"], coerce=int)
-    gender = SelectField('3. Gender', choices=questions["Gender"])
-    ethnicity = SelectField('4. Ethnicity', choices=questions["Ethnicity"])
-    highest_educational_attainment = SelectField('5. Highest Educational Attainment', choices=questions["Highest Educational Attainment"])
-    undergraduate_major = SelectField('6. Undergraduate Major', choices=questions["Undergraduate Major"])
-    how_you_learned_to_code = MultiCheckboxField('7. How You Learned to Code', choices=questions["How You Learned to Code"])
-    primary_programming_languages_used_at_work = MultiCheckboxField('8. Primary Programming Languages Used at Work', choices=questions["Primary Programming Languages Used at Work"])
-    primary_database_technologies_used_at_work = MultiCheckboxField('9. Primary Database Technologies Used at Work', choices=questions["Primary Database Technologies Used at Work"])
-    primary_platforms_used_at_work = MultiCheckboxField('10. Primary Platforms Used at Work', choices=questions["Primary Platforms Used at Work"])
-    primary_development_environments_used_at_work = MultiCheckboxField('11. Primary Development Environments Used at Work', choices=questions["Primary Development Environments Used at Work"])
-    primary_version_control_systems_used_at_work = MultiCheckboxField('12. Primary Version Control Systems Used at Work', choices=questions["Primary Version Control Systems Used at Work"])
-    annual_amount_earned_from_all_tech_activities_combined = SelectField('13. Annual Amount Earned From all Tech Activities Combined', choices=questions["Annual Amount Earned From all Tech Activities Combined"])
-    what_you_value_most_in_compensation = MultiCheckboxField("14. What You Value Most in Compensation", choices=questions["What You Value Most in Compensation"])
-    how_many_days_per_week_you_work_from_home = SelectField("15. How Many Days Per Week You Work From Home", choices=questions["How Many Days Per Week You Work From Home"], coerce=int)
-    company_size = SelectField('16. Company Size', choices=questions["Company Size"])
-    job_satisfaction = SelectField('17. Job Satisfaction', choices=questions["Job Satisfaction"], coerce=int)
-    work_life_balance = SelectField('18. Work Life Balance', choices=questions["Work Life Balance"], coerce=int)
-    how_you_found_your_current_job = MultiCheckboxField('19. How You Found Your Current Job', choices=questions["How You Found Your Current Job"])
-    most_annoying_work_issue = MultiCheckboxField('20. Most Annoying Work Issue', choices=questions["Most Annoying Work Issue"])
-    favorite_office_perk = MultiCheckboxField('21. Favorite Office Perk', choices=questions["Favorite Office Perk"])
-    what_keeps_you_in_cleveland = MultiCheckboxField('22. What Keeps You in Cleveland', choices=questions["What Keeps You in Cleveland"])
-    favorite_cleveland_pro_sports_team = SelectField('23. Favorite Cleveland Pro Sports Team', choices=questions["Favorite Cleveland Pro Sports Team"])
-    favorite_cleveland_hangout_area = SelectField('24. Favorite Cleveland Hangout Area', choices=questions["Favorite Cleveland Hangout Area"])
-    favorite_cleveland_activity = SelectField('25. Favorite Cleveland Activity', choices=questions["Favorite Cleveland Activity"])
+    gender = SelectField('Gender', choices=answer_tuples_by_question["Gender"])
+    ethnicity = SelectField('Ethnicity', choices=answer_tuples_by_question["Ethnicity"])
+    highest_educational_attainment = SelectField('Highest Educational Attainment', choices=answer_tuples_by_question["Highest Educational Attainment"])
+    undergraduate_major = SelectField('Undergraduate Major', choices=answer_tuples_by_question["Undergraduate Major"])
+    how_you_learned_to_code = MultiCheckboxField('How You Learned to Code', choices=answer_tuples_by_question["How You Learned to Code"])
+    primary_programming_languages_used_at_work = MultiCheckboxField('Primary Programming Languages Used at Work', choices=answer_tuples_by_question["Primary Programming Languages Used at Work"])
+    primary_database_technologies_used_at_work = MultiCheckboxField('Primary Database Technologies Used at Work', choices=answer_tuples_by_question["Primary Database Technologies Used at Work"])
+    primary_platforms_used_at_work = MultiCheckboxField('Primary Platforms Used at Work', choices=answer_tuples_by_question["Primary Platforms Used at Work"])
+    primary_development_environments_used_at_work = MultiCheckboxField('Primary Development Environments Used at Work', choices=answer_tuples_by_question["Primary Development Environments Used at Work"])
+    primary_version_control_systems_used_at_work = MultiCheckboxField('Primary Version Control Systems Used at Work', choices=answer_tuples_by_question["Primary Version Control Systems Used at Work"])
+    tech_roles = MultiCheckboxField('Tech Role', choices=answer_tuples_by_question["Tech Roles"])
+    years_of_professional_experience = SelectField('Years of Professional Experience', choices=answer_tuples_by_question["Years of Professional Experience"], coerce=int)
+    total_compensation = SelectField('Annual Amount Earned From all Tech Activities Combined', choices=answer_tuples_by_question["Total Compensation"])
+    satisfaction_with_compensation = SelectField('Satisfaction with Compensation', choices=answer_tuples_by_question["Satisfaction with Compensation"], coerce=int)
+    what_you_value_most_in_compensation = MultiCheckboxField("What You Value Most in Compensation", choices=answer_tuples_by_question["What You Value Most in Compensation"])
+    how_many_days_per_week_you_work_from_home = SelectField("How Many Days Per Week You Work From Home", choices=answer_tuples_by_question["How Many Days Per Week You Work From Home"], coerce=int)
+    company_size = SelectField('Company Size', choices=answer_tuples_by_question["Company Size"])
+    total_hours_worked_per_week = SelectField('Total Hours Worked Per Week', choices=answer_tuples_by_question["Total Hours Worked Per Week"], coerce=int)
+    job_satisfaction = SelectField('Job Satisfaction', choices=answer_tuples_by_question["Job Satisfaction"], coerce=int)
+    a_customer_calls_late_friday_evening = SelectField('A Customer Calls Late Friday Evening', choices=answer_tuples_by_question["A Customer Calls Late Friday Evening"])
+    work_life_balance = SelectField('Work Life Balance', choices=answer_tuples_by_question["Work Life Balance"], coerce=int)
+    how_you_found_your_current_job = MultiCheckboxField('How You Found Your Current Job', choices=answer_tuples_by_question["How You Found Your Current Job"])
+    most_annoying_work_issue = MultiCheckboxField('Most Annoying Work Issue', choices=answer_tuples_by_question["Most Annoying Work Issue"])
+    favorite_office_perk = MultiCheckboxField('Favorite Office Perk', choices=answer_tuples_by_question["Favorite Office Perk"])
+    what_keeps_you_in_cleveland = MultiCheckboxField('What Keeps You in Cleveland', choices=answer_tuples_by_question["What Keeps You in Cleveland"])
+    favorite_cleveland_pro_sports_team = SelectField('Favorite Cleveland Pro Sports Team', choices=answer_tuples_by_question["Favorite Cleveland Pro Sports Team"])
+    favorite_cleveland_hangout_area = SelectField('Favorite Cleveland Hangout Area', choices=answer_tuples_by_question["Favorite Cleveland Hangout Area"])
+    favorite_cleveland_activity = SelectField('Favorite Cleveland Activity', choices=answer_tuples_by_question["Favorite Cleveland Activity"])
+    feedback = TextAreaField('Please provide feedback for the survey')
+
     submit = SubmitField('Submit')
