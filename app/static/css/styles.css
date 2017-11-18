@@ -21,3 +21,8 @@ footer {
 #donate {
     display: inline-block;
 }
+
+.footer-link {
+    margin-left: 10px;
+    color: #333 !important;
+}
