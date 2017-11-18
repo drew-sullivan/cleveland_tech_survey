@@ -308,26 +308,4 @@ cleveland_tech_survey = OrderedDict([
     ]))
 ])
 
-# v2 TODO:
-# Questions to add to db and edit survey:
-# 1. "Satisfaction with Compensation"
-# 2. "How Many Hours You Work Per Week"
-# 3. "A Customer Calls Late Friday Evening"
-# 4. Add comments section to end
-
 labels = [question.replace(' ', '_').lower() for category in cleveland_tech_survey.keys() for question in cleveland_tech_survey[category]]
-
-# labels = [question.replace(' ', '_').lower() for question in survey_questions_and_answers.keys()]
-# categories = [category for category in survey_questions_and_answers.keys()]
-# Community Profile
-# Technology
-# Work
-# Cleveland
-
-
-# for i, category in enumerate(survey.keys(), 1):
-#   print 'Category {}: {}'.format(i, category)
-#   for j, question in enumerate(survey[category], 1):
-#     print '\t Question {}: {}'.format(i, question)
-#     for k, answer in enumerate(survey[category][question], 1):
-#       print '\t\t Answer {}: {}'.format(i, answer)

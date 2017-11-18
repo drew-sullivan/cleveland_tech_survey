@@ -1,5 +1,4 @@
-from app.static.graphing import graph_tools
-from app.static.graphing.graph_tools import COLORS as color
+from app.main.graphing.graph_tools import COLORS, generate_pie_chart_percentage_dict, generate_horizontal_line_chart_dict, generate_non_pie_chart_dict
 from app.static.survey.survey import cleveland_tech_survey
 
 
@@ -11,9 +10,9 @@ def salary_for_years_of_exp(pd_series):
     mode = 'markers'
     xaxis_title = 'Total Compensation'
     yaxis_title = 'Years of Professional Experience'
-    return graph_tools.generate_non_pie_chart_dict(title=title, x=x, y=y, mode=mode, xaxis_title=xaxis_title,
-                                                   yaxis_title=yaxis_title, color=color['indians']['red'],
-                                                   line_color=color['indians']['navy'])
+    return generate_non_pie_chart_dict(title=title, x=x, y=y, mode=mode, xaxis_title=xaxis_title,
+                                                   yaxis_title=yaxis_title, color=COLORS['indians']['red'],
+                                                   line_color=COLORS['indians']['navy'])
 
 
 def special_chart(modifier, mode, pd_series_1, pd_series_2, xaxis_title=None, y_axis_title=None):
@@ -36,5 +35,5 @@ def get_graph_dict(title, pd_series, suffix='', yaxis_title=None, *args):
     if len(args) > 0:
         print '{} pd_series were passed in'.format(len(pd_series))
     if len(pd_series.unique()) <= 5:
-        return graph_tools.generate_pie_chart_percentage_dict(title=title, pd_series=pd_series, suffix=suffix)
-    return graph_tools.generate_horizontal_line_chart_dict(title=title, pd_series=pd_series, yaxis_title=yaxis_title)
+        return generate_pie_chart_percentage_dict(title=title, pd_series=pd_series, suffix=suffix)
+    return generate_horizontal_line_chart_dict(title=title, pd_series=pd_series, yaxis_title=yaxis_title)
