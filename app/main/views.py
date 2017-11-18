@@ -1,7 +1,6 @@
 from flask import render_template, redirect, url_for, abort, flash, request, jsonify
 from flask_login import login_required, current_user
-
-from app.main.graphing.graphs import get_categories, get_title_and_df_key_from_tab_value, get_graph_dict
+from app.main.graphing.graphs import get_title_and_df_key_from_tab_value, get_graph_dict
 from app.main.graphing.data_analysis import get_user_data_df
 from app.static.survey.survey import labels, cleveland_tech_survey
 from . import main
@@ -13,9 +12,7 @@ from ..models import User
 @main.route('/')
 def index():
     num_respondents = User.query.filter_by().count()
-    categories = get_categories()
-    return render_template('index.html', cleveland_tech_survey=cleveland_tech_survey, categories=categories,
-                           num_respondents=num_respondents)
+    return render_template('index.html', cleveland_tech_survey=cleveland_tech_survey, num_respondents=num_respondents)
 
 
 @main.route('/data', methods=['GET', 'POST'])

@@ -1,4 +1,5 @@
-from app.main.graphing.graph_tools import COLORS, generate_pie_chart_percentage_dict, generate_horizontal_line_chart_dict, generate_non_pie_chart_dict
+from app.main.graphing.graph_tools import COLORS, generate_pie_chart_percentage_dict,\
+    generate_horizontal_line_chart_dict, generate_non_pie_chart_dict
 from app.static.survey.survey import cleveland_tech_survey
 
 
@@ -18,11 +19,6 @@ def salary_for_years_of_exp(pd_series):
 def special_chart(modifier, mode, pd_series_1, pd_series_2, xaxis_title=None, y_axis_title=None):
     x = pd_series_1
     y = pd_series_2
-
-
-def get_categories():
-    categories = cleveland_tech_survey.keys()
-    return categories
 
 
 def get_title_and_df_key_from_tab_value(tab_value):
