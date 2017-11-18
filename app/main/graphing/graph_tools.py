@@ -105,6 +105,12 @@ def generate_pie_chart_dict(title='Insert Title Here', labels=['1st label', '2nd
     return pie_chart_dict
 
 
+def generate_scatter_chart_dict(title, x, y, xaxis_title, yaxis_title):
+    chart_colors = _get_colors()
+    return generate_non_pie_chart_dict(title=title, x=x, y=y, mode='markers', xaxis_title=xaxis_title,
+                                       yaxis_title=yaxis_title, color=chart_colors[0], line_color=chart_colors[1])
+
+
 def generate_horizontal_line_chart_dict(title='Title Here', pd_series=None, xaxis_title='Percentage of Respondents',
                                         yaxis_title=None):
     user_responses = _transform_strings_to_lists(pd_series)
@@ -115,7 +121,7 @@ def generate_horizontal_line_chart_dict(title='Title Here', pd_series=None, xaxi
     list_of_most_common_elements = list_of_least_common_elements[::-1]
 
     percentages = _get_percentage_list(num_users, list_of_most_common_elements)
-    tooltip_labels = _get_labels(list_of_most_common_elements)
+    tooltip_labels = _get_tooltip_labels(list_of_most_common_elements)
     yaxis_labels = _get_short_yaxis_labels(tooltip_labels)
     chart_colors = _get_colors()
     return generate_non_pie_chart_dict(title=title, x=percentages, y=yaxis_labels, graph_type='bar',
@@ -127,6 +133,7 @@ def generate_horizontal_line_chart_dict(title='Title Here', pd_series=None, xaxi
 def generate_pie_chart_percentage_dict(title=None, pd_series=None, suffix=''):
     pd_series = pd_series.dropna()
     exp_data = pd_series.value_counts(normalize=True)
+    print exp_data
     sorted_labels = exp_data.sort_index()
     labels = [str(label) for label in sorted_labels.index]
     labels += suffix
@@ -150,7 +157,7 @@ def _get_percentage_list(num_users, list_of_items):
     return ['{}%'.format(round(100 * float(item[1]) / float(num_users), 2)) for item in list_of_items]
 
 
-def _get_labels(list_of_items):
+def _get_tooltip_labels(list_of_items):
     return [item[0] for item in list_of_items]
 
 

@@ -1,6 +1,6 @@
 from flask import render_template, redirect, url_for, abort, flash, request, jsonify
 from flask_login import login_required, current_user
-from app.main.graphing.graphs import get_title_and_df_key_from_tab_value, get_graph_dict
+from app.main.graphing.graphs import get_graph_dict
 from app.main.graphing.data_analysis import get_user_data_df
 from app.static.survey.survey import questions_by_category, cleveland_tech_survey
 from . import main
@@ -19,9 +19,8 @@ def index():
 def post_chart_data():
     users = User.query.filter_by().all()
     df = get_user_data_df(users)
-    tab_values = request.data
-    title, df_keys = get_title_and_df_key_from_tab_value(tab_values)
-    graph_dict = get_graph_dict(title, df, df_keys, users)
+    chart_title = request.data
+    graph_dict = get_graph_dict(df, chart_title, users)
     return jsonify({'graph_dict': graph_dict})
 
 
