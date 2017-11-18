@@ -21,7 +21,7 @@ def post_chart_data():
     df = get_user_data_df(users)
     tab_values = request.data
     title, df_keys = get_title_and_df_key_from_tab_value(tab_values)
-    graph_dict = get_graph_dict(title, df, df_keys)
+    graph_dict = get_graph_dict(title, df, df_keys, users)
     return jsonify({'graph_dict': graph_dict})
 
 

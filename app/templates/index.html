@@ -13,7 +13,7 @@
 <script src="https://d14fo0winaifog.cloudfront.net/plotly-basic.js"></script>
 <script>
     $(document).ready(function() {
-        $('.nav-tabs .title-tab').on('click', function(e) {
+        $('.nav-tabs .question-title').on('click', function(e) {
             e.preventDefault();
             var scrollTo = $('.nav-tabs');
             console.log(scrollTo)
@@ -72,7 +72,7 @@
         <ul class="dropdown-menu">
             {% set questions = cleveland_tech_survey[category] %}
             {% for question in questions %}
-            <li class="title-tab" id="graph-{{ question }}" name='button_{{ question }}_name' value="{{ question }}">
+            <li class="question-title" id="graph-{{ question }}" name='button_{{ question }}_name' value="{{ question }}">
                 <a href=".nav-tabs" data-toggle="tab">{{ question }}</a>
             </li>
             {% endfor %}
