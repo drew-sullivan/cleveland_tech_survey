@@ -12,6 +12,7 @@ li label {
 
 footer {
     margin-bottom: 12px;
+    padding: 0 !important;
 }
 
 .gtitle {
