@@ -2,7 +2,7 @@ from flask import render_template, redirect, url_for, abort, flash, request, jso
 from flask_login import login_required, current_user
 from app.main.graphing.graphs import get_title_and_df_key_from_tab_value, get_graph_dict
 from app.main.graphing.data_analysis import get_user_data_df
-from app.static.survey.survey import labels, cleveland_tech_survey
+from app.static.survey.survey import questions_by_category, cleveland_tech_survey
 from . import main
 from .forms import EditSurveyForm
 from .. import db
@@ -19,9 +19,9 @@ def index():
 def post_chart_data():
     users = User.query.filter_by().all()
     df = get_user_data_df(users)
-    tab_value = request.data
-    title, df_key = get_title_and_df_key_from_tab_value(tab_value)
-    graph_dict = get_graph_dict(title, df[df_key])
+    tab_values = request.data
+    title, df_keys = get_title_and_df_key_from_tab_value(tab_values)
+    graph_dict = get_graph_dict(title, df, df_keys)
     return jsonify({'graph_dict': graph_dict})
 
 
@@ -30,7 +30,7 @@ def survey(username):
     user = User.query.filter_by(username=username).first()
     if user is None:
         abort(404)
-    return render_template('survey.html', user=user, questions=labels)
+    return render_template('survey.html', user=user, questions=questions_by_category)
 
 
 @main.route('/edit-survey', methods=['GET', 'POST'])

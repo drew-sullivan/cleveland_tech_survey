@@ -307,59 +307,8 @@ cleveland_tech_survey = OrderedDict([
         ])
     ])),
     ("TEST", OrderedDict([
-        ("What Keeps You in Cleveland", [
-            "Pro Sports teams",
-            "Short commute/lack of traffic",
-            "Access to nature (Metroparks, Cuyahoga Nat'l Park)",
-            "4 Distinct seasons",
-            "Affordable housing/Cost of living",
-            "Grew up in Cleveland",
-            "Family",
-            "Why would I leave the greatest city on Earth?",
-            "Work",
-            "Other"
-        ]),
-        ("Favorite Cleveland Pro Sports Team", [
-            "Browns",
-            "Cavaliers",
-            "Indians",
-            "Monsters",
-            "I don't care about sport ball"
-        ]),
-        ("Favorite Cleveland Hangout Area", [
-            "Coventry Village",
-            "Downtown",
-            "East Fourth",
-            "Edgewater",
-            "The Flats",
-            "Gordon Square",
-            "Lakewood",
-            "Little Italy",
-            "Ohio City",
-            "Playhouse Square",
-            "Shaker Square",
-            "Slavic Village",
-            "Tremont",
-            "University Circle",
-            "Other"
-        ]),
-        ("Favorite Cleveland Activity", [
-            "A Christmas Story House",
-            "Cleveland Botanical Garden",
-            "Cleveland Metroparks",
-            "Cleveland Metroparks Zoo",
-            "Cleveland Museum of Art",
-            "Cleveland Museum of Natural History",
-            "Cleveland Orchestra at Severance Hall",
-            "Great Lakes Science Center",
-            "JACK Casino",
-            "Lake View Cemetary",
-            "Rock & Roll Hall of Fame",
-            "USS Cod",
-            "West Side Market",
-            "Other"
-        ])
+        ("Total Compensation / Years of Professional Experience", 'test_1')
     ]))
 ])
 
-labels = [question.replace(' ', '_').lower() for category in cleveland_tech_survey.keys() for question in cleveland_tech_survey[category]]
+questions_by_category = [question.replace(' ', '_').lower() for category in cleveland_tech_survey.keys() for question in cleveland_tech_survey[category] if category != 'TEST']
