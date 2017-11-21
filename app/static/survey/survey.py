@@ -175,6 +175,7 @@ cleveland_tech_survey = OrderedDict([
             "Mobile Developer",
             "Quality Assurance Engineer",
             "Sales Engineer",
+            "Security Specialist",
             "Systems Administrator",
             "Web Developer",
             "Other"
