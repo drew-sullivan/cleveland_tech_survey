@@ -11,7 +11,7 @@ def _get_title_and_df_keys_from_tab_value(chart_title):
     return chart_title, df_keys, axes_titles
 
 
-def get_graph_dict(df, chart_title, suffix='', yaxis_title=None):
+def get_graph_dict(df, chart_title, users, suffix='', yaxis_title=None):
     title, df_keys, axes_titles = _get_title_and_df_keys_from_tab_value(chart_title)
     if len(df_keys) >= 2:
         xaxis_title = axes_titles[0]
@@ -22,7 +22,9 @@ def get_graph_dict(df, chart_title, suffix='', yaxis_title=None):
         x_y_data.iloc[:, 1] = x_y_data[y].replace('[\$,)]', '', regex=True).astype(int)
         data = x_y_data.groupby('gender')['total_compensation'].mean().astype(int)
         x = list(data.index)
+        print x
         y = ['${:,}'.format(value) for value in data.values]
+        print y
         return generate_vertical_bar_chart_dict(title=title, x=x, y=y, xaxis_title=xaxis_title, yaxis_title=yaxis_title)
     else:
         pd_series = df[df_keys[0]]
