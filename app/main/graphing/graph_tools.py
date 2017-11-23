@@ -70,7 +70,6 @@ def generate_non_pie_chart_dict(title='Insert title here', x=None, y=None, mode=
                 'b': bottom_margin
             }
         },
-        'show_link': False
     }
     return graph
 
@@ -111,6 +110,13 @@ def generate_scatter_chart_dict(title, x, y, xaxis_title, yaxis_title):
                                        yaxis_title=yaxis_title, color=chart_colors[0], line_color=chart_colors[1])
 
 
+def generate_vertical_bar_chart_dict(title='Title Here', x=None, y=None, xaxis_title=None, yaxis_title=None):
+    chart_colors = _get_colors()
+    return generate_non_pie_chart_dict(title=title, x=x, y=y, graph_type='bar',
+                                       color=chart_colors[0], line_color=chart_colors[1],
+                                       xaxis_title=xaxis_title, yaxis_title=yaxis_title, left_margin=150)
+
+
 def generate_horizontal_line_chart_dict(title='Title Here', pd_series=None, xaxis_title='Percentage of Respondents',
                                         yaxis_title=None):
     user_responses = _transform_strings_to_lists(pd_series)
@@ -133,7 +139,6 @@ def generate_horizontal_line_chart_dict(title='Title Here', pd_series=None, xaxi
 def generate_pie_chart_percentage_dict(title=None, pd_series=None, suffix=''):
     pd_series = pd_series.dropna()
     exp_data = pd_series.value_counts(normalize=True)
-    print exp_data
     sorted_labels = exp_data.sort_index()
     labels = [str(label) for label in sorted_labels.index]
     labels += suffix
@@ -164,3 +169,8 @@ def _get_tooltip_labels(list_of_items):
 def _get_short_yaxis_labels(labels):
     MAX_LABEL_LEN = 35
     return ['{}...'.format(label[:MAX_LABEL_LEN - 3]) if len(label) >= MAX_LABEL_LEN else label for label in labels]
+
+
+def _transform_currency_to_ints(pd_series):
+    transformed_series = (pd_series.replace('[\$,)]', '', regex=True).astype(float))
+    return transformed_series

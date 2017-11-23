@@ -307,9 +307,7 @@ cleveland_tech_survey = OrderedDict([
             "Other"
         ])
     ])),
-    ("TEST", OrderedDict([
-        ("Total Compensation / Years of Professional Experience", 'test_1')
-    ]))
 ])
 
-questions_by_category = [question.replace(' ', '_').lower() for category in cleveland_tech_survey.keys() for question in cleveland_tech_survey[category] if category != 'TEST']
+questions_by_category = [question.replace(' ', '_').lower() for category in cleveland_tech_survey.keys() for question in cleveland_tech_survey[category] if category != 'Money']
+cleveland_tech_survey['Money'] = OrderedDict(('{} / Total Compensation'.format(q.replace('_', ' ').title()), 'test_{}'.format(i)) for i, q in enumerate(questions_by_category))
