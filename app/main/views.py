@@ -15,6 +15,11 @@ def index():
     return render_template('index.html', cleveland_tech_survey=cleveland_tech_survey, num_respondents=num_respondents)
 
 
+@main.route('/about')
+def about():
+    return render_template('about.html')
+
+
 @main.route('/data', methods=['GET', 'POST'])
 def post_chart_data():
     users = User.query.filter_by().all()

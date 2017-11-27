@@ -27,3 +27,8 @@ footer {
     margin-left: 10px;
     color: #333 !important;
 }
+
+#catPic {
+    width: 250px;
+    height: 350px;
+}
