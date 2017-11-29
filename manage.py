@@ -30,16 +30,13 @@ def test():
 def deploy():
     """Run deployment tasks"""
     from flask_migrate import upgrade
-    from app.models import Role, User
+    from app.models import Role
 
     # migrate database to latest revision
     upgrade()
 
     # create user roles
     Role.insert_roles()
-
-    # create self-follows for all users
-    User.add_self_follows()
 
 
 if __name__ == '__main__':
