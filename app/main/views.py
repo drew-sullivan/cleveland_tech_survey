@@ -1,8 +1,8 @@
 from flask import render_template, redirect, url_for, abort, flash, request, jsonify
 from flask_login import login_required, current_user
-from app.static.graphing.data_analysis import get_user_data_df
-from app.static.graphing.graphs import get_categories, get_title_and_df_key_from_tab_value, get_graph_dict
-from app.static.survey.survey import labels, cleveland_tech_survey
+from app.main.graphing.graphs import get_graph_dict
+from app.main.graphing.data_analysis import get_user_data_df
+from app.static.survey.survey import questions_by_category, cleveland_tech_survey
 from . import main
 from .forms import EditSurveyForm
 from .. import db
@@ -12,18 +12,20 @@ from ..models import User
 @main.route('/')
 def index():
     num_respondents = User.query.filter_by().count()
-    categories = get_categories()
-    return render_template('index.html', cleveland_tech_survey=cleveland_tech_survey, categories=categories,
-                           num_respondents=num_respondents)
+    return render_template('index.html', cleveland_tech_survey=cleveland_tech_survey, num_respondents=num_respondents)
+
+
+@main.route('/about')
+def about():
+    return render_template('about.html')
 
 
 @main.route('/data', methods=['GET', 'POST'])
 def post_chart_data():
     users = User.query.filter_by().all()
     df = get_user_data_df(users)
-    tab_value = request.data
-    title, df_key = get_title_and_df_key_from_tab_value(tab_value)
-    graph_dict = get_graph_dict(title, df[df_key])
+    chart_title = request.data
+    graph_dict = get_graph_dict(df, chart_title, users)
     return jsonify({'graph_dict': graph_dict})
 
 
@@ -32,7 +34,7 @@ def survey(username):
     user = User.query.filter_by(username=username).first()
     if user is None:
         abort(404)
-    return render_template('survey.html', user=user, questions=labels)
+    return render_template('survey.html', user=user, questions=questions_by_category)
 
 
 @main.route('/edit-survey', methods=['GET', 'POST'])

@@ -39,3 +39,8 @@ nosetests.xml
 
 # Virtual environment
 venv
+data-dev.sqlite-journal
+
+# Heroku
+*.env
+.env

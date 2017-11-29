@@ -1,0 +1,25 @@
+{% extends "base.html" %}
+{% import "bootstrap/wtf.html" as wtf %}
+
+{% block title %}Cleveland Tech Survey - About{% endblock %}
+
+{% block page_content %}
+<div class="page-header">
+    <h1>About the Cleveland Tech Survey</h1>
+</div>
+<p>Cleveland is a special place. Lots of the information provided by survey-type sites (Glassdoor, Stack Overflow, etc.)
+doesn't seem to accurately represent Cleveland. So the Cleveland Tech Survey is an attempt to help us learn more about what it's like to work in tech in Cleveland.</p>
+<p>If you would like to offer feedback about the site, email <a href="mailto:drew.sullivan.dma@gmail.com">here</a>. Keep in mind that this is v0.12.0 and a work in progress</p>
+<p>Pull requests are welcome <a href="https://github.com/drew-sullivan/cleveland_tech_survey">here</a>.</p>
+<p>Donations of any amount would be helpful. This isn't a team. I'm just one guy trying to do something nice for the community I live in.
+    <form action="https://www.paypal.com/cgi-bin/webscr" method="post" target="_blank" id="donate">
+        <input type="hidden" name="cmd" value="_s-xclick">
+        <input type="hidden" name="hosted_button_id" value="D6GC2AJMLC2PG">
+        <input type="image" src="https://www.paypalobjects.com/en_US/i/btn/btn_donate_LG.gif" border="0" name="submit" alt="PayPal - The safer, easier way to pay online!">
+        <img alt="" border="0" src="https://www.paypalobjects.com/en_US/i/scr/pixel.gif" width="1" height="1">
+    </form>
+</p>
+<p>Thanks!</p>
+<p>P.S. Here are my cats. Everyone likes cats.</p>
+<img id="catPic" src="{{ url_for('static', filename='images/abbott_and_cooper.jpg') }}" />
+{% endblock %}

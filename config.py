@@ -14,6 +14,7 @@ class Config:
     CTS_MAIL_SUBJECT_PREFIX = '[Cleveland_Tech_Survey]'
     CTS_MAIL_SENDER = 'Cleveland_Tech_Survey Admin <drew.sullivan.dma@gmail.com>'
     CTS_ADMIN = os.environ.get('CTS_ADMIN')
+    SSL_DISABLE = True
 
     @staticmethod
     def init_app(app):
@@ -37,10 +38,20 @@ class ProductionConfig(Config):
         'sqlite:///' + os.path.join(basedir, 'data.sqlite')
 
 
+class HerokuConfig(ProductionConfig):
+    SSL_DISABLE = bool(os.environ.get('SSL_DISABLE'))
+
+    @classmethod
+    def init_app(cls, app):
+        from werkzeug.contrib.fixers import ProxyFix
+        app.wsgi_app = ProxyFix(app.wsgi_app)
+
+
 config = {
     'development': DevelopmentConfig,
     'testing': TestingConfig,
     'production': ProductionConfig,
+    'heroku': HerokuConfig,
 
     'default': DevelopmentConfig
 }

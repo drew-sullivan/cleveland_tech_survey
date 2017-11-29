@@ -11,9 +11,27 @@ COLORS = {
 }
 
 
+def _get_colors():
+    random_team = random.choice(COLORS.keys())
+    color_scheme = COLORS[random_team]
+    if random_team == 'cavaliers':
+        color = color_scheme['wine']
+        line_color = color_scheme['gold']
+    elif random_team == 'browns':
+        color = color_scheme['brown']
+        line_color = color_scheme['orange']
+    elif random_team == 'indians':
+        color = color_scheme['red']
+        line_color = color_scheme['navy']
+    else:
+        color = color_scheme['wine']
+        line_color = color_scheme['blue']
+    return color, line_color
+
+
 def generate_non_pie_chart_dict(title='Insert title here', x=None, y=None, mode=None, graph_type=None,
                                 orientation=None, xaxis_title=None, yaxis_title=None, text=None,
-                                color='#FF0000', line_width=2, line_color='#FFBA13', left_margin=250,
+                                color='#000', line_width=2, line_color='#FFF', left_margin=None,
                                 right_margin=None, top_margin=None, bottom_margin=None, xaxis_ticksuffix=None,
                                 xaxis_showticksuffix=None, yaxis_side=None, tooltip_labels=None):
     graph = {
@@ -52,7 +70,6 @@ def generate_non_pie_chart_dict(title='Insert title here', x=None, y=None, mode=
                 'b': bottom_margin
             }
         },
-        'show_link': False
     }
     return graph
 
@@ -87,6 +104,19 @@ def generate_pie_chart_dict(title='Insert Title Here', labels=['1st label', '2nd
     return pie_chart_dict
 
 
+def generate_scatter_chart_dict(title, x, y, xaxis_title, yaxis_title):
+    chart_colors = _get_colors()
+    return generate_non_pie_chart_dict(title=title, x=x, y=y, mode='markers', xaxis_title=xaxis_title,
+                                       yaxis_title=yaxis_title, color=chart_colors[0], line_color=chart_colors[1])
+
+
+def generate_vertical_bar_chart_dict(title='Title Here', x=None, y=None, xaxis_title=None, yaxis_title=None):
+    chart_colors = _get_colors()
+    return generate_non_pie_chart_dict(title=title, x=x, y=y, graph_type='bar',
+                                       color=chart_colors[0], line_color=chart_colors[1],
+                                       xaxis_title=xaxis_title, yaxis_title=yaxis_title, left_margin=150)
+
+
 def generate_horizontal_line_chart_dict(title='Title Here', pd_series=None, xaxis_title='Percentage of Respondents',
                                         yaxis_title=None):
     user_responses = _transform_strings_to_lists(pd_series)
@@ -94,16 +124,16 @@ def generate_horizontal_line_chart_dict(title='Title Here', pd_series=None, xaxi
     flat_list = itertools.chain.from_iterable(user_responses)
     c = Counter(flat_list)
     list_of_least_common_elements = c.most_common()
-    list_of_most_common_elements = list_of_least_common_elements[::-1]\
+    list_of_most_common_elements = list_of_least_common_elements[::-1]
 
     percentages = _get_percentage_list(num_users, list_of_most_common_elements)
-    tooltip_labels = _get_labels(list_of_most_common_elements)
+    tooltip_labels = _get_tooltip_labels(list_of_most_common_elements)
     yaxis_labels = _get_short_yaxis_labels(tooltip_labels)
-    color_1, color_2 = _get_colors()
+    chart_colors = _get_colors()
     return generate_non_pie_chart_dict(title=title, x=percentages, y=yaxis_labels, graph_type='bar',
-                                       color=color_1, line_color=color_2, orientation='h',
+                                       color=chart_colors[0], line_color=chart_colors[1], orientation='h',
                                        xaxis_title=xaxis_title, yaxis_title=yaxis_title, xaxis_ticksuffix='%',
-                                       xaxis_showticksuffix='all', tooltip_labels=tooltip_labels)
+                                       xaxis_showticksuffix='all', tooltip_labels=tooltip_labels, left_margin=250)
 
 
 def generate_pie_chart_percentage_dict(title=None, pd_series=None, suffix=''):
@@ -132,28 +162,15 @@ def _get_percentage_list(num_users, list_of_items):
     return ['{}%'.format(round(100 * float(item[1]) / float(num_users), 2)) for item in list_of_items]
 
 
-def _get_labels(list_of_items):
+def _get_tooltip_labels(list_of_items):
     return [item[0] for item in list_of_items]
-
-
-def _get_colors():
-    random_team = random.choice(COLORS.keys())
-    color_scheme = COLORS[random_team]
-    if random_team == 'cavaliers':
-        color_1 = color_scheme['wine']
-        color_2 = color_scheme['gold']
-    elif random_team == 'browns':
-        color_1 = color_scheme['brown']
-        color_2 = color_scheme['orange']
-    elif random_team == 'indians':
-        color_1 = color_scheme['red']
-        color_2 = color_scheme['navy']
-    else:
-        color_1 = color_scheme['wine']
-        color_2 = color_scheme['blue']
-    return color_1, color_2
 
 
 def _get_short_yaxis_labels(labels):
     MAX_LABEL_LEN = 35
     return ['{}...'.format(label[:MAX_LABEL_LEN - 3]) if len(label) >= MAX_LABEL_LEN else label for label in labels]
+
+
+def _transform_currency_to_ints(pd_series):
+    transformed_series = (pd_series.replace('[\$,)]', '', regex=True).astype(float))
+    return transformed_series
