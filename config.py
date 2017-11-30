@@ -71,7 +71,7 @@ class HerokuConfig(ProductionConfig):
         # log to stderr
         import logging
         from logging import StreamHandler
-        file_handler = StreamHandler
+        file_handler = StreamHandler()
         file_handler.setLevel(logging.WARNING)
         app.logger.addHandler(file_handler)
         from werkzeug.contrib.fixers import ProxyFix
