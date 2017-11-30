@@ -68,7 +68,7 @@
     <footer class="col-md-12">
         <hr>
         <span>Copyright &copy; {{ moment().format('YYYY') }}
-            <a href="#">The Cleveland Tech Survey</a>
+            <a href="{{ url_for('main.about') }}">The Cleveland Tech Survey</a>
         </span>
         <a href="https://github.com/drew-sullivan/cleveland_tech_survey"><i class="fa fa-github fa-3x footer-link" aria-hidden="true"></i></a>
         <form action="https://www.paypal.com/cgi-bin/webscr" method="post" target="_blank" id="donate" class="footer-link">
