@@ -209,17 +209,17 @@ cleveland_tech_survey = OrderedDict([
         ("Work Life Balance", range(1, 11)),
         ("Job Satisfaction", range(1, 11)),
         ("A Customer Calls Late Friday Evening", [
-            "I Get on the phone and help. Customer first!",
-            "I Let the call go to voice mail. It will be there on Monday",
-            "I Call someone else to handle it",
-            "I Ignore it"
+            "I get on the phone and help. Customer first!",
+            "I let the call go to voice mail. It will be there on Monday.",
+            "I call someone else to handle it.",
+            "I ignore it."
          ]),
         ("How You Found Your Current Job", [
             "A friend, family member, or former colleague told me",
             "I was contacted directly by someone at the company (e.g. internal recruiter)",
             "A general purpose job board",
             "An external recruiter or headhunter",
-            "I visited the company’s Web site and found a job listing there",
+            "I visited the company’s web site and found a job listing there",
             "A career fair or on­campus recruiting event",
             "A tech specific job board",
             "I am the founder",
@@ -250,7 +250,7 @@ cleveland_tech_survey = OrderedDict([
             "Company Culture",
             "Gym or health reimbursement",
             "Other",
-            "Nothing"
+            "None"
         ])
     ])),
     ("Cleveland", OrderedDict([
