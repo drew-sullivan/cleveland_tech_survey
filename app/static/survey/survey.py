@@ -170,7 +170,7 @@ cleveland_tech_survey = OrderedDict([
             "Graphic Designer",
             "Graphics Programming",
             "Manager (who also writes code)",
-            "Manger (who does NOT write code)",
+            "Manager (who does NOT write code)",
             "Machine Learning Specialist",
             "Mobile Developer",
             "Quality Assurance Engineer",
