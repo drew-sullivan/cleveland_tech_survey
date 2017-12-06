@@ -14,4 +14,6 @@ $(document).ready(function() {
     $.each(checkBoxFields, function(i, val) {
         $("#" + val).removeClass('form-control');
     });
+
+    $("#feedback").attr('maxlength', 999);
 });
