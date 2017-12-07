@@ -191,7 +191,7 @@ cleveland_tech_survey = OrderedDict([
             "Equipment",
             "Professional development sponsorship",
             "Annual bonus",
-            "401K match",
+            "Retirement",
             "Education sponsorship",
             "Stock options",
             "Long­term leave",
@@ -310,3 +310,7 @@ cleveland_tech_survey = OrderedDict([
 ])
 
 questions_by_category = [question.replace(' ', '_').lower() for category in cleveland_tech_survey.keys() for question in cleveland_tech_survey[category]]
+# cleveland_tech_survey['Money'] = OrderedDict([('Years of Professional Experience / Total Compensation', 'scatter')])
+# TODO:
+# Add more analysis charts
+# cleveland_tech_survey['Money'] = OrderedDict(('{} / Total Compensation'.format(q.replace('_', ' ').title()), 'test_{}'.format(i)) for i, q in enumerate(questions_by_category))
