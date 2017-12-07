@@ -7,8 +7,6 @@
 {{ super() }}
 <!-- D3.js -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/3.5.6/d3.min.js"></script>
-<!-- jQuery -->
-<script src="https://code.jquery.com/jquery-2.1.4.min.js"></script>
 <!-- Plotly.js -->
 <script src="https://d14fo0winaifog.cloudfront.net/plotly-basic.js"></script>
 <script>
@@ -63,12 +61,18 @@
 {% block page_content %}
 <div class="page-header">
     <h1>Welcome to the Cleveland Tech Survey!</h1>
+    {% if current_user.is_authenticated %}
+    <a href="{{ url_for('main.survey', username=current_user.username) }}"><button type="button" class="btn btn-default login-buttons">Take the Survey Here</button></a>
+    {% else %}
+    <a href="{{ url_for('auth.login') }}"><button type="button" class="btn btn-default login-buttons">Log In</button></a>
+    <a href="{{ url_for('auth.register') }}"><button type="button" class="btn btn-default login-buttons">Register</button></a>
+    {% endif %}
     <h3>Total Respondents: {{ num_respondents }}</h3>
 </div>
 <ul class="nav nav-tabs">
     {% for category in cleveland_tech_survey.keys() %}
-    <li class="dropdown">
-        <a class="dropdown-toggle" data-toggle="dropdown" href="#">{{ category }}<span class="caret"></span></a>
+    <li class="nav-item dropdown">
+        <a class="nav-link dropdown-toggle active" data-toggle="dropdown" href="#">{{ category }}<span class="caret"></span></a>
         <ul class="dropdown-menu">
             {% set questions = cleveland_tech_survey[category] %}
             {% for question in questions %}
