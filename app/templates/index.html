@@ -5,6 +5,8 @@
 
 {% block head %}
 {{ super() }}
+<!-- GSuite -->
+<meta name="google-site-verification" content="0rD_jIRroZYvYQSvjGXLz46ij7SNGWlbE8VTn6BggHk" />
 <!-- D3.js -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/3.5.6/d3.min.js"></script>
 <!-- Plotly.js -->
@@ -69,6 +71,7 @@
     {% endif %}
     <h3>Total Respondents: {{ num_respondents }}</h3>
 </div>
+<h3>Results:</h3>
 <ul class="nav nav-tabs">
     {% for category in cleveland_tech_survey.keys() %}
     <li class="nav-item dropdown">
