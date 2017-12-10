@@ -56,6 +56,21 @@
         });
     });
 </script>
+<script>
+    $(document).ready(function() {
+        $('#dataDownload').on('click', function(e) {
+            e.preventDefault();
+            $.ajax({
+                url: "{{ url_for('main.download_data') }}",
+                method: "GET",
+                contentType: 'application/json;charset=UTF-8',
+                success: function(python) {
+                    console.log('Data successfully downloaded');
+                }
+            })
+        });
+    });
+</script>
 {% endblock %}
 
 {% block page_content %}
@@ -67,6 +82,8 @@
     <a href="{{ url_for('auth.login') }}"><button type="button" class="btn btn-default login-buttons">Log In</button></a>
     <a href="{{ url_for('auth.register') }}"><button type="button" class="btn btn-default login-buttons">Register</button></a>
     {% endif %}
+    <h3>Download the anonymous data</h3>
+    <button type="button" class="btn btn-default" id="dataDownload">Download</button>
     <h3>Total Respondents: {{ num_respondents }}</h3>
 </div>
 <h4>(Click one of the tabs to see the rolling results)</h4>
