@@ -32,3 +32,11 @@ footer {
     width: 250px;
     height: 350px;
 }
+
+@media screen and (orientation:portrait)
+{
+   body
+   {
+      background: red;
+   }
+}

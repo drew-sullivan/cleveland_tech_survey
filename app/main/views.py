@@ -25,7 +25,7 @@ def post_chart_data():
     users = User.query.filter_by().all()
     df = get_user_data_df(users)
     chart_title = request.data
-    graph_dict = get_graph_dict(df, chart_title, users)
+    graph_dict = get_graph_dict(df, chart_title)
     return jsonify({'graph_dict': graph_dict})
 
 
