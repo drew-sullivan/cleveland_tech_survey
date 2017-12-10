@@ -28,6 +28,6 @@ def get_graph_dict(df, chart_title, users, suffix='', yaxis_title=None):
         return generate_vertical_bar_chart_dict(title=title, x=x, y=y, xaxis_title=xaxis_title, yaxis_title=yaxis_title)
     else:
         pd_series = df[df_keys[0]]
-        if len(pd_series.unique()) <= 5:
+        if len(pd_series.unique()) <= 4:
             return generate_pie_chart_percentage_dict(title=title, pd_series=pd_series, suffix=suffix)
         return generate_horizontal_line_chart_dict(title=title, pd_series=pd_series, yaxis_title=yaxis_title)
