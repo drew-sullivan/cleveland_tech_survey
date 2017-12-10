@@ -26,5 +26,5 @@ WORKDIR /opt/app
 
 EXPOSE 5000
 
-CMD python manage.py requirements.txt
+CMD ["python", "manage.py", "runserver", "--host", "0.0.0.0"]
 
