@@ -1,0 +1,11 @@
+{
+  "tests/test_basics.py::BasicsTestCase": true, 
+  "tests/test_basics.py::BasicsTestCase::test_app_exists": true, 
+  "tests/test_basics.py::BasicsTestCase::test_app_is_testing": true, 
+  "tests/test_user_model.py::UserModelTestCase::test_anonymous_user": true, 
+  "tests/test_user_model.py::UserModelTestCase::test_no_password_getter": true, 
+  "tests/test_user_model.py::UserModelTestCase::test_password_salts_are_random": true, 
+  "tests/test_user_model.py::UserModelTestCase::test_password_setter": true, 
+  "tests/test_user_model.py::UserModelTestCase::test_password_verification": true, 
+  "tests/test_user_model.py::UserModelTestCase::test_roles_and_permissions": true
+}

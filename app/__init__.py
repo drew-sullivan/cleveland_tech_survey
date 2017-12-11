@@ -4,7 +4,7 @@ from flask_mail import Mail
 from flask_moment import Moment
 from flask_sqlalchemy import SQLAlchemy
 from flask_login import LoginManager
-from config import config
+from ..config import config
 
 bootstrap = Bootstrap()
 mail = Mail()
@@ -30,8 +30,6 @@ def create_app(config_name):
     if not app.debug and not app.testing and not app.config['SSL_DISABLE']:
         from flask_sslify import SSLify
         sslify = SSLify(app)
-
-    # 'test'
 
     from .main import main as main_blueprint
     app.register_blueprint(main_blueprint)
