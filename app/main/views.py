@@ -1,7 +1,8 @@
 from flask import render_template, redirect, url_for, abort, flash, request, jsonify
 from flask_login import login_required, current_user
+
+from app.main.cts_tools import get_user_data_df, clean_df_for_printing
 from app.main.graphing.graphs import get_graph_dict
-from app.main.graphing.data_analysis import get_user_data_df
 from app.static.survey.survey import questions_by_category, cleveland_tech_survey
 from . import main
 from .forms import EditSurveyForm
@@ -25,8 +26,18 @@ def post_chart_data():
     users = User.query.filter_by().all()
     df = get_user_data_df(users)
     chart_title = request.data
-    graph_dict = get_graph_dict(df, chart_title, users)
+    graph_dict = get_graph_dict(df, chart_title)
     return jsonify({'graph_dict': graph_dict})
+
+
+@main.route('/download-data')
+def download_data():
+    users = User.query.filter_by().all()
+    df = get_user_data_df(users)
+    cleaned_df = clean_df_for_printing(df)
+    cleaned_df.to_csv('~/Downloads/cleveland_tech_survey_data.csv', encoding='utf-8')
+    print 'Data downloaded'
+    return 'Data successfully downloaded'
 
 
 @main.route('/survey/<username>')
