@@ -104,5 +104,3 @@ def edit_survey():
     form.favorite_cleveland_activity.data = current_user.favorite_cleveland_activity
     form.feedback.data = current_user.feedback
     return render_template('edit_survey.html', form=form)
-
-# TODO: add admin-edit-survey
