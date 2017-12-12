@@ -1,13 +1,14 @@
-from flask import render_template, redirect, url_for, abort, flash, request, jsonify
-from flask_login import login_required, current_user
+import os
 
-from app.main.cts_tools import get_user_data_df, clean_df_for_printing
-from app.main.graphing.graphs import get_graph_dict
-from app.static.survey.survey import questions_by_category, cleveland_tech_survey
 from . import main
 from .forms import EditSurveyForm
 from .. import db
 from ..models import User
+from app.main.cts_tools import get_user_data_df, clean_df_for_printing
+from app.main.graphing.graphs import get_graph_dict
+from app.static.survey.survey import questions_by_category, cleveland_tech_survey
+from flask import render_template, redirect, url_for, abort, flash, request, jsonify
+from flask_login import login_required, current_user
 
 
 @main.route('/')
@@ -35,8 +36,10 @@ def download_data():
     users = User.query.filter_by().all()
     df = get_user_data_df(users)
     cleaned_df = clean_df_for_printing(df)
-    cleaned_df.to_csv('~/Downloads/cleveland_tech_survey_data.csv', encoding='utf-8')
-    print 'Data downloaded'
+    downloads_dir = os.path.expanduser('~/Downloads')
+    filename = 'cleveland_tech_survey_data.csv'
+    file_location = os.path.join(downloads_dir, filename)
+    cleaned_df.to_csv(file_location, encoding='utf-8')
     return 'Data successfully downloaded'
 
 
