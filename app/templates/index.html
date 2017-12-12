@@ -56,21 +56,6 @@
         });
     });
 </script>
-<script>
-    $(document).ready(function() {
-        $('#dataDownload').on('click', function(e) {
-            e.preventDefault();
-            $.ajax({
-                url: "{{ url_for('main.download_data') }}",
-                method: "GET",
-                contentType: 'application/json;charset=UTF-8',
-                success: function(python) {
-                    console.log('Data successfully downloaded');
-                }
-            })
-        });
-    });
-</script>
 {% endblock %}
 
 {% block page_content %}
@@ -80,7 +65,7 @@
     <a href="{{ url_for('main.survey', username=current_user.username) }}"><button type="button" class="btn btn-default login-buttons">Take the Survey Here</button></a>
     {% endif %}
     <h3>Download the anonymous data</h3>
-    <button type="button" class="btn btn-default" id="dataDownload">Download</button>
+    <a href="{{ url_for('main.download_data') }}"><button type="button" class="btn btn-default" id="dataDownload">Download</button></a>
     <h3>Total Respondents: {{ num_respondents }}</h3>
 </div>
 <h4>(Click one of the tabs to see the rolling results)</h4>
