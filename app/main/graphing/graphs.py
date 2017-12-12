@@ -10,7 +10,7 @@ def _get_title_and_df_keys_from_tab_value(chart_title):
     return chart_title, df_keys, axes_titles
 
 
-def get_graph_dict(df, chart_title, suffix='', yaxis_title=None):
+def get_graph_dict(df, chart_title, yaxis_title=None):
     title, df_keys, axes_titles = _get_title_and_df_keys_from_tab_value(chart_title)
     pd_series = df[df_keys[0]]
     return generate_horizontal_line_chart_dict(title=title, pd_series=pd_series, yaxis_title=yaxis_title)
