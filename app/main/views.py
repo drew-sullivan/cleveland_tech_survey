@@ -40,6 +40,11 @@ def download_data():
                     headers={'Content-Disposition': 'attachment; filename="Cleveland Tech Survey Data.csv"'})
 
 
+@main.route('/.well-known/acme-challenge/W8AE-2V2szr7gABbcqBiZaaQ3aybyB_q0dlFetZ9TvM')
+def ssl_cert():
+    return Response('W8AE-2V2szr7gABbcqBiZaaQ3aybyB_q0dlFetZ9TvM.NZNKopxtfttW_CCIM6qjCx65TPLF14n2FtAUeYyeMYg')
+
+
 @main.route('/survey/<username>')
 def survey(username):
     user = User.query.filter_by(username=username).first()

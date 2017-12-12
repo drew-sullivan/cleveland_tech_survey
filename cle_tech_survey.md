@@ -29,19 +29,21 @@
 
 * Remove about me from db
 
-* Fix path for 'download' ajax call
-
-* travis-ci
-
 * linting
 
 
 ## In Progress
 
-
+* Box and whisker chart for total_compensation
 
 
 ## Done
+
+* Download data ajax call is down
+
+* Fix path for 'download' ajax call
+
+* travis-ci
 
 * Add a way to download the data as a csv
 
