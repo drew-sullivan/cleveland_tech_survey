@@ -1,5 +1,3 @@
-import os
-
 from . import main
 from .forms import EditSurveyForm
 from .. import db
@@ -38,11 +36,6 @@ def download_data():
     cleaned_df = clean_df_for_printing(df)
     return Response(cleaned_df.to_csv(), mimetype='text/csv',
                     headers={'Content-Disposition': 'attachment; filename="Cleveland Tech Survey Data.csv"'})
-
-
-@main.route('/.well-known/acme-challenge/W8AE-2V2szr7gABbcqBiZaaQ3aybyB_q0dlFetZ9TvM')
-def ssl_cert():
-    return Response('W8AE-2V2szr7gABbcqBiZaaQ3aybyB_q0dlFetZ9TvM.NZNKopxtfttW_CCIM6qjCx65TPLF14n2FtAUeYyeMYg')
 
 
 @main.route('/survey/<username>')
