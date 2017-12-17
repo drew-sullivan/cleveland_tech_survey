@@ -2,7 +2,7 @@ from . import main
 from .forms import EditSurveyForm
 from .. import db
 from ..models import User
-from app.main.cts_tools import get_user_data_df, clean_df_for_printing
+from app.main.cts_tools import get_user_data_df, clean_df_for_printing, get_community_profile
 from app.main.graphing.graphs import get_graph_dict
 from app.static.survey.survey import questions_by_category, cleveland_tech_survey
 from flask import render_template, redirect, url_for, abort, flash, request, jsonify, Response
@@ -22,16 +22,17 @@ def about():
 
 @main.route('/data', methods=['GET', 'POST'])
 def post_chart_data():
-    users = User.query.filter_by().all()
+    users = User.query.all()
     df = get_user_data_df(users)
     chart_title = request.data
     graph_dict = get_graph_dict(df, chart_title)
+    print get_community_profile(df)
     return jsonify({'graph_dict': graph_dict})
 
 
 @main.route('/download-data')
 def download_data():
-    users = User.query.filter_by().all()
+    users = User.query.all()
     df = get_user_data_df(users)
     cleaned_df = clean_df_for_printing(df)
     return Response(cleaned_df.to_csv(), mimetype='text/csv',
