@@ -12,7 +12,11 @@ from flask_login import login_required, current_user
 @main.route('/')
 def index():
     num_respondents = User.query.filter_by().count()
-    return render_template('index.html', cleveland_tech_survey=cleveland_tech_survey, num_respondents=num_respondents)
+    users = User.query.all()
+    df = get_user_data_df(users)
+    community_profile = get_community_profile(df)
+    return render_template('index.html', cleveland_tech_survey=cleveland_tech_survey, num_respondents=num_respondents,
+                           community_profile=community_profile)
 
 
 @main.route('/about')
@@ -26,7 +30,12 @@ def post_chart_data():
     df = get_user_data_df(users)
     chart_title = request.data
     graph_dict = get_graph_dict(df, chart_title)
-    print get_community_profile(df)
+    community_profile = get_community_profile(df)
+    categories = community_profile.keys()
+    for cat in categories:
+        questions = community_profile[cat]
+        for q in questions:
+            print community_profile[cat][q]
     return jsonify({'graph_dict': graph_dict})
 
 

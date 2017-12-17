@@ -68,25 +68,46 @@
     <a href="{{ url_for('main.download_data') }}"><button type="button" class="btn btn-default" id="dataDownload">Download</button></a>
     <h3>Total Respondents: {{ num_respondents }}</h3>
 </div>
-<h4>(Click one of the tabs to see the rolling results)</h4>
-<ul class="nav nav-tabs">
-    {% for category in cleveland_tech_survey.keys() %}
-    <li class="nav-item dropdown">
-        <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#">{{ category }}<span class="caret"></span></a>
-        <ul class="dropdown-menu">
-            {% set questions = cleveland_tech_survey[category] %}
-            {% for question in questions %}
-            <li class="question-title" id="graph-{{ question }}" name='button_{{ question }}_name' value="{{ question }}">
-                <a href=".nav-tabs" data-toggle="tab">{{ question }}</a>
-            </li>
-            {% endfor %}
-        </ul>
-    </li>
+{% for category in community_profile.keys() %}
+    <h3>{{ category }}</h3>
+    <div class="row">
+    {% set questions = community_profile[category] %}
+    {% for question in questions %}
+        <div class="card col-md-6">
+            <div class="card-block">
+                <h4 class="card-title">{{ question }}</h4>
+                <p class="card-text">{{ community_profile[category][question] }}</p>
+                <div class="nav-tabs">
+                    <p class="question-title" id="graph-{{ question }}" value="{{ question }}">
+                        <a href="#" class="btn btn-primary" data-toggle="tab">Breakdown</a>
+                    </p>
+                    <div id="chartContentWrapper" class="tab-pane active">
+                        <div id="chart"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
     {% endfor %}
-</ul>
-<div class="tab-content" id="current-tab">
-    <div id="chartContentWrapper" class="tab-pane active">
-        <div id="chart"></div>
     </div>
-</div>
+{% endfor %}
+<!--<ul class="nav nav-tabs">-->
+    <!--{% for category in cleveland_tech_survey.keys() %}-->
+    <!--<li class="nav-item dropdown">-->
+        <!--<a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#">{{ category }}<span class="caret"></span></a>-->
+        <!--<ul class="dropdown-menu">-->
+            <!--{% set questions = cleveland_tech_survey[category] %}-->
+            <!--{% for question in questions %}-->
+            <!--<li class="question-title" id="graph-{{ question }}" name='button_{{ question }}_name' value="{{ question }}">-->
+                <!--<a href=".nav-tabs" data-toggle="tab">{{ question }}</a>-->
+            <!--</li>-->
+            <!--{% endfor %}-->
+        <!--</ul>-->
+    <!--</li>-->
+    <!--{% endfor %}-->
+<!--</ul>-->
+<!--<div class="tab-content" id="current-tab">-->
+    <!--<div id="chartContentWrapper" class="tab-pane active">-->
+        <!--<div id="chart"></div>-->
+    <!--</div>-->
+<!--</div>-->
 {% endblock %}
