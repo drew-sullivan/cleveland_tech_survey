@@ -30,13 +30,7 @@ def post_chart_data():
     df = get_user_data_df(users)
     chart_title = request.data
     graph_dict = get_graph_dict(df, chart_title)
-    community_profile = get_community_profile(df)
-    categories = community_profile.keys()
-    for cat in categories:
-        questions = community_profile[cat]
-        for q in questions:
-            print community_profile[cat][q]
-    return jsonify({'graph_dict': graph_dict})
+    return jsonify(graph_dict=graph_dict, chart_title=chart_title)
 
 
 @main.route('/download-data')

@@ -117,7 +117,7 @@ def generate_vertical_bar_chart_dict(title='Title Here', x=None, y=None, xaxis_t
                                        xaxis_title=xaxis_title, yaxis_title=yaxis_title, left_margin=150)
 
 
-def generate_horizontal_line_chart_dict(title='Title Here', pd_series=None, xaxis_title='Percentage of Respondents',
+def generate_horizontal_line_chart_dict(title='Title Here', pd_series=None, xaxis_title='',
                                         yaxis_title=None):
     user_responses = transform_strings_to_lists(pd_series)
     num_users = len(user_responses)

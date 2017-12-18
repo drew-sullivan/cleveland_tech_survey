@@ -3,7 +3,7 @@
 from collections import OrderedDict
 
 cleveland_tech_survey = OrderedDict([
-    ("Community Profile", OrderedDict([
+    ("Demographics", OrderedDict([
         ("Gender", [
             "Female",
             "Male",
