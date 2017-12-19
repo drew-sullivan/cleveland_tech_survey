@@ -25,75 +25,29 @@
 {% for category in community_profile.keys() %}
 <h3>{{ category }}</h3>
 <hr>
-<!--<div class="row">-->
-    <!--{% set questions = community_profile[category] %}-->
-    <!--{% for question in questions %}-->
-    <!--<div class="card col-md-6">-->
-        <!--<div class="card-block">-->
-            <!--<h5 class="card-title">{{ question }}:</h5>-->
-            <!--<p class="card-text">{{ community_profile[category][question] }}</p>-->
-            <!--<div class="nav-tabs">-->
-                <!--<p class="question-title" id="graph-{{ question }}" value="{{ question }}">-->
-                    <!--<a href="#" class="btn btn-default chart-btn" id="btn-{{ question }}" data-toggle="tab" value="{{ question }}">Breakdown</a>-->
-                <!--</p>-->
-                <!--<p id="example-{{ question }}" style="display: none;">-->
-                    <!--This is the paragraph to end all paragraphs.  You-->
-                    <!--should feel <em>lucky</em> to have seen such a paragraph in-->
-                    <!--your life.  Congratulations!-->
-                <!--</p>-->
-                <!--<div id="chartContentWrapper" class="tab-pane"></div>-->
-            <!--</div>-->
-        <!--</div>-->
-    <!--</div>-->
-<!--{% endfor %}-->
-<!--</div>-->
 <div class='row'>
     {% set questions = community_profile[category] %}
     {% for question in questions %}
+    {% set answer = community_profile[category][question][1] %}
+    {% set formatted_question = community_profile[category][question][0] %}
     <div class="panel-group" id="accordion">
-        <div class='col-md-6'>
+        <div class='col-md-12'>
             <div class="panel panel-default">
                 <div class="panel-heading">
-                    <h4 class="panel-title">
-                        <a data-toggle="collapse" data-parent="#accordion" href="#collapse-{{ question|replace(' ', '-') }}">{{ question }}: {{ community_profile[category][question] }}</a>
+                    <h4 class="panel-title" value="{{ formatted_question }}">
+                        <a data-toggle="collapse" data-parent="#accordion" href="#collapse-{{ formatted_question }}">{{ question }}: {{ answer }}</a>
                     </h4>
                 </div>
-                <div id="collapse-{{ question|replace(' ', '-') }}" class="panel-collapse collapse">
-                    <div class="panel-body"></div>
-                </div>
+                <div id="collapse-{{ formatted_question }}" class="panel-collapse collapse"></div>
             </div>
         </div>
     </div>
     {% endfor %}
 </div>
 {% endfor %}
-<!--<ul class="nav nav-tabs">-->
-    <!--{% for category in cleveland_tech_survey.keys() %}-->
-    <!--<li class="nav-item dropdown">-->
-        <!--<a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#">{{ category }}<span class="caret"></span></a>-->
-        <!--<ul class="dropdown-menu">-->
-            <!--{% set questions = cleveland_tech_survey[category] %}-->
-            <!--{% for question in questions %}-->
-            <!--<li class="question-title" id="graph-{{ question }}" name='button_{{ question }}_name' value="{{ question }}">-->
-                <!--<a href=".nav-tabs" data-toggle="tab">{{ question }}</a>-->
-            <!--</li>-->
-            <!--{% endfor %}-->
-        <!--</ul>-->
-    <!--</li>-->
-    <!--{% endfor %}-->
-<!--</ul>-->
-<!--<div class="tab-content" id="current-tab">-->
-    <!--<div id="chartContentWrapper" class="tab-pane active">-->
-        <!--<div id="chart"></div>-->
-    <!--</div>-->
-<!--</div>-->
 <script>
-    $('.nav-tabs .question-title').on('click', function(e) {
+    $('.panel-title').on('click', function(e) {
         e.preventDefault();
-        var scrollTo = $('.nav-tabs');
-        $('html, body').animate({
-           scrollTop: $(scrollTo).offset().top
-        }, 500);
         $.ajax({
             url: "{{ url_for('main.post_chart_data') }}",
             method: "POST",
@@ -102,16 +56,25 @@
             success: function(python) {
                 var chartTitle = python.chart_title;
                 var graph = python.graph_dict;
-                $chartContentWrapper = $('#chartContentWrapper');
-                $chartContentWrapper.replaceWith($('<div>',{id : 'chartContentWrapper'}));
+                var chartId = "collapse-" + chartTitle.replace(/"/g, '');
+                var test = $('#' + chartId);
+                var testId = document.getElementById(chartId)
+                <!--alert(id);-->
+                <!--alert(test);-->
+                testId.replaceWith($('<div/>',{id : testId}));
+
+                <!--$chartContentWrapper = $('#chartContentWrapper');-->
+                    <!--$chartContentWrapper.replaceWith($('<div/>',{id : 'chartContentWrapper'}));-->
+
                 (function() {
                     var d3 = Plotly.d3;
 
                     var WIDTH_IN_PERCENT_OF_PARENT = 100,
                         HEIGHT_IN_PERCENT_OF_PARENT = 100;
 
-                    var gd3 = d3.select('#chartContentWrapper')
+                    var gd3 = d3.select('#' + chartId)
                         .append('div')
+                        .attr('class', 'panel-body')
                         .style({
                             width: WIDTH_IN_PERCENT_OF_PARENT + '%',
                             'margin-left': (100 - WIDTH_IN_PERCENT_OF_PARENT) / 2 + '%',
@@ -130,79 +93,6 @@
                 })();
             }
         })
-
     });
-</script>
-<!--<script>-->
-    <!--$('.nav-tabs .question-title').on('click', function(e) {-->
-        <!--e.preventDefault();-->
-        <!--var scrollTo = $('.nav-tabs');-->
-        <!--$('html, body').animate({-->
-           <!--scrollTop: $(scrollTo).offset().top-->
-        <!--}, 500);-->
-        <!--$.ajax({-->
-            <!--url: "{{ url_for('main.post_chart_data') }}",-->
-            <!--method: "POST",-->
-            <!--data: JSON.stringify($(this).attr("value")),-->
-            <!--contentType: 'application/json;charset=UTF-8',-->
-            <!--success: function(python) {-->
-                <!--var graph = python.graph_dict;-->
-                <!--$chartContentWrapper = $('#chartContentWrapper');-->
-                <!--$chartContentWrapper.replaceWith($('<div>',{id : 'chartContentWrapper'}));-->
-                <!--(function() {-->
-                    <!--var d3 = Plotly.d3;-->
-
-                    <!--var WIDTH_IN_PERCENT_OF_PARENT = 100,-->
-                        <!--HEIGHT_IN_PERCENT_OF_PARENT = 100;-->
-
-                    <!--var gd3 = d3.select('#chartContentWrapper')-->
-                        <!--.append('div')-->
-                        <!--.style({-->
-                            <!--width: WIDTH_IN_PERCENT_OF_PARENT + '%',-->
-                            <!--'margin-left': (100 - WIDTH_IN_PERCENT_OF_PARENT) / 2 + '%',-->
-
-                            <!--height: HEIGHT_IN_PERCENT_OF_PARENT + 'vh',-->
-                            <!--'margin-top': (100 - HEIGHT_IN_PERCENT_OF_PARENT) / 2 + 'vh'-->
-                        <!--});-->
-
-                    <!--var gd = gd3.node();-->
-
-                    <!--Plotly.plot(gd, graph.data, graph.layout, graph.show_link);-->
-
-                    <!--window.onresize = function() {-->
-                        <!--Plotly.Plots.resize(gd);-->
-                    <!--};-->
-                <!--})();-->
-            <!--}-->
-        <!--})-->
-    <!--});-->
-<!--</script>-->
-<script>
-    var $chart = $('#chart')
-    var $chartContainer = $('.js-plotly-plot');
-    $('.chart-btn').on('click', function(e) {
-        <!--alert(this)-->
-        <!--$chart.css('background-color', 'red);-->
-        $chartContainer.toggle()
-    });
-</script>
-<script>
-    var $chartBtn = $('.chart-btn');
-    $chartBtn.on('click', function() {
-        var $val = $(this).attr("value");
-        alert($val);
-        console.log('#example-' + $val)
-        $('#example-' + $val).slideToggle();
-    });
-</script>
-<script>
-$(document).ready(function(){
-  $("#demo1, #demo2").on("hide.bs.collapse", function(){
-    $(".btn").html('<span class="glyphicon glyphicon-collapse-down"></span> Open');
-  });
-  $("#demo1, #demo2").on("show.bs.collapse", function(){
-    $(".btn").html('<span class="glyphicon glyphicon-collapse-up"></span> Close');
-  });
-});
 </script>
 {% endblock %}

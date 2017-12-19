@@ -54,7 +54,7 @@ def get_community_profile(df):
                 transformed_series = transform_currency_to_ints(df[lowercase_version_of_title])
                 average = transformed_series.mean()
                 answer = '${:,.2f}'.format(average)
-            community_profile[category][question_title] = answer
+            community_profile[category][question_title] = (lowercase_version_of_title, answer)
     return community_profile
 
 
