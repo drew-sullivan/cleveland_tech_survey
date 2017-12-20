@@ -34,8 +34,11 @@
         <div class='col-md-6'>
             <div class="panel panel-default">
                 <div class="panel-heading">
+                    <h4 class="panel-title">{{ question }}?</h4>
+                </div>
+                <div class="panel-body">{{ answer }}
                     <a data-toggle="collapse" data-parent="#accordion" href="#collapse-{{ formatted_question }}">
-                        <h4 class="panel-title" value="{{ formatted_question }}">{{ question }}? {{ answer }}</h4>
+                        <button type="button" class="btn btn-default pull-right" value="{{ formatted_question }}">Chart</button>
                     </a>
                 </div>
                 <div id="collapse-{{ formatted_question }}" class="panel-collapse collapse"></div>
@@ -46,7 +49,7 @@
 </div>
 {% endfor %}
 <script>
-    $('.panel-title').on('click', function(e) {
+    $('.panel-body button').on('click', function(e) {
         e.preventDefault();
         $.ajax({
             url: "{{ url_for('main.post_chart_data') }}",

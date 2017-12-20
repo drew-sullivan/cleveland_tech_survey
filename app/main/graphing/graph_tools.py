@@ -167,7 +167,7 @@ def get_tooltip_labels(list_of_items):
 
 
 def get_short_yaxis_labels(labels):
-    MAX_LABEL_LEN = 30
+    MAX_LABEL_LEN = 15
     return ['{}...'.format(label[:MAX_LABEL_LEN - 3]) if len(label) >= MAX_LABEL_LEN else label for label in labels]
 
 
