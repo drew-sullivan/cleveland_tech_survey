@@ -35,7 +35,7 @@
             <div class="panel panel-default">
                 <div class="panel-heading">
                     <h4 class="panel-title" value="{{ formatted_question }}">
-                        <a data-toggle="collapse" data-parent="#accordion" href="#collapse-{{ formatted_question }}">{{ question }}: {{ answer }}</a>
+                        <a data-toggle="collapse" data-parent="#accordion" href="#collapse-{{ formatted_question }}">{{ question }}? {{ answer }}</a>
                     </h4>
                 </div>
                 <div id="collapse-{{ formatted_question }}" class="panel-collapse collapse"></div>
@@ -55,16 +55,9 @@
             contentType: 'application/json;charset=UTF-8',
             success: function(python) {
                 var chartTitle = python.chart_title;
-                var graph = python.graph_dict;
-                var chartId = "collapse-" + chartTitle.replace(/"/g, '');
-                var test = $('#' + chartId);
-                var testId = document.getElementById(chartId)
-                <!--alert(id);-->
-                <!--alert(test);-->
-                testId.replaceWith($('<div/>',{id : testId}));
-
-                <!--$chartContentWrapper = $('#chartContentWrapper');-->
-                    <!--$chartContentWrapper.replaceWith($('<div/>',{id : 'chartContentWrapper'}));-->
+                var graphData = python.graph_dict;
+                var $chartId = $('#' + "collapse-" + chartTitle.replace(/"/g, ''));
+                $chartId.empty();
 
                 (function() {
                     var d3 = Plotly.d3;
@@ -85,7 +78,7 @@
 
                     var gd = gd3.node();
 
-                    Plotly.plot(gd, graph.data, graph.layout, graph.show_link);
+                    Plotly.plot(gd, graphData.data, graphData.layout, graphData.show_link);
 
                     window.onresize = function() {
                         Plotly.Plots.resize(gd);
