@@ -31,12 +31,15 @@
     {% set answer = community_profile[category][question][1] %}
     {% set formatted_question = community_profile[category][question][0] %}
     <div class="panel-group" id="accordion">
-        <div class='col-md-12'>
+        <div class='col-md-6'>
             <div class="panel panel-default">
                 <div class="panel-heading">
-                    <h4 class="panel-title" value="{{ formatted_question }}">
-                        <a data-toggle="collapse" data-parent="#accordion" href="#collapse-{{ formatted_question }}">{{ question }}? {{ answer }}</a>
-                    </h4>
+                    <h4 class="panel-title">{{ question }}?</h4>
+                </div>
+                <div class="panel-body">{{ answer }}
+                    <a data-toggle="collapse" data-parent="#accordion" href="#collapse-{{ formatted_question }}">
+                        <button type="button" class="btn btn-default pull-right" value="{{ formatted_question }}">Chart</button>
+                    </a>
                 </div>
                 <div id="collapse-{{ formatted_question }}" class="panel-collapse collapse"></div>
             </div>
@@ -46,12 +49,8 @@
 </div>
 {% endfor %}
 <script>
-    $('.panel-title').on('click', function(e) {
+    $('.panel-body button').on('click', function(e) {
         e.preventDefault();
-        var scrollTo = $('.panel-collapse');
-        $('html, body').animate({
-            scrollTop: $(scrollTo).offset().top
-        }, 500);
         $.ajax({
             url: "{{ url_for('main.post_chart_data') }}",
             method: "POST",
