@@ -133,7 +133,7 @@ def generate_horizontal_line_chart_dict(title='Title Here', pd_series=None, xaxi
     return generate_non_pie_chart_dict(title=title, x=percentages, y=yaxis_labels, graph_type='bar',
                                        color=chart_colors[0], line_color=chart_colors[1], orientation='h',
                                        xaxis_title=xaxis_title, yaxis_title=yaxis_title, xaxis_ticksuffix='%',
-                                       xaxis_showticksuffix='all', tooltip_labels=tooltip_labels, left_margin=250)
+                                       xaxis_showticksuffix='all', tooltip_labels=tooltip_labels, left_margin=110)
 
 
 def generate_pie_chart_percentage_dict(title=None, pd_series=None, suffix=''):
@@ -167,7 +167,7 @@ def get_tooltip_labels(list_of_items):
 
 
 def get_short_yaxis_labels(labels):
-    MAX_LABEL_LEN = 35
+    MAX_LABEL_LEN = 30
     return ['{}...'.format(label[:MAX_LABEL_LEN - 3]) if len(label) >= MAX_LABEL_LEN else label for label in labels]
 
 
