@@ -21,15 +21,14 @@ footer {
     display: inline-block;
 }
 
-.footer-link {
-    margin-left: 10px;
+.fa-github {
     color: #333 !important;
 }
 
-#catPic {
-    width: 250px;
-    height: 350px;
+#copyright {
+    margin-top: 10px;
 }
+
 
 /*
 @media screen and (orientation:portrait)
