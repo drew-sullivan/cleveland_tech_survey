@@ -21,7 +21,7 @@ footer {
     display: inline-block;
 }
 
-.fa-github {
+footer i {
     color: #333 !important;
 }
 
