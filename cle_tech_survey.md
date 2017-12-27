@@ -7,37 +7,49 @@
 
 ## Backlog
 
-* Add yaxis titles back in to the needed charts
-
-* Add 'years' to tooltips in years of experience tab
-
-* Instead of getting all users from the db, just get all the user attributes you’re looking for. Like, get a list of the tech_roles for every user. Then turn that into a pd_series, instead of going through a whole df
-
 * Set up logging
 
-* Create Unit test goals
-
-* Add 'Please rotate device for xs screen' (It looks bad without it)
-
-* Add FAQ page
+* Unit tests
 
 * Set up email to another account
 
-* SSL?
-
-* Remove avatar stuff from db
-
-* Remove about me from db
-
 * linting
+
+* Box and whisker chart for total_compensation
+
+* Style the thing
+
+* Fix flicker issue on chart button click
+
+* Make spacing between top of chart and description word smaller
+
+* Make chart description say multiple names for if there's a tie between two things (like SQL and JavaScript are tied for more used languages)
 
 
 ## In Progress
 
-* Box and whisker chart for total_compensation
+* Add FAQ page
 
 
 ## Done
+
+* Fix cat pic
+
+* Add 'Please rotate device for xs screen' (It looks bad without it)
+
+* Create visual community profile to be displayed on the home page
+
+* Remove red from mobile view
+
+* Remove about me from db
+
+* Remove avatar stuff from db
+
+* Add 'years' to tooltips in years of experience tab
+
+* Add yaxis titles back in to the needed charts
+
+* SSL?
 
 * Download data ajax call is down
 

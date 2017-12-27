@@ -29,13 +29,23 @@ footer i {
     margin-top: 10px;
 }
 
-
-/*
-@media screen and (orientation:portrait)
-{
-   body
-   {
-      background: red;
-   }
+.js-plotly-plot {
+    padding-top: 0 !important;
 }
-*/
+
+#download {
+    margin-top: 20px;
+    margin-bottom: 20px;
+}
+
+#download span, #totalRespondents {
+    font-size: 20px;
+}
+
+#download i {
+    margin-left: 10px;
+}
+
+.page-header h1 {
+    font-size: 54px;
+}

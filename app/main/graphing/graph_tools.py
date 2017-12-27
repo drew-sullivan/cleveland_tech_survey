@@ -29,11 +29,11 @@ def _get_colors():
     return color, line_color
 
 
-def generate_non_pie_chart_dict(title='Insert title here', x=None, y=None, mode=None, graph_type=None,
+def generate_non_pie_chart_dict(title='Insert title here', x=None, y=None, mode=None, graph_type='bar',
                                 orientation=None, xaxis_title=None, yaxis_title=None, text=None,
                                 color='#000', line_width=2, line_color='#FFF', left_margin=None,
                                 right_margin=None, top_margin=None, bottom_margin=None, xaxis_ticksuffix=None,
-                                xaxis_showticksuffix=None, yaxis_side=None, tooltip_labels=None):
+                                xaxis_showticksuffix=None, yaxis_side=None, tooltip_labels=None, yaxis_type='category'):
     graph = {
         'data': [
             {
@@ -60,7 +60,8 @@ def generate_non_pie_chart_dict(title='Insert title here', x=None, y=None, mode=
             },
             'yaxis': {
                 'title': yaxis_title,
-                'side': yaxis_side
+                'side': yaxis_side,
+                'type': yaxis_type
             },
             'title': title,
             'margin': {
@@ -127,8 +128,12 @@ def generate_horizontal_line_chart_dict(title='Title Here', pd_series=None, xaxi
     list_of_most_common_elements = list_of_least_common_elements[::-1]
 
     percentages = get_percentage_list(num_users, list_of_most_common_elements)
+    print '\n'
+    print percentages
     tooltip_labels = get_tooltip_labels(list_of_most_common_elements)
     yaxis_labels = get_short_yaxis_labels(tooltip_labels)
+    print '\n'
+    print yaxis_labels
     chart_colors = _get_colors()
     return generate_non_pie_chart_dict(title=title, x=percentages, y=yaxis_labels, graph_type='bar',
                                        color=chart_colors[0], line_color=chart_colors[1], orientation='h',
@@ -158,8 +163,11 @@ def transform_strings_to_lists(pd_series):
     return values_as_lists
 
 
+# def get_percentage_list(num_users, list_of_items):
+#     return ['{}%'.format(round(100 * float(item[1]) / float(num_users), 2)) for item in list_of_items]
+
 def get_percentage_list(num_users, list_of_items):
-    return ['{}%'.format(round(100 * float(item[1]) / float(num_users), 2)) for item in list_of_items]
+    return [round(100 * float(item[1]) / float(num_users), 2) for item in list_of_items]
 
 
 def get_tooltip_labels(list_of_items):
