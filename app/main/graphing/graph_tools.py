@@ -49,7 +49,7 @@ def generate_non_pie_chart_dict(title='Insert title here', x=None, y=None, mode=
                         'color': line_color
                     }
                 },
-                'text': tooltip_labels
+                'text': tooltip_labels,
             }
         ],
         'layout': {
@@ -128,12 +128,8 @@ def generate_horizontal_line_chart_dict(title='Title Here', pd_series=None, xaxi
     list_of_most_common_elements = list_of_least_common_elements[::-1]
 
     percentages = get_percentage_list(num_users, list_of_most_common_elements)
-    print '\n'
-    print percentages
     tooltip_labels = get_tooltip_labels(list_of_most_common_elements)
     yaxis_labels = get_short_yaxis_labels(tooltip_labels)
-    print '\n'
-    print yaxis_labels
     chart_colors = _get_colors()
     return generate_non_pie_chart_dict(title=title, x=percentages, y=yaxis_labels, graph_type='bar',
                                        color=chart_colors[0], line_color=chart_colors[1], orientation='h',
