@@ -14,9 +14,6 @@
 {% block page_content %}
 <div class="page-header">
     <h1 align="center">The Cleveland Tech Survey</h1>
-    {% if current_user.is_authenticated %}
-    <a href="{{ url_for('.edit_survey', id=user.id) }}"><button type="button" class="btn btn-default login-buttons">Take the Survey Here</button></a>
-    {% endif %}
 </div>
 <h2 align="center">The Average Tech Employee in Cleveland:</h2>
 {% for category in community_profile.keys() %}
