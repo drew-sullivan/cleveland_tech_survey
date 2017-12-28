@@ -13,18 +13,14 @@
 
 {% block page_content %}
 <div class="page-header">
-    <h1>Welcome to the Cleveland Tech Survey!</h1>
-    <h2>Total Respondents: {{ num_respondents }}</h2>
+    <h1 align="center">The Cleveland Tech Survey</h1>
     {% if current_user.is_authenticated %}
     <a href="{{ url_for('.edit_survey', id=user.id) }}"><button type="button" class="btn btn-default login-buttons">Take the Survey Here</button></a>
     {% endif %}
-    <h3>Download the anonymous data</h3>
-    <a href="{{ url_for('main.download_data') }}"><button type="button" class="btn btn-default" id="dataDownload">Download</button></a>
 </div>
-<h1>The Average Tech Employee in Cleveland:</h1>
+<h2 align="center">The Average Tech Employee in Cleveland:</h2>
 {% for category in community_profile.keys() %}
 <h3>{{ category }}</h3>
-<hr>
 <div class='row'>
     {% set questions = community_profile[category] %}
     {% for question in questions %}
@@ -36,7 +32,8 @@
                 <div class="panel-heading">
                     <h4 class="panel-title">{{ question }}?</h4>
                 </div>
-                <div class="panel-body">{{ answer }}
+                <div class="panel-body">
+                    <span>{{ answer }}</span>
                     <a data-toggle="collapse" data-parent="#accordion" href="#collapse-{{ formatted_question }}">
                         <button type="button" class="btn btn-default pull-right" value="{{ formatted_question }}">Chart</button>
                     </a>
@@ -48,6 +45,13 @@
     {% endfor %}
 </div>
 {% endfor %}
+<div id="download">
+    <span>Download the anonymous data</span>
+    <a href="{{ url_for('main.download_data') }}">
+            <i class="fa fa-download fa-2x" aria-hidden="true"></i>
+    </a>
+</div>
+<span id="totalRespondents">Total Respondents: {{ num_respondents }}</span>
 <script>
     $('.panel-body button').on('click', function(e) {
         e.preventDefault();
