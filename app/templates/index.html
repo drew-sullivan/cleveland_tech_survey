@@ -55,45 +55,56 @@
 <script>
     $('.panel-body button').on('click', function(e) {
         e.preventDefault();
-        $.ajax({
-            url: "{{ url_for('main.post_chart_data') }}",
-            method: "POST",
-            data: JSON.stringify($(this).attr("value")),
-            contentType: 'application/json;charset=UTF-8',
-            success: function(python) {
-                var chartTitle = python.chart_title;
-                var graphData = python.graph_dict;
-                var chartId = '#' + "collapse-" + chartTitle.replace(/"/g, '')
-                var $chartId = $(chartId);
-                $chartId.empty();
 
-                (function() {
-                    var d3 = Plotly.d3;
+        var scrollTo = $(this).parents().eq(2);
+        $('html, body').animate({
+           scrollTop: $(scrollTo).offset().top
+        }, 500);
 
-                    var WIDTH_IN_PERCENT_OF_PARENT = 100,
-                        HEIGHT_IN_PERCENT_OF_PARENT = 100;
+        if (!$(this).parents().siblings().hasClass("in")) {
+            $.ajax({
+                url: "{{ url_for('main.post_chart_data') }}",
+                method: "POST",
+                data: JSON.stringify($(this).attr("value")),
+                contentType: 'application/json;charset=UTF-8',
+                success: function(python) {
+                    var chartTitle = python.chart_title;
+                    var graphData = python.graph_dict;
+                    var chartId = '#' + "collapse-" + chartTitle.replace(/"/g, '')
+                    var $chartId = $(chartId);
+                    $chartId.empty();
 
-                    var gd3 = d3.select(chartId)
-                        .append('div')
-                        .attr('class', 'panel-body')
-                        .style({
-                            width: WIDTH_IN_PERCENT_OF_PARENT + '%',
-                            'margin-left': (100 - WIDTH_IN_PERCENT_OF_PARENT) / 2 + '%',
+                    (function() {
+                        var d3 = Plotly.d3;
 
-                            height: HEIGHT_IN_PERCENT_OF_PARENT + 'vh',
-                            'margin-top': (100 - HEIGHT_IN_PERCENT_OF_PARENT) / 2 + 'vh'
-                        });
+                        var WIDTH_IN_PERCENT_OF_PARENT = 100,
+                            HEIGHT_IN_PERCENT_OF_PARENT = 100;
 
-                    var gd = gd3.node();
+                        var gd3 = d3.select(chartId)
+                            .append('div')
+                            .attr('class', 'panel-body')
+                            .style({
+                                width: WIDTH_IN_PERCENT_OF_PARENT + '%',
+                                'margin-left': (100 - WIDTH_IN_PERCENT_OF_PARENT) / 2 + '%',
 
-                    Plotly.plot(gd, graphData.data, graphData.layout, {displayModeBar: false, showLink: false});
+                                height: HEIGHT_IN_PERCENT_OF_PARENT + 'vh',
+                                'margin-top': (100 - HEIGHT_IN_PERCENT_OF_PARENT) / 2 + 'vh'
+                            });
 
-                    window.onresize = function() {
-                        Plotly.Plots.resize(gd);
-                    };
-                })();
-            }
-        })
+                        var gd = gd3.node();
+
+                        Plotly.plot(gd, graphData.data, graphData.layout, {displayModeBar: false, showLink: false});
+
+                        window.onresize = function() {
+                            Plotly.Plots.resize(gd);
+                        };
+                    })();
+                }
+            })
+        }
     });
+</script>
+<script>
+
 </script>
 {% endblock %}
