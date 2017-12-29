@@ -33,7 +33,8 @@ def generate_non_pie_chart_dict(title='Insert title here', x=None, y=None, mode=
                                 orientation=None, xaxis_title=None, yaxis_title=None, text=None,
                                 color='#000', line_width=2, line_color='#FFF', left_margin=None,
                                 right_margin=None, top_margin=None, bottom_margin=None, xaxis_ticksuffix=None,
-                                xaxis_showticksuffix=None, yaxis_side=None, tooltip_labels=None, yaxis_type='category'):
+                                xaxis_showticksuffix=None, yaxis_side=None, tooltip_labels=None, yaxis_type='category',
+                                width=.8):
     graph = {
         'data': [
             {
@@ -41,6 +42,7 @@ def generate_non_pie_chart_dict(title='Insert title here', x=None, y=None, mode=
                 'y': y,
                 'mode': mode,
                 'type': graph_type,
+                'width': [width for _ in range(len(x))],
                 'orientation': orientation,
                 'marker': {
                     'color': color,
@@ -71,6 +73,21 @@ def generate_non_pie_chart_dict(title='Insert title here', x=None, y=None, mode=
                 'b': bottom_margin
             }
         },
+    }
+    return graph
+
+def generate_box_dict(y=None, name='Data', boxpoints='all', jitter=0.3, pointpos=-1.8, chart_type='box'):
+    graph = {
+        'data': [
+            {
+                'y': y,
+                'name': name,
+                'boxpoints': boxpoints,
+                'jitter': jitter,
+                'pointpos': pointpos,
+                'type': chart_type,
+            },
+        ]
     }
     return graph
 
@@ -137,6 +154,12 @@ def generate_horizontal_line_chart_dict(title='Title Here', pd_series=None, xaxi
                                        xaxis_showticksuffix='all', tooltip_labels=tooltip_labels, left_margin=110)
 
 
+def generate_box_and_whisker_dict(pd_series=None):
+    pd_series = pd_series.dropna()
+    y = list(pd_series.values)
+    return generate_box_dict(y=y)
+
+
 def generate_pie_chart_percentage_dict(title=None, pd_series=None, suffix=''):
     pd_series = pd_series.dropna()
     exp_data = pd_series.value_counts(normalize=True)
@@ -159,11 +182,8 @@ def transform_strings_to_lists(pd_series):
     return values_as_lists
 
 
-# def get_percentage_list(num_users, list_of_items):
-#     return ['{}%'.format(round(100 * float(item[1]) / float(num_users), 2)) for item in list_of_items]
-
 def get_percentage_list(num_users, list_of_items):
-    return [round(100 * float(item[1]) / float(num_users), 2) for item in list_of_items]
+    return ['{}%'.format(round(100 * float(item[1]) / float(num_users), 2)) for item in list_of_items]
 
 
 def get_tooltip_labels(list_of_items):

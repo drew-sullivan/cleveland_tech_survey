@@ -42,7 +42,8 @@ def get_community_profile(df):
             lowercase_version_of_title = get_lowercase_version_of_title(question)
             answer = df[lowercase_version_of_title].value_counts().index[0]
             if isinstance(answer, np.integer) or isinstance(answer, np.float):
-                average = df[lowercase_version_of_title].mean()
+                average = df[lowercase_version_of_title].dropna().mean()
+                print df[lowercase_version_of_title].dropna().mean(), df[lowercase_version_of_title].mean()
                 answer = round(average, 2)
             if isinstance(answer, basestring) and '|' in answer:
                 user_responses = transform_strings_to_lists(df[lowercase_version_of_title])
