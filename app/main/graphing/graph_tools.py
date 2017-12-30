@@ -77,12 +77,20 @@ def generate_non_pie_chart_dict(title='Insert title here', x=None, y=None, mode=
     return graph
 
 
-def generate_box_dict(y=None, name='Data', boxpoints='all', jitter=0.3, pointpos=-1.8, chart_type='box'):
+def generate_box_dict(y=None, name='Data', boxpoints='all', jitter=0.3, pointpos=-1.8, chart_type='box',
+                      color='#000', line_width=2, line_color='#FFF'):
     graph = {
         'data': [
             {
                 'y': y,
                 'name': name,
+                'marker': {
+                    'color': color,
+                    'line': {
+                        'width': line_width,
+                        'color': line_color
+                    }
+                },
                 'boxpoints': boxpoints,
                 'jitter': jitter,
                 'pointpos': pointpos,
@@ -157,13 +165,10 @@ def generate_horizontal_line_chart_dict(title='Title Here', pd_series=None, xaxi
 
 
 def generate_box_and_whisker_dict(pd_series=None):
-    print '\n'
     pd_series = pd_series.dropna()
-    # print pd_series
-    # print 'size: {}'.format(pd_series.size)
     y = list(pd_series.values)
-    print y
-    return generate_box_dict(y=y)
+    chart_colors = _get_colors()
+    return generate_box_dict(y=y, color=chart_colors[0], line_color=chart_colors[1])
 
 
 def generate_pie_chart_percentage_dict(title=None, pd_series=None, suffix=''):
