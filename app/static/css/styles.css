@@ -52,8 +52,3 @@ footer i {
     margin-top: 10px;
     margin-bottom: 10px;
 }
-
-.panel-collapse {
-    height: 550px !important;
-    overflow-y: scroll;
-}
