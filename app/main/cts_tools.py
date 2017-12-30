@@ -29,7 +29,7 @@ def get_community_profile(df):
     Ex.
         community_profile['Work']['Total Compensation'] returns the average of all survey respondents
         community_profile['Technology']['Primary Programming Languages Used At Work'] return the most common language
-    :param pandas Dataframe:
+    :param pandas Dataframe
     :return dict:
     """
     community_profile = cts
@@ -43,7 +43,6 @@ def get_community_profile(df):
             answer = df[lowercase_version_of_title].value_counts().index[0]
             if isinstance(answer, np.integer) or isinstance(answer, np.float):
                 average = df[lowercase_version_of_title].dropna().mean()
-                print df[lowercase_version_of_title].dropna().mean(), df[lowercase_version_of_title].mean()
                 answer = round(average, 2)
             if isinstance(answer, basestring) and '|' in answer:
                 user_responses = transform_strings_to_lists(df[lowercase_version_of_title])
@@ -57,11 +56,3 @@ def get_community_profile(df):
                 answer = '${:,.2f}'.format(average)
             community_profile[category][question_title] = (lowercase_version_of_title, answer)
     return community_profile
-
-
-
-
-
-
-
-

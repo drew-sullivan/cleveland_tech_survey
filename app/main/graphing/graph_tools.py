@@ -76,6 +76,7 @@ def generate_non_pie_chart_dict(title='Insert title here', x=None, y=None, mode=
     }
     return graph
 
+
 def generate_box_dict(y=None, name='Data', boxpoints='all', jitter=0.3, pointpos=-1.8, chart_type='box'):
     graph = {
         'data': [
@@ -86,6 +87,7 @@ def generate_box_dict(y=None, name='Data', boxpoints='all', jitter=0.3, pointpos
                 'jitter': jitter,
                 'pointpos': pointpos,
                 'type': chart_type,
+                'boxmean': True
             },
         ]
     }
@@ -155,8 +157,12 @@ def generate_horizontal_line_chart_dict(title='Title Here', pd_series=None, xaxi
 
 
 def generate_box_and_whisker_dict(pd_series=None):
+    print '\n'
     pd_series = pd_series.dropna()
+    # print pd_series
+    # print 'size: {}'.format(pd_series.size)
     y = list(pd_series.values)
+    print y
     return generate_box_dict(y=y)
 
 
