@@ -12,7 +12,7 @@ class Config:
     MAIL_USERNAME = os.environ.get('MAIL_USERNAME')
     MAIL_PASSWORD = os.environ.get('MAIL_PASSWORD')
     CTS_MAIL_SUBJECT_PREFIX = '[Cleveland_Tech_Survey]'
-    CTS_MAIL_SENDER = 'Cleveland_Tech_Survey Admin <drew.sullivan.dma@gmail.com>'
+    CTS_MAIL_SENDER = 'Cleveland_Tech_Survey Admin <cleveland.tech.survey@gmail.com>'
     CTS_ADMIN = os.environ.get('CTS_ADMIN')
     SSL_DISABLE = True
 
