@@ -7,31 +7,45 @@
 
 ## Backlog
 
-* Set up logging
 
-* Unit tests
-
-* Set up email to another account
-
-* linting
-
-* Box and whisker chart for total_compensation
-
-* Style the thing
-
-* Fix flicker issue on chart button click
-
-* Make spacing between top of chart and description word smaller
-
-* Make chart description say multiple names for if there's a tie between two things (like SQL and JavaScript are tied for more used languages)
 
 
 ## In Progress
 
-* Add FAQ page
+* Make bar widths consistent or make all charts the same size
+
+* Make space between chart and avg smaller
 
 
 ## Done
+
+* Change travis over to management command for running unit tests
+
+* fix footer
+
+* Set up email to another account
+
+* Make it clear that you need to log in to take the survey
+
+* Change favicon
+
+* Add colors to box charts
+
+* Add box chart for total_comp
+
+* Box and whisker chart for number charts
+
+* Make spacing between top of chart and description word smaller
+
+* Fix flicker issue on chart button click
+
+* Fix chart sizing
+
+* Remove empty entries from charts
+
+* Move download data to bottom of page. Make it smaller, too, and add the font awesome icon
+
+* Move total respondents to bottom
 
 * Fix cat pic
 
