@@ -32,7 +32,7 @@ def _get_colors():
 def generate_non_pie_chart_dict(title='Insert title here', x=None, y=None, mode=None, graph_type='bar',
                                 orientation=None, xaxis_title=None, yaxis_title=None, text=None,
                                 color='#000', line_width=2, line_color='#FFF', left_margin=None,
-                                right_margin=None, top_margin=None, bottom_margin=None, xaxis_ticksuffix=None,
+                                right_margin=None, top_margin=None, bottom_margin=-100, xaxis_ticksuffix=None,
                                 xaxis_showticksuffix=None, yaxis_side=None, tooltip_labels=None, yaxis_type='category',
                                 width=.8):
     graph = {
