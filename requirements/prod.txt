@@ -62,7 +62,7 @@ plotly==2.2.1
 postgres==2.2.1
 prompt-toolkit==1.0.15
 ptyprocess==0.5.2
-py==1.4.34
+py==1.10.0
 py2app==0.7.3
 pyasn1==0.3.2
 pyasn1-modules==0.0.11
